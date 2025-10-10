@@ -1,0 +1,113 @@
+document.addEventListener('DOMContentLoaded', function () {
+    // Animação de scroll para os elementos com a classe 'animate-on-scroll'
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('in-view');
+            }
+        });
+    }, {
+        threshold: 0.1 // O elemento é considerado visível quando 10% dele está na tela
+    });
+
+    // Adiciona a classe para habilitar as animações apenas se o JS estiver ativo
+    document.body.classList.add('js-animations-enabled');
+
+    const elementsToAnimate = document.querySelectorAll('.animate-on-scroll');
+    elementsToAnimate.forEach(el => {
+        observer.observe(el);
+    });
+
+    // Configuração das partículas
+    const particleConfig = {
+        "particles": {
+            "number": {
+                "value": 80,
+                "density": {
+                    "enable": true,
+                    "value_area": 800
+                }
+            },
+            "color": {
+                "value": "#f6b21b" // Cor amarela do site (--secondary)
+            },
+            "shape": {
+                "type": "circle",
+            },
+            "opacity": {
+                "value": 0.5,
+                "random": true,
+            },
+            "size": {
+                "value": 3,
+                "random": true,
+            },
+            "line_linked": {
+                "enable": true,
+                "distance": 150,
+                "color": "#f6b21b", // Cor amarela do site (--secondary)
+                "opacity": 0.4,
+                "width": 1
+            },
+            "move": {
+                "enable": true,
+                "speed": 2,
+                "direction": "none",
+                "random": false,
+                "straight": false,
+                "out_mode": "out",
+                "bounce": false,
+            }
+        },
+        "interactivity": {
+            "detect_on": "canvas",
+            "events": {
+                "onhover": {
+                    "enable": true,
+                    "mode": "repulse"
+                },
+                "onclick": {
+                    "enable": true,
+                    "mode": "push"
+                },
+                "resize": true
+            },
+            "modes": {
+                "grab": {
+                    "distance": 400,
+                    "line_linked": {
+                        "opacity": 1
+                    }
+                },
+                "bubble": {
+                    "distance": 400,
+                    "size": 40,
+                    "duration": 2,
+                    "opacity": 8,
+                    "speed": 3
+                },
+                "repulse": {
+                    "distance": 100,
+                    "duration": 0.4
+                },
+                "push": {
+                    "particles_nb": 4
+                },
+                "remove": {
+                    "particles_nb": 2
+                }
+            }
+        },
+        "retina_detect": true
+    };
+
+    // Inicializa as partículas no banner, se o elemento existir
+    if (document.getElementById('particles-js-banner')) {
+        particlesJS('particles-js-banner', particleConfig);
+    }
+
+    // Inicializa as partículas na seção "meio", se o elemento existir
+    if (document.getElementById('particles-js-meio')) {
+        particlesJS('particles-js-meio', particleConfig);
+    }
+});

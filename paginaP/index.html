@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attend Services - Tecnologia & Inovação</title>
+     <link href="./style.css" rel="stylesheet">
+     <!-- Font Awesome for icons -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body>
+    <header class="header-main">
+        <a href="index.html">
+            <div class="logo">
+                <img src="./img/logo.png" alt="Attend Logo">
+            </div>
+        </a>
+        <div class="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#top">Home</a></li>
+                <li><a href="#services">Serviços</a></li>
+                <li><a href="#tecnico">Área Técnico</a></li>
+                <li><a href="#about">Sobre</a></li>
+                <li><a href="#contact">Contatos</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!--header secundario (vai aparecer na rolagem)-->
+    <header class="header-on-scroll">
+        <a href="index.html">
+            <div class="logo">
+                <img src="./img/logo.png" alt="Attend Logo">
+            </div>
+        </a>
+        <nav>
+            <ul>
+                <li><a href="#top">Home</a></li>
+                <li><a href="#services">Serciços</a></li>
+                <li><a href="#tecnico">Área Técnico</a></li>
+                <li><a href="#about">Sobre</a></li>
+                <li><a href="#contact">Contatos</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Loader -->
+    <div id="loader" class="loader-wrapper">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <a href="#" id="scrollToTopBtn" class="scroll-to-top"><i class="fas fa-arrow-up"></i></a>
+
+    <section class="banner">
+        <!-- Contêiner para as partículas de estrelas e satélites -->
+        <div class="particle-container">
+            <div class="stars-small"></div>
+            <div class="stars-medium"></div>
+            <div class="stars-large"></div>
+        </div>
+
+        <!-- Container de partículas satélites - FORA da intro para cobrir toda a tela -->
+        <div id="satellites-particles"></div>
+
+        <div class="intro">
+            <a href="index.html">
+                <div class="logo">
+                    <img src="./img/logo.png" alt="Attend Logo">
+                </div>
+            </a>
+            <h2>Tecnologia & Inovação em Telecomunicação</h2>
+            <h3>Proporcionando o melhor em conectividade para empresas e residências em todo o Brasil, com serviços
+                especializados e soluções personalizadas.</h3>
+
+            <div class="banner-buttons">
+                <a href="https://wa.me/5599984144426" target="_blank" class="btn">
+                    <i class="fab fa-info-circle"></i>Saiba mais</a>
+                <a href="https://wa.me/5599984144426" target="_blank" class="btn">
+                    <i class="fab fa-whatsapp"></i>Fale Conosco</a>
+            </div>
+
+        </div>
+    </section>
+
+
+    <section class="service" id="services">
+
+        <h2 class="title-service">Serviços e Soluções</h2>
+
+        <div class="feature-carousel-wrapper">
+            <div class="feature" id="card">
+                <!-- Cards Originais -->
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h3 class="feature-title">NOC</h3>
+                    </div>
+                    <p class="feature-text">Monitoramento proativo 24/7 da sua rede, garantindo máxima disponibilidade e performance. Nossa equipe especializada identifica e resolve incidentes antes que impactem seu negócio.</p>
+                    <div class="card-button-wrapper">
+                        <a href="#contact" class="btn btn-card">Saiba Mais</a>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3 class="feature-title">PLANO DE HARDWARE - HAAS</h3>
+                    </div>
+                    <p class="feature-text">Elimine altos custos de aquisição com nosso plano de Hardware as a Service. Fornecemos, gerenciamos e atualizamos seus equipamentos de telecomunicações por uma mensalidade acessível.</p>
+                    <div class="card-button-wrapper">
+                        <a href="#contact" class="btn btn-card">Saiba Mais</a>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
+                        <h3 class="feature-title">HELP DESK</h3>
+                    </div>
+                    <p class="feature-text">Suporte técnico ágil e eficiente para seus usuários. Nosso time de Help Desk está pronto para solucionar problemas, tirar dúvidas e garantir a continuidade das suas operações diárias.</p>
+                    <div class="card-button-wrapper">
+                        <a href="#contact" class="btn btn-card">Saiba Mais</a>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3 class="feature-title">MANUTENÇÃO VSAT</h3>
+                    </div>
+                    <p class="feature-text">Serviço especializado de manutenção preventiva e corretiva para antenas VSAT. Asseguramos a estabilidade e a qualidade da sua conexão via satélite em qualquer localidade.</p>
+                    <div class="card-button-wrapper">
+                        <a href="#contact" class="btn btn-card">Saiba Mais</a>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3 class="feature-title">INSTALAÇÃO PROFICIONAL DE STARLINK</h3>
+                    </div>
+                    <p class="feature-text">Somos especialistas na instalação profissional de kits Starlink para residências, empresas e veículos. Garantimos o melhor posicionamento e configuração para máxima velocidade e estabilidade.</p>
+                    <div class="card-button-wrapper">
+                        <a href="#contact" class="btn btn-card">Saiba Mais</a>
+                    </div>
+                </div>
+
+                <!-- Cards Duplicados para o Loop -->
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h3 class="feature-title">NOC</h3>
+                    </div>
+                    <p class="feature-text">Monitoramento proativo 24/7 da sua rede, garantindo máxima disponibilidade e performance. Nossa equipe especializada identifica e resolve incidentes antes que impactem seu negócio.</p>
+                    <div class="card-button-wrapper">
+                        <a href="#contact" class="btn btn-card">Saiba Mais</a>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3 class="feature-title">PLANO DE HARDWARE - HAAS</h3>
+                    </div>
+                    <p class="feature-text">Elimine altos custos de aquisição com nosso plano de Hardware as a Service. Fornecemos, gerenciamos e atualizamos seus equipamentos de telecomunicações por uma mensalidade acessível.</p>
+                    <div class="card-button-wrapper">
+                        <a href="#contact" class="btn btn-card">Saiba Mais</a>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
+                        <h3 class="feature-title">HELP DESK</h3>
+                    </div>
+                    <p class="feature-text">Suporte técnico ágil e eficiente para seus usuários. Nosso time de Help Desk está pronto para solucionar problemas, tirar dúvidas e garantir a continuidade das suas operações diárias.</p>
+                    <div class="card-button-wrapper">
+                        <a href="#contact" class="btn btn-card">Saiba Mais</a>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3 class="feature-title">MANUTENÇÃO VSAT</h3>
+                    </div>
+                    <p class="feature-text">Serviço especializado de manutenção preventiva e corretiva para antenas VSAT. Asseguramos a estabilidade e a qualidade da sua conexão via satélite em qualquer localidade.</p>
+                    <div class="card-button-wrapper">
+                        <a href="#contact" class="btn btn-card">Saiba Mais</a>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3 class="feature-title">INSTALAÇÃO PROFICIONAL DE STARLINK</h3>
+                    </div>
+                    <p class="feature-text">Somos especialistas na instalação profissional de kits Starlink para residências, empresas e veículos. Garantimos o melhor posicionamento e configuração para máxima velocidade e estabilidade.</p>
+                    <div class="card-button-wrapper">
+                        <a href="#contact" class="btn btn-card">Saiba Mais</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <!-- Seção de Imagem Introdutória -->
+    <section class="intro-image-section" id="tecnico">
+        <h2 class="section-title">Área do Técnico</h2>
+        <div class="intro-image-container">
+            <!-- A imagem de fundo -->
+            <img src="./img/AT01.png" alt="Imagem de fundo abstrata da Attend" class="intro-background-image">
+            <!-- O contêiner para o texto que ficará sobre a imagem -->
+            <div class="intro-text-overlay">
+                <p>Aqui você encontrará conteúdos exclusivos desenvolvidos para apoiar os técnicos no dia a dia: 
+                    dicas práticas, tutoriais passo a passo, orientações de boas práticas e materiais de apoio para 
+                    garantir sempre o melhor atendimento os clientes..</p>
+                <a href="#contact" class="btn">
+                    <i class="fas fa-info-circle"></i> Saiba Mais
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="description" id="about">
+        <div class="about">
+            <div class="about-content">
+                <h1 class="about-title">Quem Somos</h1>
+                <p class="about-text">Somos uma
+                    empresa referência no mercado de telecomunicações, com mais de 18 anos de experiência na instalação
+                    e manutenção de soluções de conectividade via satélite.</p>
+                <p class="about-text">Nossa
+                    expertise abrange desde projetos personalizados para grandes empresas até instalações individuais
+                    para residências e veículos. Com uma equipe altamente qualificada e um compromisso inabalável com a
+                    qualidade, já realizamos milhares de instalações bem-sucedidas em todo o Brasil.</p>
+                <p class="about-text">Nosso
+                    diferencial está na agilidade, qualidade e suporte contínuo, assegurando que cada cliente tenha uma
+                    experiência impecável do início ao fim.</p>
+
+                <div class="stats">
+                   <a href="https://wa.me/5599984144426" target="_blank" class="btn">
+                    <i class="fab fa-whatsapp"></i>Saiba mais</a>
+                </div>
+            </div>
+
+            <div class="about-image floating">
+                <img src="./img/fundom06.png" alt="Kit completo de hardware Starlink com antena e roteador">
+            </div>
+            <!-- Linha animada que cresce e sobe -->
+            <div class="linha-animada"></div>
+        </div>
+    </section>
+    <section class="mapa" id="mental">
+        <div class="mapa-text-container">
+            <h2 class="section-title">Nosso Alcance</h2>
+            <p class="section-subtitle"></p>
+        </div>
+        <div class="mapa-container">
+            <img src="./img/mapa.png" alt="Mapa de atuação da Attend Services">
+        </div>
+    </section>
+
+
+    <footer class="footer" id="contact">
+        <!-- Container de partículas no footer -->
+        <div id="footer-particles"></div>
+        
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="footer-logo">
+                    <img src="./img/logo.png" alt="Attend Logo">
+                    <h3></h3>
+                </div>
+                <p class="footer-about">Conectando você ao futuro com tecnologia de ponta e serviço de excelência.</p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/profile.php?id=100065494002589" target="_blank"
+                        class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/attendservices/" target="_blank" class="social-link"><i
+                            class="fab fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/company/attendservice/?viewAsMember=true" target="_blank"
+                        class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://wa.me/5599984144426" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+
+
+            <div class="form-container">
+                <h2>Recebe nossas campanhas e<br>fique por dentro de todas as nossas novidades.</h2>
+
+                <div id="successMessage" class="success-message" style="display: none;">Sua mensagem foi enviada com sucesso! Entraremos em contato em breve.</div>
+
+                <form id="contactForm" action="#" method="post" novalidate>
+                    <label for="nome">Nome Completo*</label><br>
+                    <input type="text" id="nome" name="nome" placeholder="Seu nome completo" required><br>
+                    <div id="nameError" class="error-message">Por favor, insira seu nome.</div><br>
+
+                    <label for="contato">Contato (WhatsApp)*</label><br>
+                    <input type="tel" id="contato" name="contato" placeholder="(XX) XXXXX-XXXX" required><br>
+                    <div id="contactError" class="error-message">Por favor, insira seu número de contato.</div><br>
+
+                    <label for="email">E-mail*</label><br>
+                    <input type="email" id="email" name="email" placeholder="seuemail@exemplo.com" required><br>
+                    <div id="emailError" class="error-message">Por favor, insira um e-mail válido.</div><br>
+
+                    <p class="politica">
+                        Precisamos das informações de contato que você nos fornece para entrar em contato com relação a
+                        produtos e serviços.
+                        <a href="#">Política de privacidade</a>
+                    </p>
+                    
+                    <button type="submit" id="submitBtn">Enviar</button>
+                </form>
+            </div>
+
+
+            <div class="footer-col">
+                <h4 class="footer-title">Contato</h4>
+                <div class="footer-contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <p>Rua Urbano Santos, 155, Edifício Aracati Office, sala 211 – Centro – Imperatriz/MA</p>
+                </div>
+                <div class="footer-contact-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <p>+55 (99) 98414-4426</p>
+                </div>
+                <div class="footer-contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <p>contato@attendservice.com.br</p>
+                </div>
+                <div class="footer-contact-item">
+                    <i class="fas fa-clock"></i>
+                    <p>9h às 18h</p>
+                </div>
+            </div>
+        </div>
+
+
+
+    </footer>
+
+    <!-- Custom Script -->
+    <script src="./script.js"></script>
+</body>
+
+</html>

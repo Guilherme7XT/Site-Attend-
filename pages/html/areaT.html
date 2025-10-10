@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attend Services - Tecnologia & Inovação</title>
+    <link href="./style/css/areaT.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body>
+    <svg class="svg-container" width="0" height="0">
+        <defs>
+            <filter id="turbulent-displace" x="-20%" y="-20%" width="140%" height="140%">
+                <feTurbulence baseFrequency="0.01 0.01" numOctaves="1" seed="2" type="fractalNoise" result="turbulence">
+                </feTurbulence>
+                <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="3" xChannelSelector="R"
+                    yChannelSelector="G" result="displacement"></feDisplacementMap>
+            </filter>
+        </defs>
+    </svg>
+    <header class="header-main">
+        <a href="index.html">
+            <div class="logo">
+                <img src="./style/css/img/logo.png" alt="Attend Logo">
+            </div>
+        </a>
+        <div class="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#top">Home</a></li>
+                <li><a href="#login">Cadastro</a></li>
+                <li><a href="#tutorials">Tutoriais</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!--header secundario (vai aparecer na rolagem)-->
+    <header class="header-on-scroll">
+        <a href="index.html">
+            <div class="logo">
+                <img src="./style/css/img/logo.png" alt="Attend Logo">
+            </div>
+        </a>
+        <nav>
+            <ul>
+                <li><a href="#top">Home</a></li>
+                <li><a href="#login">Cadastro</a></li>
+                <li><a href="#tutorials">Tutoriais</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="intro-tecnico" id="tecnico">
+        <div id="particles-js-banner"></div>
+
+        <div class="text-content">
+            <h4>Bem-Vindo à Nossa</h4>
+            <h1 class="section-title">Aréa <span>Técnico</span></h1>
+            <h4 class="intro">Conteúdos exclusivos para nossos técnicos: dicas, tutoriais e boas
+                práticas para otimizar o trabalho e garantir excelência no atendimento.</h4>
+            <h2>Arraste para baixo e junte-se a nossa equipe!</h2>
+        </div>
+
+        <div class="intro-image-container">
+            <img src="./style/css/img/Tecnico.png" alt="Imagem de fundo abstrata da Attend"
+                class="noc-image animate-on-scroll">
+        </div>
+    </section>
+
+    <section class="cadastro-login" id="login">
+        <div class="login-container">
+            <div class="login-header">
+                <h1>Sistema de Cadastro de Técnicos</h1>
+            </div>
+
+            <div class="welcome-section">
+                <h2>Bem-vindo ao Sistema de Cadastro de Técnicos</h2>
+                <p>Este sistema permite o cadastro e gerenciamento de técnicos especializados.</p>
+            </div>
+
+            <div class="cards-container">
+                <div class="login-card">
+                    <h3>Área de Técnicos</h3>
+                    <p>Cadastre-se como técnico para participar do nosso sistema.</p>
+                    <button class="btn-technician">Cadastrar-se</button>
+                </div>
+
+                <div class="login-card">
+                    <h3>Área Administrativa</h3>
+                    <p>Acesso restrito para administradores do sistema.</p>
+                    <button class="btn-admin">Login Admin</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="vsat" id="tutorials">
+            <!-- Elementos decorativos minimalistas -->
+            <div class="vsat-bg-decoration">
+                <div class="vsat-line vsat-line-1"></div>
+                <div class="vsat-line vsat-line-2"></div>
+                <div class="vsat-orb vsat-orb-1"></div>
+                <div class="vsat-orb vsat-orb-2"></div>
+            </div>
+
+            <div class="intro-01">
+                <h1>Suporte Técnico VSAT</h1>
+                <p>A manutenção VSAT é fundamental para garantir o funcionamento contínuo dos sistemas de comunicação
+                    via
+                    satélite.
+                    Ela envolve inspeções preventivas e corretivas nos equipamentos, verificação do alinhamento da
+                    antena,
+                    checagem de cabos, conectores e níveis de sinal.
+                    Esse processo permite identificar falhas antes que causem interrupções, além de assegurar que o link
+                    opere dentro dos parâmetros ideais de qualidade.
+                    Uma manutenção bem executada reduz o tempo de inatividade e aumenta a confiabilidade da conexão para
+                    o
+                    cliente final.</p>
+
+            </div>
+
+
+
+
+            <div class="Treinamento">
+                <div class="texto0">
+                    <h1> Manutenção Site Lotérica</h1>
+                    <img src="./style/css/img/Tutorial0.png" alt="Manutenção Site Lotérica"
+                        class="imagem Site loterica">
+                </div>
+                
+                <div class="texto1 active">
+                    <h1> Treinamento para Técnicos de Campo – Attend Service</h1>
+                    <h2> Introdução</h2>
+                    <p> Este manual tem como objetivo orientar técnicos de campo na instalação, configuração e
+                        manutenção do sistema VSAT utilizando o modem Gilat SkyEdge II Gemini. O conteúdo foi
+                        elaborado de forma intuitiva, facilitando o aprendizado de iniciantes e garantindo boas práticas
+                        no processo de instalação.</p>
+                </div>
+
+                <div class="texto2">
+                    <h2> Equipamentos Necessários</h2>
+                    <p>
+                        <span>Antena parabólica VSAT (refletor, suporte e base)</span>
+                        <span>LNB (Low Noise Block)</span>
+                        <span>BUC (Block Up Converter)</span>
+                        <span>Modem Gilat SkyEdge II Gemini</span>
+                        <span>Roteador e Cabos coaxiais (Tx e Rx)</span>
+                        <span>Chave de 13mm, bússola, inclinômetro e multímetro</span>
+                        <span>Equipamento de aterramento</span>
+                    </p>
+                </div>
+
+                <div class="texto3">
+                    <h2> Montagem da Antena</h2>
+                    <p>
+                        <span>Monte a base da antena VSAT de forma firme e nivelada.</span>
+                        <span>Fixe o mastro e verifique o vertical.</span>
+                        <span>Instale o refletor e o braço de sustentação.</span>
+                        <span>Acople o feedhorn e conecte o LNB e o BUC nas suas respectivas posições.</span>
+                        <span>Certifique-se de que os cabos Tx e Rx estão conectados corretamente.</span>
+                        <span>Realize o aterramento conforme norma técnica.</span>
+                    </p>
+                </div>
+
+                <div class="texto4">
+                    <h2> Alinhamento e Apontamento</h2>
+                    <p>
+                        <span>Utilize as coordenadas fornecidas pelo NOC (Centro de Operações) para o satélite
+                            correto.</span>
+                        <span>Ajuste a elevação e o azimute conforme o apontamento indicado.</span>
+                        <span>Meça o nível de sinal através do modem Gilat.</span>
+                        <span>Faça pequenos ajustes até alcançar o melhor valor de Eb/N0 e lock de portadora.</span>
+                    </p>
+                </div>
+
+                <div class="texto5">
+                    <h2> Conexão do Modem Gilat SkyEdge II Gemini</h2>
+                    <p>
+                        <span>Conecte o cabo Tx (transmissão) do BUC na porta Tx do modem.</span>
+                        <span>Conecte o cabo Rx (recepção) do LNB na porta Rx do modem.</span>
+                        <span>Conecte o modem à rede elétrica e ao roteador via cabo Ethernet.</span>
+                        <span>Ligue o equipamento e aguarde o processo de boot.</span>
+                        <span>Verifique se o modem adquire IP e sincroniza com o hub.</span>
+                    </p>
+                </div>
+
+                <div class="texto6">
+                    <h2> Configuração do Roteador</h2>
+                    <p>
+                        <span>Acesse o roteador pelo endereço IP padrão (geralmente 192.168.0.1 ou 192.168.1.1).</span>
+                        <span>Configure o modo DHCP ou IP estático conforme solicitado.</span>
+                        <span>Defina SSID e senha da rede Wi-Fi.</span>
+                        <span>Teste a conectividade local e o acesso à internet.</span>
+                    </p>
+                </div>
+
+                <div class="texto7">
+                    <h2> Testes e Validação</h2>
+                    <p>
+                        <span>Realize um teste de ping para verificar a comunicação com o hub.</span>
+                        <span>Execute um teste de velocidade (speed test) para validar o desempenho.</span>
+                        <span>Confirme a estabilidade do link e ausência de perdas de pacotes.</span>
+                        <span>Documente os resultados e registre fotos da instalação concluída.</span>
+                    </p>
+                </div>
+
+                <div class="texto8">
+                    <h2> Boas Práticas e Segurança</h2>
+                    <p>
+                        <span>Sempre realize o aterramento do sistema.</span>
+                        <span>Evite curvas acentuadas nos cabos coaxiais.</span>
+                        <span>Utilize ferramentas adequadas e EPI (Equipamento de Proteção Individual).</span>
+                        <span>Não altere configurações avançadas do modem sem autorização do NOC.</span>
+                        <span>Mantenha o ambiente limpo e os cabos organizados.</span>
+                    </p>
+                </div>
+
+                <div class="texto9">
+                    <h2> Conclusão</h2>
+                    <p>Após seguir todas as etapas deste manual, o técnico terá concluído a instalação e configuração
+                        completa de um sistema VSAT com modem Gilat SkyEdge II Gemini, pronto para operação. Para
+                        suporte
+                        adicional, entre em contato com o NOC Attend Service.</p>
+                </div>
+
+
+                <div class="description">
+                    <h2>Equipamentos e Referências Visuais</h2>
+                </div>
+                
+                    <div class="tutorialI">
+                        <h2>Skyedge II </h2>
+                        <img src="./style/css/img/skyedge2.png" alt="Imagem de fundo abstrata da Attend"
+                class="noc-image animate-on-scroll">
+                    </div>
+
+                    <div class="tutorialII">
+                        <h2>Skyedge II Gemini</h2>
+                        <img src="./style/css/img/skyedge2G.png" alt="Imagem de fundo abstrata da Attend"
+                class="noc-image animate-on-scroll">
+
+
+                    </div>
+
+                    <div class="tutorialIII">
+                        <h2>LNB</h2>
+                        <img src="./style/css/img/LNB.png" alt="Imagem de fundo abstrata da Attend"
+                        class="noc-image animate-on-scroll">
+
+                    </div>
+
+                    <div class="tutorialIV">
+                        <h2>BUK</h2>
+                        <img src="./style/css/img/buk.png" alt="Imagem de fundo abstrata da Attend"
+                        class="noc-image animate-on-scroll">
+
+
+                    </div>
+
+                    <div class="tutorialV">
+                        <h2>Cabos</h2>
+                        <img src="./style/css/img/cabos.png" alt="Imagem de fundo abstrata da Attend"
+                        class="noc-image animate-on-scroll">
+
+
+                    </div>
+
+                    <div class="tutorialVI">
+                        <h2>Manuais de Configuração</h2>
+                        <div class="downloads-container">
+                            <a href="./style/css/arquivos/skyedge2G.pdf" download="Manual_SkyEdge_II_Gemini.pdf" class="download-btn">
+                                <span class="download-icon">📄</span>
+                                <span class="download-info">
+                                    <span class="download-title">SkyEdge II Gemini</span>
+                                    <span class="download-subtitle">Manual de Configuração (PDF)</span>
+                                </span>
+                                <span class="download-action">⬇</span>
+                            </a>
+                            
+                            <a href="./style/css/arquivos/skyedge2.pdf" download="Manual_SkyEdge_II.pdf" class="download-btn">
+                                <span class="download-icon">📄</span>
+                                <span class="download-info">
+                                    <span class="download-title">SkyEdge II</span>
+                                    <span class="download-subtitle">Manual de Configuração (PDF)</span>
+                                </span>
+                                <span class="download-action">⬇</span>
+                            </a>
+                        </div>
+                    </div>
+            
+            </div>
+
+        </div>
+
+
+
+
+    </section>
+
+
+
+    <script>
+        // Força a página a iniciar no topo ao carregar
+        window.addEventListener('beforeunload', function () {
+            window.scrollTo(0, 0);
+        });
+
+        // Scroll para o topo ao carregar a página
+        window.addEventListener('load', function () {
+            // Remove qualquer hash da URL
+            if (window.location.hash) {
+                history.replaceState(null, null, ' ');
+            }
+            // Força o scroll para o topo
+            setTimeout(function () {
+                window.scrollTo(0, 0);
+            }, 0);
+        });
+
+        // Script para accordion da seção de Treinamento VSAT
+        document.addEventListener('DOMContentLoaded', function () {
+            // Força o scroll para o topo
+            window.scrollTo(0, 0);
+            
+            const treinamentoCards = document.querySelectorAll('.vsat .Treinamento > div');
+
+            treinamentoCards.forEach(card => {
+                card.addEventListener('click', function () {
+                    // Toggle da classe active no card clicado
+                    this.classList.toggle('active');
+
+                    // Opcional: fechar outros cards quando abrir um novo (accordion exclusivo)
+                    // Descomente as linhas abaixo se quiser esse comportamento
+                    /*
+                    treinamentoCards.forEach(otherCard => {
+                        if (otherCard !== this) {
+                            otherCard.classList.remove('active');
+                        }
+                    });
+                    */
+                });
+            });
+        });
+    </script>
+
+</body>
+
+</html>

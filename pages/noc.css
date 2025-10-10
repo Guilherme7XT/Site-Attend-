@@ -1,0 +1,588 @@
+/* Variáveis CSS */
+:root {
+    --primary: #000000;    /* Preto */
+    --secondary: #f6b21b;  /* Amarelo-ouro */
+    --accent: #f6b21b;     /* Amarelo-ouro (mantido igual para consistência) */
+    --dark: #121212;       /* Preto quase preto */
+    --light: #FFFFFF;      /* Branco */
+    --light-gray: #f8f9fa; /* Cinza claro */
+    --gray: #808080;       /* Cinza */
+    --dark-gray: #333333;  /* Cinza escuro */
+    --font-primary: 'Roboto', sans-serif;
+    --font-secondary: 'Montserrat', sans-serif;
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    font-size: 62.5%;
+    background-color: var(--dark);
+}
+
+body {
+    font-family: var(--font-primary);
+    background-color: var(--dark);
+    color: var(--light);
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Scrollbar personalizado */
+::-webkit-scrollbar {
+    width: 0.8rem;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--secondary);
+    border-radius: 1rem;
+}
+
+/* --- Header Principal (Sempre Fixo no Topo) --- */
+.header-main {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1001;
+    background: var(--dark);
+    padding: 1.5rem 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 0.2rem 1rem rgba(0, 0, 0, 0.3);
+    transition: opacity 0.4s ease;
+}
+
+
+/* Classe para esconder o header principal quando o secundário aparece */
+.header-main.hidden-by-scroll {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* --- Header Secundário (Aparece na Rolagem) --- */
+.header-on-scroll {
+    position: fixed;
+    width: 95%;
+    max-width: 160rem;
+    left: 50%;
+    top: 1rem;
+    z-index: 1000;
+
+    background: rgba(18, 18, 18, 0.75);
+    backdrop-filter: blur(10px);
+    border-radius: 1.2rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0.8rem 3.2rem rgba(0, 0, 0, 0.3);
+    padding: 1.5rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    opacity: 0;
+    transform: translateX(-50%) translateY(-1rem) scale(0.95);
+    pointer-events: none;
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+}
+
+/* Classe para mostrar o header secundário */
+.header-on-scroll.visible {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+    pointer-events: auto;
+    transition-delay: 0.15s;
+}
+
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.logo img {
+    height: 5.5rem;
+}
+
+.header-on-scroll .logo img {
+    height: 4.5rem;
+}
+
+.logo h1 {
+    font-family: var(--font-secondary);
+    font-weight: 700;
+    font-size: 1.5rem;
+    background: linear-gradient(135deg, var(--secondary), var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    letter-spacing: 1px;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 6rem;
+}
+
+nav a {
+    color: rgba(255, 255, 255, 0.4);
+    font-family: var(--font-secondary);
+    font-weight: 200;
+    font-size: 1.125rem;
+    position: relative;
+    padding: 0.5rem 0;
+    transition: var(--transition);
+}
+
+.header-main nav a {
+    font-size: 1.3rem;
+}
+
+@media (min-width: 769px) {
+    nav {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+nav a:hover {
+    color: var(--accent);
+}
+
+nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 0.2rem;
+    background: linear-gradient(90deg, var(--secondary), var(--accent));
+    transition: var(--transition);
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+/* --- General Section & Button Styles --- */
+.section-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    margin-bottom: 2rem;
+    text-align: center;
+    position: relative;
+    padding-bottom: 1.5rem;
+    z-index: 1;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 8rem;
+    height: 0.3rem;
+    background: linear-gradient(90deg, var(--secondary), var(--accent));
+    border-radius: 3px;
+}
+
+.btn {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--secondary), var(--accent));
+    color: white;
+    padding: 1.4rem 3rem;
+    border-radius: 5rem;
+    text-decoration: none;
+    font-weight: 600;
+    letter-spacing: 0.05rem;
+    transition: var(--transition);
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-primary);
+    font-size: 1.2rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0.4rem 1.5rem rgba(246, 178, 27, 0.3);
+}
+
+.btn i {
+    margin-right: 0.8rem;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: var(--transition);
+}
+
+.btn:hover {
+    transform: translateY(-0.3rem);
+    box-shadow: 0 0.8rem 2.5rem rgba(246, 178, 27, 0.4);
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+/* --- Glass 3D Button Style --- */
+.intro-text-overlay .btn {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0.8rem 3.2rem 0 rgba(0, 0, 0, 0.3),
+        inset 0.1rem 0.1rem 0.1rem rgba(255, 255, 255, 0.3),
+        inset -0.1rem -0.1rem 0.1rem rgba(0, 0, 0, 0.05);
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.intro-text-overlay .btn:hover {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.08));
+    box-shadow: 0 1.2rem 4rem 0 rgba(0, 0, 0, 0.35),
+        inset 0.1rem 0.1rem 0.2rem rgba(255, 255, 255, 0.4),
+        inset -0.1rem -0.1rem 0.2rem rgba(0, 0, 0, 0.1);
+}
+
+/* --- NOC Banner Section --- */
+.intro-noc-banner {
+    position: relative;
+    height: 80vh;
+    padding: 10rem 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.intro-noc-banner .intro-image-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.intro-noc-banner .intro-background-image,
+.intro-noc-banner .noc-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.5);
+}
+
+.intro-noc-banner .section-title {
+    text-align: left;
+}
+
+.intro-noc-banner .section-title::after {
+    left: 0;
+    transform: none;
+}
+
+.intro-noc-banner .intro-text-overlay {
+    position: static;
+    z-index: 1;
+}
+
+/* --- "Meio" Section --- */
+.meio {
+    padding: 10rem 5%;
+    text-align: center;
+    background-color: var(--dark);
+}
+
+.meio > .section-title {
+    margin-bottom: 6rem;
+}
+
+.meio .card {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+.meio .card > .section-title {
+    display: none;
+}
+
+.meio .card .intro-background-image {
+    position: static;
+    height: auto;
+    border-radius: 1rem;
+    box-shadow: 0 0.8rem 2.5rem rgba(0,0,0,0.3);
+    flex: 1 1 30rem;
+    max-width: 38rem;
+    object-fit: cover;
+}
+
+.meio .card h3 {
+    flex-basis: 100%;
+    order: 1;
+    margin-top: 4rem;
+    font-size: 1.8rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.8);
+    max-width: 70rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.meio .card .intro-text-overlay {
+    position: static;
+    flex-basis: 100%;
+    order: 2;
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+}
+
+.form-container {
+    /* Centraliza o formulário na sua própria linha dentro do grid do footer */
+    /* grid-column: 1 / -1; */ /* Removido para permitir que o formulário seja uma coluna */
+    max-width: 40rem; /* Tamanho do formulário reduzido */
+    margin: 0 auto 4rem auto; /* Centraliza e adiciona margem inferior */
+    text-align: center;
+    padding: 0 2rem; /* Adiciona padding lateral para não colar nas bordas em telas menores */
+}
+
+.form-group {
+    margin-bottom: 0.5rem; /* Espaçamento entre campos reduzido */
+    text-align: left;
+}
+
+.form-container h2 {
+    margin-bottom: 1.8rem;
+    font-size: 1.8rem; /* Tamanho do título do formulário reduzido */
+    color: var(--light); /* Garante que o título seja visível no fundo escuro */
+}
+
+.form-container label {
+    display: block;
+    margin-bottom: 0.6rem;
+    font-weight: 500;
+    font-size: 1.4rem; /* Tamanho do rótulo ajustado */
+    color: rgba(255, 255, 255, 0.7); /* Cor do label mais clara para o fundo escuro */
+}
+
+.form-container input[type="text"],
+.form-container input[type="email"],
+.form-container input[type="tel"] {
+    width: 100%; /* Ocupa toda a largura do .form-group */
+    padding: 1.2rem 1.4rem; /* Padding interno dos campos reduzido */
+    background: var(--light); /* Fundo branco */
+    border: 3px solid var(--secondary); /* Borda amarela e mais grossa */
+    border-radius: 2rem;
+    outline: none;
+    font-family: var(--font-primary);
+    font-size: 1.4rem; /* Tamanho da fonte do campo ajustado */
+    color: var(--dark); /* Texto escuro para contraste */
+    transition: var(--transition);
+}
+
+.form-container input::placeholder {
+    color: var(--gray);
+}
+
+.form-container .politica {
+    color: rgba(255, 255, 255, 0.6); /* Cor mais clara para o fundo escuro */
+    font-size: 1.2rem; /* Tamanho do texto da política reduzido */
+    text-align: left;
+    margin-top: 0.8rem;
+}
+
+#submitBtn {
+    background: var(--secondary);
+    color: var(--dark);
+    border: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    font-family: var(--font-primary);
+    font-weight: 900;
+    padding: 1rem 2rem; /* Padding do botão reduzido */
+    border-radius: 2.5rem;
+    cursor: pointer;
+    transition: var(--transition);
+    width: 100%; /* Ocupa toda a largura */
+    margin-top: 1.2rem;
+    font-size: 1.2rem; /* Tamanho da fonte do botão reduzido */
+}
+
+#submitBtn:hover {
+    background: #e0a010;
+    transform: translateY(-0.3rem);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* --- Footer --- */
+footer {
+    background-image: linear-gradient(rgba(18, 18, 18, 0.75), rgba(18, 18, 18, 0.75)), url('./img/fundo-footer01.png');
+    background-size: cover;
+    background-position: center;
+    padding: 6rem 5% 3rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); /* Aumentado o minmax para melhor distribuição */
+    gap: 3rem 2rem; /* Ajustado o espaçamento */
+    position: relative;
+    z-index: 1;
+    align-items: start; /* Alinha os itens no topo */
+}
+
+.footer-col {
+    /* Container para as colunas do footer */
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.footer-logo img {
+    height: 5rem; /* Tamanho do logo reduzido */
+}
+
+.footer-about {
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 2.5rem;
+    font-size: 1.4rem; /* Tamanho da fonte reduzido */
+    line-height: 1.6;
+}
+
+.social-links {
+    display: flex;
+    gap: 1.2rem; /* Espaçamento entre ícones reduzido */
+}
+
+.social-link {
+    width: 4rem;  /* Tamanho do ícone reduzido */
+    height: 4rem; /* Tamanho do ícone reduzido */
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 0.4rem 2rem rgba(0, 0, 0, 0.25);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--light);
+    font-size: 1.8rem; /* Tamanho do ícone interno reduzido */
+    transition: var(--transition);
+    text-decoration: none;
+}
+
+.social-link:hover {
+    background: linear-gradient(135deg, rgba(246, 178, 27, 0.2), rgba(246, 178, 27, 0.1));
+    color: var(--accent);
+    transform: translateY(-5px) scale(1.05);
+}
+
+.footer-title {
+    font-size: 1.8rem; /* Tamanho do título da coluna reduzido */
+    margin-bottom: 2rem;
+    position: relative;
+    padding-bottom: 1rem;
+    color: var(--light);
+}
+
+.footer-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background: var(--secondary);
+}
+
+.footer-contact-item {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem; /* Espaçamento entre itens de contato reduzido */
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.4rem; /* Tamanho da fonte reduzido */
+    align-items: flex-start;
+}
+
+.footer-contact-item i {
+    color: var(--secondary);
+    font-size: 1.6rem; /* Tamanho do ícone reduzido */
+    margin-top: 0.2rem;
+    flex-shrink: 0;
+    width: 2rem;
+    text-align: center;
+}
+
+.footer-divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.05);
+    margin: 2rem 0;
+    grid-column: 1 / -1; /* Faz o divisor ocupar toda a largura */
+}
+
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 1.4rem;
+    flex-wrap: wrap;
+    gap: 20px;
+    grid-column: 1 / -1; /* Faz o rodapé ocupar toda a largura */
+}
+
+/* Ajuste para o formulário não ficar muito grande em relação às outras colunas */
+@media (min-width: 992px) {
+    .footer-grid {
+        grid-template-columns: 1fr 1.5fr 1fr; /* Coluna do formulário um pouco maior */
+    }
+}
+
+@media (max-width: 991px) {
+    .footer-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+    .form-container {
+        max-width: none; /* Permite que o formulário ocupe a largura total da coluna */
+    }
+}

@@ -1,0 +1,2850 @@
+/* Variáveis CSS */
+:root {
+    --primary: #000000;    /* Preto */
+    --footer: url('./img/'); /* << ALTERE A IMAGEM DE FUNDO DO CTA AQUI */
+    --secondary: #f6b21b;  /* Amarelo-ouro */
+    --accent: #f6b21b;     /* Amarelo-ouro (mantido igual para consistência) */
+    --dark: #121212;       /* Preto quase preto */
+    --light: #FFFFFF;      /* Branco */
+    --light-gray: #f8f9fa; /* Cinza claro */
+    --gray: #808080;       /* Cinza */
+    --dark-gray: #333333;  /* Cinza escuro */
+    --font-primary: 'Roboto', sans-serif;
+    --font-secondary: 'Montserrat', sans-serif;
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    /* Define o tamanho da fonte raiz. 1rem = 16px por padrão. */
+    /* Isso permite que usemos unidades 'rem' para uma responsividade fluida. 1rem = 10px */
+    font-size: 62.5%;
+    /* Garante que nenhum elemento vaze da tela, corrigindo a barra branca lateral */
+    background-color: var(--dark);
+    /* Define o fundo no nível raiz como segurança */
+}
+
+body {
+    font-family: var(--font-primary);
+    background-color: var(--dark);
+    color: var(--light);
+    /* A propriedade overflow-x foi movida para a tag <html> para uma contenção mais eficaz */
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Scrollbar personalizado */
+::-webkit-scrollbar {
+    width: 0.8rem;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--secondary);
+    border-radius: 1rem;
+}
+
+/* --- Header Principal (Sempre Fixo no Topo) --- */
+.header-main {
+    /* Ajustado para ser mais limpo e focado */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1001;
+    /* Fica acima do header de rolagem */
+    background: var(--dark);
+    padding: 1.5rem 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 0.2rem 1rem rgba(0, 0, 0, 0.3);
+    transition: opacity 0.4s ease;
+    /* Transição mais limpa (apenas fade) */
+    /* Transição mais limpa (apenas fade) */
+}
+
+
+/* Classe para esconder o header principal quando o secundário aparece */
+.header-main.hidden-by-scroll {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* --- Header Secundário (Aparece na Rolagem) --- */
+.header-on-scroll {
+    position: fixed;
+    width: 95%;
+    /* Ajustado para ter uma margem nas laterais */
+    max-width: 160rem;
+    left: 50%;
+    top: 1rem;
+    z-index: 1000;
+
+    background: rgba(18, 18, 18, 0.75);
+    backdrop-filter: blur(10px);
+    border-radius: 1.2rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0.8rem 3.2rem rgba(0, 0, 0, 0.3);
+    padding: 1.5rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    /* Estado inicial: escondido, ligeiramente menor e deslocado para cima */
+    opacity: 0;
+    transform: translateX(-50%) translateY(-1rem) scale(0.95);
+    pointer-events: none;
+    /* Impede cliques quando invisível */
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+}
+
+/* Classe para mostrar o header secundário */
+.header-on-scroll.visible {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+    pointer-events: auto;
+    transition-delay: 0.15s;
+    /* Atraso para a entrada, evitando sobreposição */
+    /* Atraso para a entrada, evitando sobreposição */
+}
+
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.logo img {
+    height: 5.5rem; /* Altura do logo ajustada */
+}
+
+.header-on-scroll .logo img {
+    height: 4.5rem; /* Tamanho reduzido para o header de rolagem */
+}
+
+    /* Aumenta o tamanho do logo especificamente no banner */
+    .banner .logo img {
+        height: 15rem;
+    }
+
+.logo h1 {
+    font-family: var(--font-secondary);
+    font-weight: 700;
+    font-size: 1.5rem;
+    background: linear-gradient(135deg, var(--secondary), var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    letter-spacing: 1px;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 6rem;
+}
+
+nav a {
+    color: rgba(255, 255, 255, 0.4);
+    font-family: var(--font-secondary);
+    /* Mudei para Montserrat */
+    font-weight: 200;
+    /* Deixando a fonte mais leve (light) */
+    font-size: 1.125rem;
+    position: relative;
+    padding: 0.5rem 0;
+    transition: var(--transition);
+}
+
+/* Aumenta a fonte especificamente para o menu de navegação do header principal */
+.header-main nav a {
+    font-size: 1.3rem;
+}
+
+/* Centraliza a navegação em telas de desktop */
+@media (min-width: 769px) {
+    nav {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+nav a:hover {
+    color: var(--accent);
+}
+
+nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 0.2rem;
+    background: linear-gradient(90deg, var(--secondary), var(--accent));
+    transition: var(--transition);
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 3rem;
+    height: 2.1rem;
+    cursor: pointer;
+}
+
+.menu-toggle span {
+    display: block;
+    height: 0.3rem;
+    width: 100%;
+    background-color: var(--light);
+    border-radius: 0.3rem;
+    transition: var(--transition);
+}
+
+/* --- Globo 3D --- */
+.banner {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    /* O padding-top foi removido para centralizar o conteúdo verticalmente. */
+    position: relative;
+    overflow: hidden;
+    /* Imagem de fundo adicionada conforme solicitado */
+    background-image: url('./img/fundo_banner.png');
+    background-position: center 75%; /* Desloca a imagem para baixo, mostrando mais da parte de cima */
+    background-repeat: no-repeat;
+    background-size: cover; /* Garante que a imagem cubra todo o espaço, tocando as bordas */
+}
+
+.banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IGlkPSJwYXR0ZXJuLWJhY2tncm91bmQiIHdpZHRoPSI0MDAiIGhlaWdodD0iNDAwIiBmaWxsPSJyZ2JhKDI1NSwgMjU1LCAyNTU1LCAwLjAzKSI+PC9yZWN0PjxwYXRoIGZpbGw9InJnYmEoMjU1LCAxMDcsIDAsIDAuMDUpIiBkPSJNLTEwIDEwSDEwVjMwSC0xMHoiPjwvcGF0dGVybj48L2RlZnM+PHJlY3QgZmlsbD0idXJsKCNwYXR0ZXJuKSIgaGVpZ2h0PSIxMDAlIiB3aWR0aD0iMTAwJSI+PC9yZWN0Pjwvc3ZnPg==');
+    opacity: 0.2;
+}
+
+.banner::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 20rem;
+    /* Altura da área de transição aumentada */
+    /* Gradiente que mescla a seção com o fundo escuro abaixo */
+    background: linear-gradient(to top, var(--dark) 30%, transparent);
+    z-index: 5;
+    /* Acima do globo, abaixo do conteúdo e da seta de scroll */
+    pointer-events: none;
+    /* Garante que o gradiente não seja interativo */
+}
+.intro {
+    max-width: 80rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 11;
+    /* Elevado para garantir que fique acima de todos os outros elementos na seção hero */
+}
+
+/* Container de partículas satélites */
+#satellites-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    pointer-events: none;
+    overflow: visible;
+    will-change: opacity;
+    /* Otimização para performance - fica apenas no banner */
+}
+
+/* Estilos para as partículas satélites - ULTRA OTIMIZADO COM BOX-SHADOW */
+#satellites-particles::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1px;
+    height: 1px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.8);
+    will-change: transform;
+    box-shadow: 
+        /* LADO ESQUERDO - extremo */
+        2vw 10vh 0 0 rgba(255, 255, 255, 0.7),
+        1vw 20vh 0 0 rgba(255, 255, 255, 0.6),
+        2vw 30vh 0 0 rgba(255, 255, 255, 0.8),
+        1vw 40vh 0 0 rgba(255, 255, 255, 0.6),
+        2vw 50vh 0 0 rgba(255, 255, 255, 0.7),
+        1vw 60vh 0 0 rgba(255, 255, 255, 0.6),
+        2vw 70vh 0 0 rgba(255, 255, 255, 0.8),
+        2vw 80vh 0 0 rgba(255, 255, 255, 0.6),
+        1vw 90vh 0 0 rgba(255, 255, 255, 0.7),
+        /* Esquerda */
+        10vw 8vh 0 0 rgba(255, 255, 255, 0.7),
+        12vw 18vh 0 0 rgba(255, 255, 255, 0.6),
+        11vw 28vh 0 0 rgba(255, 255, 255, 0.8),
+        10vw 38vh 0 0 rgba(255, 255, 255, 0.6),
+        12vw 48vh 0 0 rgba(255, 255, 255, 0.7),
+        11vw 58vh 0 0 rgba(255, 255, 255, 0.6),
+        10vw 68vh 0 0 rgba(255, 255, 255, 0.8),
+        10vw 78vh 0 0 rgba(255, 255, 255, 0.6),
+        10vw 88vh 0 0 rgba(255, 255, 255, 0.7),
+        10vw 98vh 0 0 rgba(255, 255, 255, 0.6),
+        /* Esquerda-Centro */
+        20vw 7vh 0 0 rgba(255, 255, 255, 0.7),
+        20vw 77vh 0 0 rgba(255, 255, 255, 0.6),
+        20vw 87vh 0 0 rgba(255, 255, 255, 0.7),
+        20vw 97vh 0 0 rgba(255, 255, 255, 0.6),
+        22vw 17vh 0 0 rgba(255, 255, 255, 0.6),
+        21vw 27vh 0 0 rgba(255, 255, 255, 0.7),
+        20vw 37vh 0 0 rgba(255, 255, 255, 0.6),
+        22vw 47vh 0 0 rgba(255, 255, 255, 0.7),
+        21vw 57vh 0 0 rgba(255, 255, 255, 0.6),
+        20vw 67vh 0 0 rgba(255, 255, 255, 0.7),
+        /* Centro */
+        30vw 5vh 0 0 rgba(255, 255, 255, 0.6),
+        35vw 15vh 0 0 rgba(255, 255, 255, 0.7),
+        40vw 10vh 0 0 rgba(255, 255, 255, 0.7),
+        42vw 20vh 0 0 rgba(255, 255, 255, 0.6),
+        41vw 30vh 0 0 rgba(255, 255, 255, 0.7),
+        40vw 40vh 0 0 rgba(255, 255, 255, 0.6),
+        42vw 50vh 0 0 rgba(255, 255, 255, 0.7),
+        41vw 60vh 0 0 rgba(255, 255, 255, 0.6),
+        40vw 70vh 0 0 rgba(255, 255, 255, 0.7),
+        42vw 80vh 0 0 rgba(255, 255, 255, 0.6),
+        41vw 90vh 0 0 rgba(255, 255, 255, 0.7),
+        40vw 100vh 0 0 rgba(255, 255, 255, 0.6),
+        50vw 5vh 0 0 rgba(255, 255, 255, 0.7),
+        50vw 25vh 0 0 rgba(255, 255, 255, 0.6),
+        50vw 45vh 0 0 rgba(255, 255, 255, 0.7),
+        50vw 65vh 0 0 rgba(255, 255, 255, 0.6),
+        50vw 85vh 0 0 rgba(255, 255, 255, 0.7),
+        /* Centro-Direita */
+        60vw 3vh 0 0 rgba(255, 255, 255, 0.7),
+        60vw 13vh 0 0 rgba(255, 255, 255, 0.6),
+        62vw 23vh 0 0 rgba(255, 255, 255, 0.7),
+        61vw 33vh 0 0 rgba(255, 255, 255, 0.6),
+        60vw 43vh 0 0 rgba(255, 255, 255, 0.7),
+        62vw 53vh 0 0 rgba(255, 255, 255, 0.6),
+        61vw 63vh 0 0 rgba(255, 255, 255, 0.7),
+        60vw 73vh 0 0 rgba(255, 255, 255, 0.6),
+        62vw 83vh 0 0 rgba(255, 255, 255, 0.7),
+        61vw 93vh 0 0 rgba(255, 255, 255, 0.6),
+        70vw 10vh 0 0 rgba(255, 255, 255, 0.7),
+        70vw 30vh 0 0 rgba(255, 255, 255, 0.6),
+        70vw 50vh 0 0 rgba(255, 255, 255, 0.7),
+        70vw 70vh 0 0 rgba(255, 255, 255, 0.6),
+        70vw 90vh 0 0 rgba(255, 255, 255, 0.7),
+        /* Direita */
+        80vw 8vh 0 0 rgba(255, 255, 255, 0.7),
+        82vw 18vh 0 0 rgba(255, 255, 255, 0.6),
+        81vw 28vh 0 0 rgba(255, 255, 255, 0.7),
+        80vw 38vh 0 0 rgba(255, 255, 255, 0.6),
+        82vw 48vh 0 0 rgba(255, 255, 255, 0.7),
+        81vw 58vh 0 0 rgba(255, 255, 255, 0.6),
+        80vw 68vh 0 0 rgba(255, 255, 255, 0.7),
+        82vw 78vh 0 0 rgba(255, 255, 255, 0.6),
+        81vw 88vh 0 0 rgba(255, 255, 255, 0.7),
+        /* Extrema Direita */
+        90vw 12vh 0 0 rgba(255, 255, 255, 0.6),
+        92vw 22vh 0 0 rgba(255, 255, 255, 0.7),
+        91vw 32vh 0 0 rgba(255, 255, 255, 0.6),
+        90vw 42vh 0 0 rgba(255, 255, 255, 0.7),
+        92vw 52vh 0 0 rgba(255, 255, 255, 0.6),
+        91vw 62vh 0 0 rgba(255, 255, 255, 0.7),
+        90vw 72vh 0 0 rgba(255, 255, 255, 0.6),
+        92vw 82vh 0 0 rgba(255, 255, 255, 0.7),
+        91vw 92vh 0 0 rgba(255, 255, 255, 0.6),
+        /* Muito Extrema Direita */
+        97vw 15vh 0 0 rgba(255, 255, 255, 0.7),
+        98vw 35vh 0 0 rgba(255, 255, 255, 0.6),
+        97vw 55vh 0 0 rgba(255, 255, 255, 0.7),
+        98vw 75vh 0 0 rgba(255, 255, 255, 0.6),
+        97vw 95vh 0 0 rgba(255, 255, 255, 0.7);
+    animation: satellitesFloat 120s linear infinite;
+}
+
+#satellites-particles::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1px;
+    height: 1px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.7);
+    will-change: transform;
+    box-shadow: 
+        /* LADO ESQUERDO - muito extremo */
+        1vw 12vh 0 0 rgba(255, 255, 255, 0.6),
+        2vw 24vh 0 0 rgba(255, 255, 255, 0.7),
+        1vw 36vh 0 0 rgba(255, 255, 255, 0.6),
+        2vw 48vh 0 0 rgba(255, 255, 255, 0.7),
+        1vw 60vh 0 0 rgba(255, 255, 255, 0.6),
+        2vw 72vh 0 0 rgba(255, 255, 255, 0.7),
+        1vw 84vh 0 0 rgba(255, 255, 255, 0.6),
+        2vw 96vh 0 0 rgba(255, 255, 255, 0.7),
+        /* LADO ESQUERDO - extremo */
+        4vw 15vh 0 0 rgba(255, 255, 255, 0.7),
+        6vw 25vh 0 0 rgba(255, 255, 255, 0.6),
+        5vw 35vh 0 0 rgba(255, 255, 255, 0.7),
+        4vw 45vh 0 0 rgba(255, 255, 255, 0.6),
+        6vw 55vh 0 0 rgba(255, 255, 255, 0.7),
+        5vw 65vh 0 0 rgba(255, 255, 255, 0.6),
+        4vw 75vh 0 0 rgba(255, 255, 255, 0.7),
+        6vw 85vh 0 0 rgba(255, 255, 255, 0.6),
+        /* Linha 1 - topo completa */
+        3vw 5vh 0 0 rgba(255, 255, 255, 0.6),
+        8vw 6vh 0 0 rgba(255, 255, 255, 0.7),
+        12vw 7vh 0 0 rgba(255, 255, 255, 0.6),
+        15vw 7vh 0 0 rgba(255, 255, 255, 0.6),
+        20vw 5vh 0 0 rgba(255, 255, 255, 0.7),
+        25vw 6vh 0 0 rgba(255, 255, 255, 0.7),
+        30vw 8vh 0 0 rgba(255, 255, 255, 0.6),
+        35vw 8vh 0 0 rgba(255, 255, 255, 0.6),
+        40vw 6vh 0 0 rgba(255, 255, 255, 0.7),
+        45vw 7vh 0 0 rgba(255, 255, 255, 0.7),
+        50vw 9vh 0 0 rgba(255, 255, 255, 0.6),
+        55vw 9vh 0 0 rgba(255, 255, 255, 0.6),
+        60vw 7vh 0 0 rgba(255, 255, 255, 0.7),
+        65vw 8vh 0 0 rgba(255, 255, 255, 0.7),
+        70vw 9vh 0 0 rgba(255, 255, 255, 0.6),
+        75vw 10vh 0 0 rgba(255, 255, 255, 0.6),
+        80vw 8vh 0 0 rgba(255, 255, 255, 0.7),
+        85vw 9vh 0 0 rgba(255, 255, 255, 0.7),
+        90vw 7vh 0 0 rgba(255, 255, 255, 0.6),
+        95vw 10vh 0 0 rgba(255, 255, 255, 0.6),
+        98vw 8vh 0 0 rgba(255, 255, 255, 0.7),
+        /* Linha 2 - meio-alto */
+        3vw 20vh 0 0 rgba(255, 255, 255, 0.7),
+        9vw 23vh 0 0 rgba(255, 255, 255, 0.6),
+        16vw 21vh 0 0 rgba(255, 255, 255, 0.7),
+        23vw 24vh 0 0 rgba(255, 255, 255, 0.6),
+        26vw 24vh 0 0 rgba(255, 255, 255, 0.6),
+        33vw 22vh 0 0 rgba(255, 255, 255, 0.7),
+        36vw 22vh 0 0 rgba(255, 255, 255, 0.7),
+        43vw 24vh 0 0 rgba(255, 255, 255, 0.6),
+        46vw 24vh 0 0 rgba(255, 255, 255, 0.6),
+        53vw 25vh 0 0 rgba(255, 255, 255, 0.7),
+        56vw 25vh 0 0 rgba(255, 255, 255, 0.7),
+        63vw 23vh 0 0 rgba(255, 255, 255, 0.6),
+        66vw 23vh 0 0 rgba(255, 255, 255, 0.6),
+        73vw 26vh 0 0 rgba(255, 255, 255, 0.7),
+        76vw 26vh 0 0 rgba(255, 255, 255, 0.7),
+        83vw 24vh 0 0 rgba(255, 255, 255, 0.6),
+        86vw 24vh 0 0 rgba(255, 255, 255, 0.6),
+        93vw 27vh 0 0 rgba(255, 255, 255, 0.7),
+        96vw 27vh 0 0 rgba(255, 255, 255, 0.7),
+        98vw 25vh 0 0 rgba(255, 255, 255, 0.6),
+        /* Linha 3 - meio */
+        2vw 42vh 0 0 rgba(255, 255, 255, 0.7),
+        8vw 40vh 0 0 rgba(255, 255, 255, 0.6),
+        14vw 43vh 0 0 rgba(255, 255, 255, 0.7),
+        17vw 42vh 0 0 rgba(255, 255, 255, 0.7),
+        24vw 41vh 0 0 rgba(255, 255, 255, 0.6),
+        27vw 39vh 0 0 rgba(255, 255, 255, 0.6),
+        34vw 42vh 0 0 rgba(255, 255, 255, 0.7),
+        37vw 42vh 0 0 rgba(255, 255, 255, 0.7),
+        44vw 40vh 0 0 rgba(255, 255, 255, 0.6),
+        47vw 41vh 0 0 rgba(255, 255, 255, 0.6),
+        54vw 43vh 0 0 rgba(255, 255, 255, 0.7),
+        57vw 43vh 0 0 rgba(255, 255, 255, 0.7),
+        64vw 41vh 0 0 rgba(255, 255, 255, 0.6),
+        67vw 42vh 0 0 rgba(255, 255, 255, 0.6),
+        74vw 44vh 0 0 rgba(255, 255, 255, 0.7),
+        77vw 44vh 0 0 rgba(255, 255, 255, 0.7),
+        84vw 42vh 0 0 rgba(255, 255, 255, 0.6),
+        87vw 42vh 0 0 rgba(255, 255, 255, 0.6),
+        94vw 44vh 0 0 rgba(255, 255, 255, 0.7),
+        98vw 42vh 0 0 rgba(255, 255, 255, 0.7),
+        /* Linha 4 - meio-baixo */
+        2vw 60vh 0 0 rgba(255, 255, 255, 0.6),
+        10vw 58vh 0 0 rgba(255, 255, 255, 0.7),
+        18vw 56vh 0 0 rgba(255, 255, 255, 0.6),
+        25vw 59vh 0 0 rgba(255, 255, 255, 0.7),
+        28vw 58vh 0 0 rgba(255, 255, 255, 0.7),
+        35vw 60vh 0 0 rgba(255, 255, 255, 0.6),
+        38vw 57vh 0 0 rgba(255, 255, 255, 0.6),
+        45vw 58vh 0 0 rgba(255, 255, 255, 0.7),
+        48vw 59vh 0 0 rgba(255, 255, 255, 0.7),
+        55vw 60vh 0 0 rgba(255, 255, 255, 0.6),
+        58vw 58vh 0 0 rgba(255, 255, 255, 0.6),
+        65vw 59vh 0 0 rgba(255, 255, 255, 0.7),
+        68vw 60vh 0 0 rgba(255, 255, 255, 0.7),
+        75vw 58vh 0 0 rgba(255, 255, 255, 0.6),
+        78vw 58vh 0 0 rgba(255, 255, 255, 0.6),
+        85vw 59vh 0 0 rgba(255, 255, 255, 0.7),
+        88vw 61vh 0 0 rgba(255, 255, 255, 0.7),
+        95vw 60vh 0 0 rgba(255, 255, 255, 0.6),
+        98vw 58vh 0 0 rgba(255, 255, 255, 0.7),
+        /* Linha 5 - base */
+        3vw 75vh 0 0 rgba(255, 255, 255, 0.6),
+        12vw 74vh 0 0 rgba(255, 255, 255, 0.7),
+        20vw 76vh 0 0 rgba(255, 255, 255, 0.6),
+        23vw 72vh 0 0 rgba(255, 255, 255, 0.6),
+        30vw 75vh 0 0 rgba(255, 255, 255, 0.7),
+        33vw 75vh 0 0 rgba(255, 255, 255, 0.7),
+        40vw 74vh 0 0 rgba(255, 255, 255, 0.6),
+        43vw 73vh 0 0 rgba(255, 255, 255, 0.6),
+        50vw 76vh 0 0 rgba(255, 255, 255, 0.7),
+        53vw 75vh 0 0 rgba(255, 255, 255, 0.7),
+        60vw 73vh 0 0 rgba(255, 255, 255, 0.6),
+        63vw 74vh 0 0 rgba(255, 255, 255, 0.6),
+        70vw 77vh 0 0 rgba(255, 255, 255, 0.7),
+        73vw 76vh 0 0 rgba(255, 255, 255, 0.7),
+        80vw 74vh 0 0 rgba(255, 255, 255, 0.6),
+        83vw 75vh 0 0 rgba(255, 255, 255, 0.6),
+        90vw 76vh 0 0 rgba(255, 255, 255, 0.7),
+        93vw 77vh 0 0 rgba(255, 255, 255, 0.7),
+        97vw 75vh 0 0 rgba(255, 255, 255, 0.6),
+        /* Linha 6 - muito base */
+        5vw 90vh 0 0 rgba(255, 255, 255, 0.7),
+        15vw 92vh 0 0 rgba(255, 255, 255, 0.6),
+        25vw 91vh 0 0 rgba(255, 255, 255, 0.7),
+        35vw 93vh 0 0 rgba(255, 255, 255, 0.6),
+        45vw 92vh 0 0 rgba(255, 255, 255, 0.7),
+        55vw 94vh 0 0 rgba(255, 255, 255, 0.6),
+        65vw 92vh 0 0 rgba(255, 255, 255, 0.7),
+        75vw 95vh 0 0 rgba(255, 255, 255, 0.6),
+        85vw 93vh 0 0 rgba(255, 255, 255, 0.7),
+        95vw 96vh 0 0 rgba(255, 255, 255, 0.6),
+        /* Extrema Direita */
+        90vw 15vh 0 0 rgba(255, 255, 255, 0.6),
+        91vw 28vh 0 0 rgba(255, 255, 255, 0.7),
+        90vw 41vh 0 0 rgba(255, 255, 255, 0.6),
+        91vw 54vh 0 0 rgba(255, 255, 255, 0.7),
+        90vw 67vh 0 0 rgba(255, 255, 255, 0.6),
+        91vw 80vh 0 0 rgba(255, 255, 255, 0.7),
+        90vw 93vh 0 0 rgba(255, 255, 255, 0.6),
+        /* Muito Extrema Direita */
+        96vw 18vh 0 0 rgba(255, 255, 255, 0.7),
+        97vw 38vh 0 0 rgba(255, 255, 255, 0.6),
+        96vw 58vh 0 0 rgba(255, 255, 255, 0.7),
+        97vw 78vh 0 0 rgba(255, 255, 255, 0.6),
+        96vw 98vh 0 0 rgba(255, 255, 255, 0.7);
+    animation: satellitesFloat 140s linear infinite reverse;
+}
+
+
+/* Animação de flutuação dos satélites - movimento em toda a tela */
+@keyframes satellitesFloat {
+    0% {
+        transform: translate(-100px, -50px) translateZ(0);
+    }
+    25% {
+        transform: translate(100px, 50px) translateZ(0);
+    }
+    50% {
+        transform: translate(-50px, 100px) translateZ(0);
+    }
+    75% {
+        transform: translate(50px, -100px) translateZ(0);
+    }
+    100% {
+        transform: translate(-100px, -50px) translateZ(0);
+    }
+}
+
+.tag {
+    display: inline-block;
+    background: rgba(104, 104, 104, 0.2);
+    color: var(--accent);
+    padding: 0.6rem 1.5rem;
+    border-radius: 5.5rem;
+    font-weight: 600;
+    font-size: 1.4rem;
+    margin-bottom: 2rem;
+    border: 1px solid rgba(228, 167, 0, 0.651);
+    backdrop-filter: blur(5px);
+    transform: translateY(2rem);
+    opacity: 0;
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.banner h2 {
+    font-size: 3.5rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+    line-height: 1.2;
+    transform: translateY(2rem);
+    width: 100%;
+    /* Garante que o título ocupe todo o espaço e quebre a linha corretamente */
+    opacity: 0;
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.banner h2 span {
+    background: linear-gradient(135deg, var(--secondary), var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.banner h3 {
+    font-size: 1.8rem; /* Tamanho da fonte aumentado novamente */
+    margin-bottom: 0.5rem; /* Reduzido para subir os botões */
+    color: rgba(255, 255, 255, 0.8);
+    max-width: 50rem; /* Largura ajustada para quebrar em 4 linhas */
+    transform: translateY(2rem);
+    opacity: 0;
+    transition: opacity 0.8s ease, transform 0.8s ease;
+    text-align: center; /* Alinhamento alterado para centralizado */
+}
+
+.btn {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--secondary), var(--accent));
+    color: white;
+    padding: 1.4rem 3rem;
+    border-radius: 5rem;
+    text-decoration: none;
+    font-weight: 600;
+    letter-spacing: 0.05rem;
+    transition: var(--transition);
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-primary);
+    font-size: 1rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0.4rem 1.5rem rgba(255, 255, 255, 0.3);
+    transform: translateY(2rem);
+    opacity: 0;
+    /* A animação de entrada agora é controlada por IntersectionObserver */
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: var(--transition);
+}
+
+.btn:hover {
+    transform: translateY(-0.3rem);
+    box-shadow: 0 0.8rem 2.5rem rgba(255, 255, 255, 0.4);
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+.banner-buttons {
+    display: flex;
+    gap: 2rem;
+}
+
+/* --- NOVO: Estilo de Vidro 3D para o Botão da Seção Hero --- */
+.banner .btn,
+.intro-text-overlay .btn {
+    /* Fundo mais transparente com um gradiente sutil para profundidade */
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    /* Compatibilidade com Safari */
+
+    /* Borda que simula o reflexo da luz no vidro */
+    border: 1px solid rgba(255, 255, 255, 0.15);
+
+    /* Sombra externa para flutuar + sombras internas para o efeito de borda de vidro */
+    box-shadow: 0 0.8rem 3.2rem 0 rgba(0, 0, 0, 0.3),
+        inset 0.1rem 0.1rem 0.1rem rgba(255, 255, 255, 0.3),
+        /* Borda superior iluminada */
+        inset -0.1rem -0.1rem 0.1rem rgba(0, 0, 0, 0.05);
+    /* Sombra interna sutil */
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.banner .btn:hover,
+.intro-text-overlay .btn:hover {
+    /* Ao passar o mouse, o "vidro" fica um pouco mais claro e o brilho da borda se intensifica */
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.08));
+    box-shadow: 0 1.2rem 4rem 0 rgba(0, 0, 0, 0.35),
+        inset 0.1rem 0.1rem 0.2rem rgba(255, 255, 255, 0.4),
+        inset -0.1rem -0.1rem 0.2rem rgba(0, 0, 0, 0.1);
+}
+
+/* --- FIM DO NOVO ESTILO --- */
+
+/* --- Animação de Entrada para a Seção Hero (controlada por JS) --- */
+.banner.is-visible .tag {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.2s;
+}
+
+.banner.is-visible h2 {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.4s;
+}
+
+.banner.is-visible h3 {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.6s;
+}
+
+.banner.is-visible .btn {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.8s;
+}
+
+/* --- Seção de Imagem Introdutória --- */
+.intro-image-section {
+    /* Define a altura da seção. 'vh' é a porcentagem da altura da tela. */
+    height: 100vh; /* Altura da seção aumentada para evitar cortes na imagem */
+    width: 100%;
+    /* Removemos o padding para que a imagem possa ocupar todo o espaço. */
+    /* Adiciona espaço acima da seção para afastá-la do conteúdo anterior */
+    margin-top: 10rem;
+    padding: 0;
+    position: relative; /* Necessário para o posicionamento absoluto do filho */
+    overflow: hidden; /* Garante que nada vaze da seção */
+}
+
+.intro-image-container {
+    width: 100%;
+    height: 100%;
+    position: relative; /* Contexto para o texto e a imagem */
+    display: flex; /* Centraliza o conteúdo de texto */
+    align-items: flex-start; /* Alinha o conteúdo no topo para controlar a posição com padding */
+    justify-content: flex-start; /* Alinha o contêiner de texto à esquerda */
+    padding: 25rem 5% 0; /* Aumenta o padding superior para descer o bloco de texto */
+}
+
+.intro-background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* A imagem agora cobre todo o espaço, tocando as bordas */
+    /* Faz a imagem cobrir todo o espaço, tocando as bordas. */
+    object-fit: cover;
+    /* Alinha a imagem pela base para um melhor enquadramento. */
+    object-position: center 85%; /* Desloca a imagem para cima, mostrando uma parte mais inferior dela */
+    z-index: 1; /* Coloca a imagem atrás do texto */
+}
+
+.intro-text-overlay {
+    position: relative; /* Garante que o z-index funcione corretamente */
+    z-index: 2; /* Coloca o texto na frente da imagem */
+    color: var(--light); /* Cor do texto branca */
+    text-align: justify; /* Alinha o texto com laterais retas */
+    max-width: 50rem; /* Limita a largura do texto para melhor legibilidade */
+}
+
+.intro-text-overlay p {
+    font-size: 1.8rem; /* Tamanho da fonte ajustado */
+    line-height: 1.7; /* Melhora o espaçamento entre linhas */
+}
+
+.intro-text-overlay .btn {
+    /* Reseta a animação de entrada padrão para que o botão seja visível */
+    /* Adiciona espaço entre o texto e o botão */
+    margin-top: 2rem; /* Diminui o espaço para aproximar o botão do texto */
+}
+
+/* --- Animação de Entrada para a Seção de Imagem Introdutória --- */
+.intro-image-section .section-title,
+.intro-image-section .intro-text-overlay p,
+.intro-image-section .intro-text-overlay .btn {
+    opacity: 0;
+    transform: translateY(3rem);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+/* Efeito de zoom sutil na imagem de fundo */
+.intro-image-section .intro-background-image {
+    transform: scale(1.1);
+    transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Quando a seção se torna visível */
+.intro-image-section.is-visible .section-title,
+.intro-image-section.is-visible .intro-text-overlay p,
+.intro-image-section.is-visible .intro-text-overlay .btn {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.intro-image-section.is-visible .intro-background-image {
+    transform: scale(1);
+}
+
+/* Atrasos para o efeito "trenzinho" */
+.intro-image-section.is-visible .section-title { transition-delay: 0.2s; }
+.intro-image-section.is-visible .intro-text-overlay p { transition-delay: 0.4s; }
+.intro-image-section.is-visible .intro-text-overlay .btn { transition-delay: 0.6s; }
+
+.section {
+    padding: 10rem 5%; 
+    position: relative;
+}
+
+/* --- NOVO BACKGROUND PROFISSIONAL: "HEXAGONAL MATRIX" --- */
+/* Esta abordagem cria uma atmosfera tecnológica e sofisticada, com múltiplas camadas de detalhes e animação sutil. */
+.banner, .service, .description, .mapa {
+    position: relative;
+    text-align: center;
+    background-color: var(--dark);
+    overflow: hidden;
+    /* Faixa de fundo em degradê cinza escuro para contraste */
+}
+
+/* Garante que o conteúdo da seção fique acima dos efeitos de fundo */
+/* CORREÇÃO: Adicionado .service > * para que o conteúdo da seção "Sobre" também fique visível. */
+.banner>*, .description>*, .mapa>*,
+.service>*,
+footer > *:not(#footer-particles) {
+    position: relative;
+    z-index: 10;
+    /* Conteúdo fica na camada mais alta */
+}
+.title-service,
+.section-title {
+    font-size: 2.5rem;
+    font-size: clamp(2.5rem, 5vw, 3rem);
+    margin-bottom: 2rem;
+    text-align: center;
+    position: relative;
+    padding-bottom: 1.5rem;
+}
+
+.title-service::after, .section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 8rem;
+    height: 0.3rem;
+    background: linear-gradient(90deg, var(--secondary), var(--accent));
+    border-radius: 3px;
+}
+
+.section-subtitle {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.7);
+    max-width: 80rem;
+    margin: 0 auto 6rem;
+}
+
+/* Destaque para o subtítulo da seção de serviços */
+.service .section-subtitle {
+    text-align: center;
+    /* Garante que o texto dentro da pílula esteja centralizado */
+    font-size: 1.1rem;
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+    color: var(--light);
+    /* Efeito de vidro 3D com a cor da marca */
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    padding: 0.8rem 2rem;
+    /* Mais preenchimento para forma de pílula */
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    /* Borda de vidro com a cor da marca */
+    border-radius: 3rem;
+    /* Bordas arredondadas */
+    display: inline-block;
+    /* Para que o fundo e a borda se ajustem ao texto */
+    margin-bottom: -2rem;
+    /* Margem negativa para subir a galeria de imagens */
+    font-weight: 500;
+    /* Sombra externa para flutuar + sombras internas para efeito 3D */
+    box-shadow: 0 0.8rem 3.2rem rgba(0, 0, 0, 0.3),
+        inset 0.1rem 0.1rem 0.1rem rgba(255, 255, 255, 0.25),
+        /* Reflexo de luz na borda superior */
+        inset -1px -1px 1px rgba(0, 0, 0, 0.15);
+    /* Sombra interna para profundidade */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+    position: relative;
+    /* Necessário para o pseudo-elemento de brilho */
+    overflow: hidden;
+    /* Garante que o brilho não saia das bordas */
+}
+
+/* Efeito de brilho ao passar o mouse */
+.service .section-subtitle::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+    transition: var(--transition);
+}
+
+.service .section-subtitle:hover {
+    transform: translateY(-0.3rem);
+    /* Efeito de elevação, igual ao do botão */
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.2));
+    box-shadow: 0 1rem 3.5rem rgba(0, 0, 0, 0.4),
+        inset 0.1rem 0.1rem 0.2rem rgba(255, 255, 255, 0.3),
+        inset -0.1rem -0.1rem 0.2rem rgba(0, 0, 0, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.service .section-subtitle:hover::before {
+    left: 100%;
+}
+
+/* Ajuste de espaçamento para a seção de serviços */
+#services {
+    /* Reduz o espaço superior para aproximar a seção da galeria de imagens acima */
+    padding-top: 2rem;
+}
+
+/* Carrossel de Serviços: Mobile-first (rolagem manual) e Desktop (automático) */
+.feature-carousel-wrapper {
+    width: 100%;
+    overflow-x: auto; /* Rolagem horizontal para mobile */
+    -webkit-overflow-scrolling: touch; /* Rolagem suave em iOS */
+    margin-top: 6rem;
+    padding: 2rem 0;
+    -webkit-mask-image: none;
+    mask-image: none;
+    scrollbar-width: none; /* Esconde a barra de rolagem no Firefox */
+}
+
+.feature-carousel-wrapper::-webkit-scrollbar {
+    display: none; /* Esconde a barra de rolagem em navegadores Webkit */
+}
+
+.feature {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 2rem;
+    padding: 0 5vw; /* Espaçamento lateral para os cards não colarem na borda em mobile */
+    animation: none; /* Animação desativada por padrão */
+}
+
+.feature-card {
+    flex-shrink: 0;
+    width: 80vw; /* Cards grandes para uma boa experiência de swipe */
+    max-width: 34rem; /* Limite para telas de tablet */
+    background: linear-gradient(to top right, rgba(246, 177, 27, 0.692) 0%, rgba(18, 18, 18, 0.5) 75%);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: var(--light);
+    border-radius: 4.5rem;
+    padding: 1.5rem 3rem;
+    position: relative;
+    z-index: 1;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 0.8rem 3.2rem 0 rgba(0, 0, 0, 0.3);
+    /* A transição agora inclui opacidade e transform para a animação de entrada */
+    transition: transform 0.6s ease-out, box-shadow 0.4s ease, border-color 0.4s ease, opacity 0.6s ease-out;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    cursor: default;
+    /* Estado inicial para a animação de entrada "trenzinho" */
+    opacity: 0;
+    transform: translateY(3rem);
+}
+
+/* Quando o carrossel se torna visível, os cards animam para a posição final */
+.feature-carousel-wrapper.is-visible .feature-card {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Estilos do Carrossel Automático para Desktop */
+@media (min-width: 1200px) {
+    .feature-carousel-wrapper {
+        overflow: hidden; /* Esconde o overflow para a animação funcionar */
+        -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    }
+
+    .feature-carousel-wrapper:hover .feature {
+        animation-play-state: paused;
+    }
+
+    .feature {
+        padding: 0; /* Reseta o padding de mobile */
+        /* A animação de rolagem é ativada via JS após a entrada */
+    }
+
+    .feature.scrolling-active {
+        animation: scroll-cards 40s linear infinite;
+    }
+
+    .feature-card {
+        /* Define uma largura responsiva para que ~5 cards fiquem visíveis, como no grid original */
+        width: calc((100% / 5) - 1.6rem);
+        max-width: none; /* Remove o limite de largura de mobile */
+    }
+}
+
+/* Efeito de brilho aprimorado que percorre o card na diagonal */
+.feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 150%;
+    /* Maior que o card para o efeito de inclinação */
+    height: 100%;
+    /* Gradiente sutil com um toque da cor da marca */
+    background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.2), transparent 70%);
+    z-index: 1;
+    /* Fica entre o fundo e o conteúdo */
+    transform: translateX(-100%);
+    transition: transform 0.75s cubic-bezier(0.23, 1, 0.32, 1);
+    /* Transição suave e elaborada */
+}
+
+.feature-card:hover {
+    box-shadow: 0 2.5rem 5rem rgba(0, 0, 0, 0.4);
+    /* Efeito de elevação e zoom mais sutil e profissional */
+    transform: translateY(-0.8rem) scale(1.03);
+    /* A borda ganha um destaque com a cor da marca */
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
+.feature-card:hover::before {
+    transform: translateX(100%);
+}
+
+/* Link que cobre todo o card para torná-lo clicável */
+.card-full-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    /* Acima do conteúdo (2) e do brilho (1) */
+    text-decoration: none;
+    color: transparent;
+    /* Esconde qualquer texto de link que possa aparecer */
+    border-radius: 1.5rem;
+    /* Garante que o link tenha as mesmas bordas do card */
+}
+
+/* Ícone de clique que aparece no hover */
+.card-click-icon {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    font-size: 2.2rem;
+    color: rgba(255, 255, 255, 0.3);
+    z-index: 4;
+    /* Acima do link overlay */
+    pointer-events: none;
+    /* O ícone não deve interceptar o clique, que é do link abaixo */
+    opacity: 0;
+    transform: scale(0.8) rotate(-10deg);
+    transition: opacity 0.4s ease, transform 0.4s ease, color 0.4s ease;
+}
+
+.feature-card:hover .card-click-icon {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+    color: var(--accent);
+}
+
+/* Contêiner para o ícone e título */
+.feature-header {
+    display: flex;
+    flex-direction: column; /* Coloca o ícone acima do título */
+    align-items: center;
+    /* Centraliza horizontalmente */
+    margin-bottom: 2rem;
+    /* Espaço entre o cabeçalho (ícone+título) e o texto descritivo */
+    position: relative;
+    /* Garante que o conteúdo fique acima do efeito de brilho */
+    z-index: 2;
+}
+
+/* Ajusta a margem do ícone dentro do novo contêiner */
+.feature-header .feature-icon {
+    margin-right: 0; /* Remove a margem lateral */
+    margin-bottom: 2rem; /* Adiciona espaço abaixo do ícone */
+}
+
+
+.feature-icon {
+    width: 7rem; /* Aumenta o tamanho do container do ícone */
+    height: 7rem; /* Aumenta o tamanho do container do ícone */
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 2.0rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid transparent;
+    transition: transform 0.4s ease, background-color 0.4s ease;
+    /* Adiciona transição para o ícone */
+}
+
+/* Animação do ícone ao passar o mouse sobre o card */
+.feature-card:hover .feature-icon {
+    transform: scale(1.1) rotate(-5deg);
+    background: rgba(255, 255, 255, 0.25);
+    /* Fundo do ícone fica mais brilhante */
+}
+
+.feature-icon i {
+    /* Tamanho do ícone aumentado */
+    font-size: 3.5rem;
+    color: var(--light);
+}
+
+/* Ajusta a margem do título dentro do novo contêiner */
+.feature-header .feature-title {
+    margin-bottom: 0;
+    /* Remove a margem inferior original do título */
+}
+
+.feature-title {
+    font-size: 1.25rem;
+    /* Diminuído de 22px para 20px */
+    margin-bottom: 1.5rem;
+    /* Esta margem será zerada se o título estiver dentro de .feature-header */
+    /* position e z-index removidos, pois são controlados pelo .feature-header */
+}
+
+.feature-text {
+    color: rgba(255, 255, 255, 0.8);
+    /* Estilo simplificado para garantir que o texto esteja sempre visível */
+    position: relative;
+    /* Garante que o texto fique acima do efeito de brilho */
+    z-index: 2;
+    opacity: 1;
+    max-height: 1000px;
+    /* Altura máxima generosa para o conteúdo */
+    margin-top: 1.5rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    text-align: justify;
+}
+
+.card-button-wrapper {
+    width: 100%;
+    text-align: center;
+    margin-top: auto; /* Pushes the button to the bottom */
+    padding-top: 2rem; /* Space above the button */
+}
+
+.btn-card {
+    /* Overrides for the .btn class inside a card */
+    opacity: 1;
+    transform: none;
+    position: relative;
+    z-index: 2;
+    /* Ensure it's clickable */
+    padding: 1rem 2.5rem;
+    font-size: 0.875rem;
+
+    /* --- Inverted Colors --- */
+    background: transparent;
+    color: var(--light);
+    border: 2px solid var(--light);
+    box-shadow: none;
+}
+
+.btn-card:hover {
+    background: var(--light);
+    color: var(--dark);
+    border-color: var(--light);
+    box-shadow: 0 0.8rem 2.5rem rgba(255, 255, 255, 0.2);
+}
+
+/* Ajuste para a seção "Quem Somos" (service) ter mais espaço no topo */
+/* CORREÇÃO: Adicionando as propriedades de fundo e posicionamento para corrigir o bug de renderização. */
+.description {
+    position: relative;
+    text-align: center;
+    background-color: var(--dark);
+    overflow: hidden;
+
+    /* Padding padrão para seções, garantindo espaçamento consistente */
+    padding: 10rem 5%;
+}
+
+/* Otimização de Performance: Animação de partículas movida para um pseudo-elemento com transform */
+.description::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 200%;
+    z-index: 0;
+    background-image:
+        radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+        radial-gradient(circle, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+        radial-gradient(circle, rgba(255, 255, 255, 0.04) 1.5px, transparent 1.5px);
+    background-size: 3rem 3rem, 6rem 6rem, 12.5rem 12.5rem;
+    animation: move-particles-transform 150s linear infinite;
+}
+
+.description h1{
+    font-size: 4rem;
+}
+
+
+/* Sombra superior para conectar com a seção hero */
+.description::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 20rem;
+    /* Altura da área de transição aumentada */
+    background: linear-gradient(to bottom, var(--dark) 30%, transparent);
+    z-index: 1;
+    /* Fica acima do fundo de partículas, mas abaixo do conteúdo */
+    pointer-events: none;
+}
+
+.about {
+    /* Layout alterado de grid para flex-column para reordenar os elementos */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Centraliza os itens horizontalmente */
+}
+
+/* Ajustes na imagem da seção "Quem Somos" */
+#about .about-image img {
+    max-width: 100%;
+    /* Aumenta o tamanho da imagem para preencher seu contêiner */
+    display: block;
+    /* Necessário para a margem automática funcionar */
+    margin: 0 auto;
+    /* Centraliza a imagem horizontalmente */
+    border-radius: 1.5rem;
+    /* Arredonda as bordas da imagem */
+}
+
+/* Layout para a seção "Quem Somos" em telas maiores */
+@media (min-width: 993px) {
+    #about .about {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        /* Duas colunas de tamanho igual */
+        gap: 5rem;
+        /* Espaço entre o texto e a imagem */
+        position: relative; /* Contexto para a linha absoluta */
+    }
+
+    /* Linha animada que cresce e sobe */
+    .linha-animada {
+        position: absolute;
+        bottom: 2.5rem; /* Posição vertical ajustada para alinhar com o botão */
+        left: 30rem;     /* Desloca a linha para a direita */
+        width: 10rem; /* Começa com largura 0 */
+        height: 0.5rem;
+        background-color: var(--secondary);
+        border-radius: 0.25rem;
+        opacity: 0;
+        transition: width 0.8s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.1s;
+    }
+
+    .linha-animada::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        right: 0; /* Fica no final da linha horizontal */
+        width: 0.5rem;
+        height: 0; /* Começa com altura 0 */
+        background-color: var(--secondary);
+        border-top-left-radius: 0.25rem;
+        border-top-right-radius: 0.25rem;
+        transition: height 0.8s cubic-bezier(0.25, 1, 0.5, 1) 0.7s; /* Inicia após a linha horizontal */
+    }
+
+    /* Gatilho da animação via JS */
+    #about .about.start-line-animation .linha-animada {
+        opacity: 1;
+        width: 70%; /* A linha cresce até 70% da largura da seção */
+    }
+
+    #about .about.start-line-animation .linha-animada::after {
+        height: 15rem; /* A parte vertical agora sobe mais */
+    }
+
+    #about .about-title {
+        text-align: left;
+        /* Alinha o título à esquerda */
+    }
+
+    #about .about-title::after {
+        left: 0;
+        /* Alinha a linha do título à esquerda */
+        transform: translateX(0);
+    }
+
+    #about .stats {
+        /* Garante que o botão "Saiba mais" fique alinhado à esquerda com o texto */
+        text-align: left;
+    }
+}
+
+.gallery-scroll-wrapper {
+    width: 100%;
+    max-width: 140rem;
+    /* Largura máxima do carrossel visível */
+    overflow: hidden;
+    /* Efeito de fade nas laterais para suavizar a entrada e saída das imagens */
+    -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+    position: relative;
+    /* Adicionado para posicionar os botões */
+    perspective: 100rem;
+    /* Adicionado para criar um contexto 3D para os filhos */
+    /* Adiciona espaço vertical para o efeito de destaque não ser cortado */
+    padding-top: 2rem;
+    /* Aumentado para dar mais espaço ao efeito de elevação */
+    padding-bottom: 5rem;
+    margin-bottom: -4rem;
+    /* Compensa o padding para manter os dots próximos */
+}
+
+/* Botões de navegação da galeria */
+.gallery-nav-btn {
+    position: absolute;
+    top: 50%;
+    /* Centraliza verticalmente de forma responsiva */
+    transform: translateY(-50%);
+    z-index: 10;
+    background: rgba(18, 18, 18, 0.7);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    width: 4.5rem;
+    height: 4.5rem;
+    border-radius: 1rem;
+    /* Alterado para quadrado com cantos suaves */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    opacity: 0.7;
+    /* Botões visíveis por padrão, mas com transparência */
+}
+
+.gallery-scroll-wrapper:hover .gallery-nav-btn,
+.gallery-nav-btn:hover {
+    opacity: 1;
+    /* Efeito de vidro com a cor da marca */
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.15));
+    color: var(--light);
+    /* Ícone claro para melhor contraste */
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.2),
+        inset 0.1rem 0.1rem 0.2rem rgba(255, 255, 255, 0.25),
+        inset -0.1rem -0.1rem 0.2rem rgba(0, 0, 0, 0.1);
+    transform: translateY(-50%) scale(1.05);
+    /* Adiciona um leve efeito de zoom */
+}
+
+.gallery-nav-btn.prev {
+    left: 2rem;
+}
+
+.gallery-nav-btn.next {
+    right: 2rem;
+}
+
+.about-gallery {
+    display: flex;
+    flex-wrap: nowrap;
+    /* Garante que as imagens fiquem em uma única linha */
+    gap: 0.2rem;
+    /* Espaço entre as imagens (ainda mais reduzido) */
+    transform-style: preserve-3d;
+    /* Garante que o contexto 3D dos filhos seja mantido */
+    /* A animação de rolagem agora é controlada via JavaScript */
+}
+
+/* Corrigido para aplicar estilos diretamente às imagens da galeria, que não estão em um container */
+.about-gallery>img {
+    position: relative;
+    display: block;
+    object-fit: cover;
+    width: 110rem;
+    height: 56.2rem;
+    flex-shrink: 0;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    /* Mantém a imagem e a legenda dentro das bordas arredondadas */
+    z-index: 1;
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    transform: scale(0.92);
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+        border-color 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+        filter 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    opacity: 0;
+    animation: none;
+    filter: brightness(0.7) saturate(0.9);
+    cursor: pointer;
+}
+
+/* A funcionalidade de legenda (caption) não é possível com a estrutura HTML atual (<img> sem container)
+   e foi desconsiderada para esta correção. */
+.image-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 6rem 3rem 3rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 20%, transparent 100%);
+    color: rgba(255, 255, 255, 0.95);
+    z-index: 2;
+    opacity: 0;
+    transform: translateY(2rem);
+    transition: opacity 0.4s 0.2s ease-out, transform 0.4s 0.2s ease-out;
+    pointer-events: none;
+}
+
+.image-caption p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    text-align: justify;
+}
+
+/* Corrigido para aplicar a classe ativa diretamente na imagem */
+.about-gallery>img.gallery-image-active {
+    transform: scale(1.15) translateY(-15px);
+    z-index: 10;
+    border-color: var(--secondary);
+    box-shadow: 0 2.5rem 5rem rgba(0, 0, 0, 0.6), 0 0 3.5rem rgba(255, 255, 255, 0.5);
+    filter: brightness(1) saturate(1);
+}
+
+.about-gallery>img.gallery-image-active+.image-caption {
+    /* Seletor hipotético, não funcionará */
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.gallery-dots {
+    text-align: center;
+    margin-top: 1rem;
+    /* Reduzido ainda mais para aproximar os pontos da galeria */
+}
+
+.gallery-dots .dot {
+    display: inline-block;
+    width: 1.2rem;
+    height: 1.2rem;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    margin: 0 0.6rem;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    border: none;
+}
+
+.gallery-dots .dot.active {
+    background: var(--secondary);
+    transform: scale(1.2);
+}
+
+.about-content {
+    padding-right: 0;
+    /* Removido padding que era para o layout de grid */
+    width: 100%;
+    max-width: 140rem;
+    /* Alinha a largura do texto com a da galeria */
+}
+
+.about-title {
+    font-size: 2.2rem;
+    font-size: clamp(1.8rem, 4vw, 2.2rem);
+    /* O espaçamento agora é controlado pelo 'gap' do container .about */
+    margin-bottom: 0;
+    position: relative;
+    padding-bottom: 1.5rem;
+    text-align: center;
+    /* Centraliza o texto do título */
+}
+
+/* CORREÇÃO: As propriedades abaixo estavam fora de um seletor, causando um erro de sintaxe. */
+.about-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    /* Centraliza a linha abaixo do título */
+    transform: translateX(-50%);
+    /* Centraliza a linha abaixo do título */
+    width: 6rem;
+    height: 0.3rem;
+    background: linear-gradient(90deg, var(--secondary), var(--accent));
+    border-radius: 3px;
+}
+
+.about-text {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 3rem;
+    font-size: 1.5rem; /* Tamanho da fonte ligeiramente reduzido para melhor ajuste */
+    line-height: 1.7; /* Melhora o espaçamento entre as linhas */
+    text-align: justify; /* Alinha o texto com laterais retas */
+}
+
+.stats {
+    /* The 'stats' class is repurposed here to hold a single button. */
+    /* We remove the grid layout to allow the button to be styled correctly. */
+    margin-top: 4rem;
+    /* O alinhamento do botão é controlado pela media query para desktop */
+}
+
+.stats .btn {
+    /* Overriding animation properties to make the button visible by default */
+    opacity: 1;
+    transform: none;
+    flex-shrink: 0; /* Prevents the button from shrinking */
+}
+
+.about-image {
+    position: relative; /* Necessário para o posicionamento do pseudo-elemento da linha */
+}
+
+/* Linha decorativa animada para a imagem da seção "Quem Somos" */
+.about-image::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    border-bottom: 4px solid var(--secondary);
+    border-right: 4px solid var(--secondary);
+    border-radius: 0 0 1.5rem 0; /* Arredonda o canto para combinar com a imagem */
+    box-sizing: border-box;
+    pointer-events: none;
+    /* Estado inicial para a animação "subir" */
+    transform: scaleY(0);
+    transform-origin: bottom;
+    opacity: 0;
+    transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1) 0.2s, opacity 0.5s ease 0.2s;
+}
+
+.about-image.line-visible::after {
+    transform: scaleY(1);
+    opacity: 1;
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, var(--secondary), var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.stat-label {
+    color: rgba(255, 255, 255, 0.7);
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+}
+
+.linha {
+    display: none; /* A linha antiga é desativada. A nova é .linha-animada */
+}
+
+/* --- Estilos para a Seção de Parceiros (Carrossel Automático) --- */
+.partners-scroll-wrapper {
+    width: 100%;
+    overflow: hidden;
+    margin-top: 6rem;
+    /* Máscara para um efeito de fade nas laterais */
+    -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+    /* Adiciona espaço vertical para a animação de hover não ser cortada */
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.partners-container {
+    display: flex;
+    /* Usar flexbox para o container principal */
+    flex-wrap: nowrap;
+    /* Garantir que os logos fiquem em uma única linha */
+    align-items: center;
+    gap: 8rem;
+    /* Aumentado o espaçamento entre logos */
+    /* Animação de rolagem */
+    animation: scroll-logos 30s linear infinite;
+}
+
+@keyframes scroll-logos {
+    from {
+        transform: translateX(0%);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+
+    /* Move até a metade, onde começa a cópia */
+}
+
+.partners-scroll-wrapper:hover .partners-container {
+    animation-play-state: paused;
+    /* Pausa a animação ao passar o mouse */
+}
+
+.partner-logo {
+    height: 9rem;
+    /* Aumentando a altura do card */
+    padding: 2rem 4rem;
+    /* Ajustando o padding */
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+    flex-shrink: 0;
+    /* Impede que os logos encolham */
+}
+
+.partner-logo img {
+    max-height: 6rem;
+    /* Aumentando a altura da imagem */
+    filter: grayscale(100%) brightness(1.5) contrast(0.8);
+    /* Efeito esbranquiçado */
+    opacity: 0.8;
+    transition: var(--transition);
+}
+
+.partner-logo:hover {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.08));
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-0.5rem) scale(1.05);
+    /* Efeito de elevação e zoom */
+}
+
+.partner-logo:hover img {
+    filter: grayscale(0%) brightness(1) contrast(1);
+    opacity: 1;
+}
+
+
+.cta {
+    background-image: var(--cta-background-image);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    /* Efeito parallax */
+    text-align: center;
+    padding: 12rem 5%;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Overlay escuro sobre a imagem de fundo - REMOVIDO POIS NÃO HÁ SEÇÃO CTA NO HTML */
+.cta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(18, 18, 18, 0.7);
+    /* Cor escura com opacidade reduzida */
+    z-index: 1;
+    /* Acima da imagem de fundo, abaixo do conteúdo */
+}
+/*
+
+.cta-content {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+    /* Acima do gradiente */
+
+
+.cta-title {
+    font-size: 2.8rem;
+    margin-bottom: 20px;
+}
+
+.cta-text {
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 4rem;
+    font-size: 1.1rem;
+}
+*/
+/* Novo estilo do formulário */
+.form-container {
+    /* Centraliza o formulário na sua própria linha dentro do grid do footer */
+    grid-column: 1 / -1;
+    max-width: 70rem;
+    margin: 0 auto 4rem auto; /* Centraliza e adiciona margem inferior */
+
+    /* Estilo visual solicitado */
+    background: var(--light);
+    border: 3px solid var(--secondary);
+    border-radius: 2rem;
+
+    /* Ajustes adicionais */
+    padding: 4rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    color: var(--dark); /* Garante que o texto dentro seja legível */
+}
+
+.form-container h2 {
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+    width: 85%;
+    margin: 1rem auto; /* Centraliza;
+}
+
+.form-container label {
+    display: block;
+    margin-bottom: 0.8rem;
+    font-weight: 500;
+    color: var(--gray); /* Cor do label mais suave */
+}
+
+.form-container input[type="text"],
+.form-container input[type="email"],
+.form-container input[type="tel"] {
+    width: 85%;
+    padding: 1.4rem 2rem;
+    background: var(--light-gray); /* Fundo cinza claro para os inputs */
+    border: 3px solid #f6b21b; /* Borda um pouco mais visível */
+    border-radius: 2.5rem; /* Bordas mais arredondadas */
+    outline: none;
+    font-family: var(--font-primary);
+    color: var(--dark); /* Cor do texto escura */
+    transition: var(--transition);
+}
+
+/* Estilo para o placeholder dos inputs */
+.form-container input::placeholder {
+    color: #999;
+    opacity: 1; /* Garante que a cor seja aplicada em todos os navegadores */
+}
+
+.form-container input:focus {
+    border-color: var(--secondary);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2);
+}
+
+.form-container .politica {
+    color: var(--gray);
+    font-size: 0.9em;
+}
+
+.form-container .politica a {
+    color: var(--secondary);
+    text-decoration: underline;
+}
+
+#submitBtn {
+    background: var(--secondary); /* Fundo amarelo sólido */
+    color: var(--dark); /* Texto escuro para melhor contraste */
+    border: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    font-family: var(--font-primary);
+    font-weight: 900;
+    padding: 1.4rem 2rem;
+    border-radius: 2.5rem;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    width: 85%;
+    margin-top: 1rem;
+    font-size: 1rem;
+}
+
+#submitBtn:hover {
+    background: #e0a010; /* Um tom de amarelo um pouco mais escuro para o hover */
+    transform: translateY(-0.3rem);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+#submitBtn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.error-message {
+    color: #ff4d4d;
+    font-size: 14px;
+    font-size: 0.875rem;
+    margin-top: 5px;
+    display: none;
+}
+
+.success-message {
+    background-color: rgba(40, 167, 69, 0.2);
+    border: 1px solid rgba(40, 167, 69, 0.4);
+    color: #ffffff;
+    padding: 1.5rem;
+    border-radius: 0.8rem;
+    margin-bottom: 2rem;
+    display: none;
+}
+
+.loading {
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    border: 0.3rem solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 1s ease-in-out infinite;
+    margin-left: 1rem;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+footer {
+    /* Combina o overlay escuro com a imagem de fundo para garantir a legibilidade */
+    background-image: linear-gradient(rgba(18, 18, 18, 0.75), rgba(18, 18, 18, 0.75)), url('./img/fundo-footer01.png');
+    background-size: cover;
+    background-position: center;
+    padding: 6rem 5% 3rem;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Container de partículas do footer */
+#footer-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    pointer-events: none;
+    overflow: visible;
+    will-change: opacity;
+    filter: brightness(1.2);
+}
+
+/* Partículas do footer - pequenas estrelas brancas */
+#footer-particles::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    will-change: transform;
+    box-shadow: 
+        /* LADO ESQUERDO - extremo */
+        2vw 10% 0 1px rgba(255, 255, 255, 0.9),
+        1vw 20% 0 1px rgba(255, 255, 255, 0.8),
+        2vw 30% 0 1px rgba(255, 255, 255, 0.9),
+        1vw 40% 0 1px rgba(255, 255, 255, 0.8),
+        2vw 50% 0 1px rgba(255, 255, 255, 0.9),
+        1vw 60% 0 1px rgba(255, 255, 255, 0.8),
+        2vw 70% 0 1px rgba(255, 255, 255, 0.9),
+        2vw 80% 0 1px rgba(255, 255, 255, 0.8),
+        1vw 90% 0 1px rgba(255, 255, 255, 0.9),
+        /* Esquerda */
+        10vw 8% 0 1px rgba(255, 255, 255, 0.9),
+        12vw 18% 0 1px rgba(255, 255, 255, 0.8),
+        11vw 28% 0 1px rgba(255, 255, 255, 0.9),
+        10vw 38% 0 1px rgba(255, 255, 255, 0.8),
+        12vw 48% 0 1px rgba(255, 255, 255, 0.9),
+        11vw 58% 0 1px rgba(255, 255, 255, 0.8),
+        10vw 68% 0 1px rgba(255, 255, 255, 0.9),
+        10vw 78% 0 1px rgba(255, 255, 255, 0.8),
+        10vw 88% 0 1px rgba(255, 255, 255, 0.9),
+        10vw 98% 0 1px rgba(255, 255, 255, 0.8),
+        /* Esquerda-Centro */
+        20vw 7% 0 1px rgba(255, 255, 255, 0.9),
+        20vw 77% 0 1px rgba(255, 255, 255, 0.8),
+        20vw 87% 0 1px rgba(255, 255, 255, 0.9),
+        20vw 97% 0 1px rgba(255, 255, 255, 0.8),
+        22vw 17% 0 1px rgba(255, 255, 255, 0.8),
+        21vw 27% 0 1px rgba(255, 255, 255, 0.9),
+        20vw 37% 0 1px rgba(255, 255, 255, 0.8),
+        22vw 47% 0 1px rgba(255, 255, 255, 0.9),
+        21vw 57% 0 1px rgba(255, 255, 255, 0.8),
+        20vw 67% 0 1px rgba(255, 255, 255, 0.9),
+        /* Centro */
+        30vw 5% 0 1px rgba(255, 255, 255, 0.8),
+        35vw 15% 0 1px rgba(255, 255, 255, 0.9),
+        40vw 10% 0 1px rgba(255, 255, 255, 0.9),
+        42vw 20% 0 1px rgba(255, 255, 255, 0.8),
+        41vw 30% 0 1px rgba(255, 255, 255, 0.9),
+        40vw 40% 0 1px rgba(255, 255, 255, 0.8),
+        42vw 50% 0 1px rgba(255, 255, 255, 0.9),
+        41vw 60% 0 1px rgba(255, 255, 255, 0.8),
+        40vw 70% 0 1px rgba(255, 255, 255, 0.9),
+        42vw 80% 0 1px rgba(255, 255, 255, 0.8),
+        41vw 90% 0 1px rgba(255, 255, 255, 0.9),
+        50vw 5% 0 1px rgba(255, 255, 255, 0.9),
+        50vw 25% 0 1px rgba(255, 255, 255, 0.8),
+        50vw 45% 0 1px rgba(255, 255, 255, 0.9),
+        50vw 65% 0 1px rgba(255, 255, 255, 0.8),
+        50vw 85% 0 1px rgba(255, 255, 255, 0.9),
+        /* Centro-Direita */
+        60vw 3% 0 1px rgba(255, 255, 255, 0.9),
+        60vw 13% 0 1px rgba(255, 255, 255, 0.8),
+        62vw 23% 0 1px rgba(255, 255, 255, 0.9),
+        61vw 33% 0 1px rgba(255, 255, 255, 0.8),
+        60vw 43% 0 1px rgba(255, 255, 255, 0.9),
+        62vw 53% 0 1px rgba(255, 255, 255, 0.8),
+        61vw 63% 0 1px rgba(255, 255, 255, 0.9),
+        60vw 73% 0 1px rgba(255, 255, 255, 0.8),
+        62vw 83% 0 1px rgba(255, 255, 255, 0.9),
+        61vw 93% 0 1px rgba(255, 255, 255, 0.8),
+        70vw 10% 0 1px rgba(255, 255, 255, 0.9),
+        70vw 30% 0 1px rgba(255, 255, 255, 0.8),
+        70vw 50% 0 1px rgba(255, 255, 255, 0.9),
+        70vw 70% 0 1px rgba(255, 255, 255, 0.8),
+        70vw 90% 0 1px rgba(255, 255, 255, 0.9),
+        /* Direita */
+        80vw 8% 0 1px rgba(255, 255, 255, 0.9),
+        82vw 18% 0 1px rgba(255, 255, 255, 0.8),
+        81vw 28% 0 1px rgba(255, 255, 255, 0.9),
+        80vw 38% 0 1px rgba(255, 255, 255, 0.8),
+        82vw 48% 0 1px rgba(255, 255, 255, 0.9),
+        81vw 58% 0 1px rgba(255, 255, 255, 0.8),
+        80vw 68% 0 1px rgba(255, 255, 255, 0.9),
+        82vw 78% 0 1px rgba(255, 255, 255, 0.8),
+        81vw 88% 0 1px rgba(255, 255, 255, 0.9),
+        /* Extrema Direita */
+        90vw 12% 0 1px rgba(255, 255, 255, 0.8),
+        92vw 22% 0 1px rgba(255, 255, 255, 0.9),
+        91vw 32% 0 1px rgba(255, 255, 255, 0.8),
+        90vw 42% 0 1px rgba(255, 255, 255, 0.9),
+        92vw 52% 0 1px rgba(255, 255, 255, 0.8),
+        91vw 62% 0 1px rgba(255, 255, 255, 0.9),
+        90vw 72% 0 1px rgba(255, 255, 255, 0.8),
+        92vw 82% 0 1px rgba(255, 255, 255, 0.9),
+        91vw 92% 0 1px rgba(255, 255, 255, 0.8),
+        /* Muito Extrema Direita */
+        97vw 15% 0 1px rgba(255, 255, 255, 0.9),
+        98vw 35% 0 1px rgba(255, 255, 255, 0.8),
+        97vw 55% 0 1px rgba(255, 255, 255, 0.9),
+        98vw 75% 0 1px rgba(255, 255, 255, 0.8),
+        97vw 95% 0 1px rgba(255, 255, 255, 0.9);
+    animation: satellitesFloat 120s linear infinite;
+}
+
+#footer-particles::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1px;
+    height: 1px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.7);
+    will-change: transform;
+    box-shadow: 
+        /* LADO ESQUERDO - muito extremo */
+        1vw 12% 0 0 rgba(255, 255, 255, 0.6),
+        2vw 24% 0 0 rgba(255, 255, 255, 0.7),
+        1vw 36% 0 0 rgba(255, 255, 255, 0.6),
+        2vw 48% 0 0 rgba(255, 255, 255, 0.7),
+        1vw 60% 0 0 rgba(255, 255, 255, 0.6),
+        2vw 72% 0 0 rgba(255, 255, 255, 0.7),
+        1vw 84% 0 0 rgba(255, 255, 255, 0.6),
+        2vw 96% 0 0 rgba(255, 255, 255, 0.7),
+        /* Topo completa */
+        3vw 5% 0 0 rgba(255, 255, 255, 0.6),
+        8vw 6% 0 0 rgba(255, 255, 255, 0.7),
+        12vw 7% 0 0 rgba(255, 255, 255, 0.6),
+        15vw 7% 0 0 rgba(255, 255, 255, 0.6),
+        20vw 5% 0 0 rgba(255, 255, 255, 0.7),
+        25vw 6% 0 0 rgba(255, 255, 255, 0.7),
+        30vw 8% 0 0 rgba(255, 255, 255, 0.6),
+        35vw 8% 0 0 rgba(255, 255, 255, 0.6),
+        40vw 6% 0 0 rgba(255, 255, 255, 0.7),
+        45vw 7% 0 0 rgba(255, 255, 255, 0.7),
+        50vw 9% 0 0 rgba(255, 255, 255, 0.6),
+        55vw 9% 0 0 rgba(255, 255, 255, 0.6),
+        60vw 7% 0 0 rgba(255, 255, 255, 0.7),
+        65vw 8% 0 0 rgba(255, 255, 255, 0.7),
+        70vw 9% 0 0 rgba(255, 255, 255, 0.6),
+        75vw 10% 0 0 rgba(255, 255, 255, 0.6),
+        80vw 8% 0 0 rgba(255, 255, 255, 0.7),
+        85vw 9% 0 0 rgba(255, 255, 255, 0.7),
+        90vw 7% 0 0 rgba(255, 255, 255, 0.6),
+        95vw 10% 0 0 rgba(255, 255, 255, 0.6),
+        98vw 8% 0 0 rgba(255, 255, 255, 0.7),
+        /* Meio */
+        5vw 50% 0 0 rgba(255, 255, 255, 0.6),
+        15vw 52% 0 0 rgba(255, 255, 255, 0.7),
+        25vw 48% 0 0 rgba(255, 255, 255, 0.6),
+        35vw 51% 0 0 rgba(255, 255, 255, 0.7),
+        45vw 49% 0 0 rgba(255, 255, 255, 0.6),
+        55vw 52% 0 0 rgba(255, 255, 255, 0.7),
+        65vw 50% 0 0 rgba(255, 255, 255, 0.6),
+        75vw 51% 0 0 rgba(255, 255, 255, 0.7),
+        85vw 49% 0 0 rgba(255, 255, 255, 0.6),
+        95vw 52% 0 0 rgba(255, 255, 255, 0.7),
+        /* Base */
+        8vw 90% 0 0 rgba(255, 255, 255, 0.7),
+        18vw 92% 0 0 rgba(255, 255, 255, 0.6),
+        28vw 91% 0 0 rgba(255, 255, 255, 0.7),
+        38vw 93% 0 0 rgba(255, 255, 255, 0.6),
+        48vw 92% 0 0 rgba(255, 255, 255, 0.7),
+        58vw 94% 0 0 rgba(255, 255, 255, 0.6),
+        68vw 92% 0 0 rgba(255, 255, 255, 0.7),
+        78vw 95% 0 0 rgba(255, 255, 255, 0.6),
+        88vw 93% 0 0 rgba(255, 255, 255, 0.7),
+        98vw 96% 0 0 rgba(255, 255, 255, 0.6);
+    animation: footerStarsFloat 100s linear infinite;
+}
+
+#footer-particles::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    will-change: transform;
+    box-shadow: 
+        /* Distribuição uniforme */
+        5vw 15% 0 1px rgba(255, 255, 255, 0.8),
+        15vw 25% 0 1px rgba(255, 255, 255, 0.9),
+        25vw 35% 0 1px rgba(255, 255, 255, 0.8),
+        35vw 45% 0 1px rgba(255, 255, 255, 0.9),
+        45vw 55% 0 1px rgba(255, 255, 255, 0.8),
+        55vw 65% 0 1px rgba(255, 255, 255, 0.9),
+        65vw 75% 0 1px rgba(255, 255, 255, 0.8),
+        75vw 85% 0 1px rgba(255, 255, 255, 0.9),
+        85vw 20% 0 1px rgba(255, 255, 255, 0.8),
+        95vw 40% 0 1px rgba(255, 255, 255, 0.9),
+        10vw 60% 0 1px rgba(255, 255, 255, 0.8),
+        20vw 80% 0 1px rgba(255, 255, 255, 0.9),
+        30vw 95% 0 1px rgba(255, 255, 255, 0.8),
+        40vw 70% 0 1px rgba(255, 255, 255, 0.9),
+        50vw 30% 0 1px rgba(255, 255, 255, 0.8),
+        60vw 50% 0 1px rgba(255, 255, 255, 0.9),
+        70vw 10% 0 1px rgba(255, 255, 255, 0.8),
+        80vw 90% 0 1px rgba(255, 255, 255, 0.9),
+        90vw 70% 0 1px rgba(255, 255, 255, 0.8),
+        97vw 25% 0 1px rgba(255, 255, 255, 0.9);
+    animation: footerStarsFloat 130s linear infinite reverse;
+}
+
+/* Animação para estrelas do footer */
+@keyframes footerStarsFloat {
+    0% {
+        transform: translate(0, 0) translateZ(0);
+    }
+    50% {
+        transform: translate(20px, -20px) translateZ(0);
+    }
+    100% {
+        transform: translate(0, 0) translateZ(0);
+    }
+}
+
+.footer-grid {
+    position: relative;
+    z-index: 10;
+}
+
+.footer-services-col {
+    /* margin-left: -45px; */
+    /* Removida a margem negativa */
+}
+
+/* Estilo específico para a lista de serviços no rodapé */
+.footer-services-col .footer-links {
+    /* CORREÇÃO: Usar Grid em vez de column-count para mais controle e
+       prevenção de overflow em larguras de tela intermediárias. */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 2rem;
+    /* Espaço apenas entre as colunas */
+}
+
+.footer-grid {
+    display: grid;
+    /*
+     * CORREÇÃO: A definição de colunas anterior era rígida e causava
+     * overflow horizontal, quebrando o layout da página inteira.
+     * Esta nova definição é totalmente responsiva, criando colunas que se
+     * adaptam ao espaço disponível e prevenindo a quebra do layout.
+    */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 4rem;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.footer-logo img {
+    height: 6rem;
+}
+
+.footer-logo h3 {
+    font-family: var(--font-secondary);
+    font-weight: 700;
+    font-size: 1.8rem;
+    background: linear-gradient(135deg, var(--secondary), var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.footer-about {
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 2.5rem;
+    max-width: 30rem;
+    font-size: 1.6rem; /* Tamanho da fonte aumentado */
+    line-height: 1.7;  /* Espaçamento entre linhas melhorado */
+}
+
+.social-links {
+    display: flex;
+    gap: 1.5rem;
+
+}
+
+.social-link {
+    width: 4.5rem;  /* Tamanho do container do ícone aumentado */
+    height: 4.5rem; /* Tamanho do container do ícone aumentado */
+    /* Efeito de vidro 3D */
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 0.4rem 2rem rgba(0, 0, 0, 0.25),
+        inset 0.1rem 0.1rem 0.1rem rgba(255, 255, 255, 0.2),
+        inset -0.1rem -0.1rem 0.1rem rgba(0, 0, 0, 0.1);
+
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--light);
+    font-size: 2rem; /* Tamanho do ícone aumentado */
+    /* Atualiza a transição para incluir as novas propriedades */
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+    text-decoration: none;
+}
+
+.social-link:hover {
+    /* Intensifica o efeito de vidro e a cor do ícone */
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+    color: var(--accent);
+    transform: translateY(-5px) scale(1.05);
+    /* Efeito de elevação e zoom */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3),
+        inset 1px 1px 2px rgba(255, 255, 255, 0.3),
+        inset -1px -1px 1px rgba(0, 0, 0, 0.15);
+}
+
+.footer-title {
+    font-size: 2rem; /* Tamanho da fonte aumentado */
+    margin-bottom: 2rem;
+    position: relative;
+    padding-bottom: 10px;
+    color: var(--light);
+}
+
+.footer-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background: var(--secondary);
+}
+
+.footer-links {
+    list-style: none;
+    /* Padrão para listas no rodapé: uma única coluna */
+    column-count: 1;
+    font-size: 1.5rem; /* Tamanho da fonte aumentado */
+}
+
+.footer-links li {
+    margin-bottom: 1.2rem;
+}
+
+.footer-links a {
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    /* white-space: nowrap; <- Removido daqui, aplicado apenas na lista de serviços */
+}
+
+.footer-links a:hover {
+    color: var(--accent);
+    padding-left: 0.5rem;
+}
+
+.footer-links a i {
+    font-size: 1.6rem; /* Tamanho do ícone aumentado */
+    color: var(--secondary);
+}
+
+.footer-contact-item {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1.6rem; /* Tamanho da fonte aumentado */
+}
+
+.footer-contact-item i {
+    color: var(--secondary);
+    font-size: 2rem; /* Tamanho do ícone aumentado */
+}
+
+.footer-divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.05);
+    margin: 2rem 0;
+}
+
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 14px;
+    font-size: 0.875rem;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+/* Ajuste responsivo para a lista de serviços voltar a uma coluna em telas menores */
+@media (max-width: 768px) {
+    .footer-services-col .footer-links {
+        /* Em telas menores, a lista de serviços volta a ter uma única coluna. */
+        grid-template-columns: 1fr;
+    }
+
+    /* Em telas menores, o repeat(auto-fit, minmax(250px, 1fr)) acima já deve resultar em 1 coluna se necessário */
+}
+
+/* Animations */
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Animação para o carrossel de cards de serviço */
+@keyframes scroll-cards {
+    from {
+        transform: translateX(0%);
+    }
+    to {
+        transform: translateX(-50%); /* Move até a metade, onde começa a cópia */
+    }
+}
+
+/* Animação de entrada "trenzinho" para a galeria */
+@keyframes trainEnter {
+    from {
+        opacity: 0;
+        /* Começa do lado e menor */
+        transform: translateX(50px) scale(0.8);
+    }
+
+    to {
+        opacity: 1;
+        /* Anima para o estado de "repouso" 2D padrão */
+        transform: scale(0.92);
+    }
+}
+
+/* Animação de movimento vertical para as estrelas */
+@keyframes move-stars {
+    from { transform: translateY(0); }
+    to { transform: translateY(-50%); } /* Move para cima em 100% da altura da tela */
+}
+
+/* Animação de partículas otimizada com transform */
+@keyframes move-particles-transform {
+    from {
+        transform: translate(0, 0);
+    }
+
+    to {
+        transform: translate(-50%, -50%);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+    }
+
+    70% {
+        box-shadow: 0 0 0 1.5rem rgba(255, 255, 255, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+    }
+}
+
+/* Bouncing Arrow Animation */
+.scroll-arrow {
+    position: absolute;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: bounce 2s infinite;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.scroll-arrow i {
+    font-size: 3rem;
+    color: var(--light);
+    opacity: 0.7;
+    transition: var(--transition);
+}
+
+.scroll-arrow a,
+.scroll-arrow a:visited,
+.scroll-arrow a:hover {
+    color: inherit;
+    text-decoration: none;
+}
+
+.scroll-arrow:hover i {
+    opacity: 1;
+    color: var(--accent);
+}
+
+@keyframes bounce {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(0) translateX(-50%);
+    }
+
+    40% {
+        transform: translateY(-2rem) translateX(-50%);
+    }
+
+    60% {
+        transform: translateY(-1.5rem) translateX(-50%);
+    }
+}
+
+/* --- Botão Voltar ao Topo --- */
+.scroll-to-top {
+    position: fixed;
+    bottom: 3rem;
+    right: 3rem;
+    width: 5rem;
+    height: 5rem;
+    z-index: 999;
+    /* Abaixo do header, mas acima do resto */
+
+    /* Efeito de vidro */
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 0.8rem 3.2rem rgba(0, 0, 0, 0.3);
+
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+
+    /* Estado inicial (escondido) */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(2rem);
+    pointer-events: none;
+    transition: opacity 0.4s ease, visibility 0.4s ease, transform 0.4s ease, background 0.3s ease, border-color 0.3s ease;
+}
+
+.scroll-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+@media (max-width: 1024px) {
+    .about-gallery>img {
+        width: 85rem;
+        height: 43.4rem;
+        /* Mantém a proporção de 900/460 */
+    }
+}
+
+.scroll-to-top i {
+    font-size: 20px;
+    font-size: 1.25rem;
+    color: var(--secondary);
+    /* Ícone amarelo */
+}
+
+.scroll-to-top:hover {
+    /* Fundo fica com o tom amarelo no hover */
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.15));
+    transform: translateY(-0.5rem);
+    /* Efeito de elevação */
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* --- MEDIA QUERIES PARA RESPONSIVIDADE --- */
+
+/* Ajustes para os cards de serviço em telas menores, mantendo as 5 colunas */
+@media (max-width: 1200px) {
+    .feature-card {
+        padding: 1.5rem 2rem;
+    }
+    .feature-header {
+        margin-bottom: 1.5rem;
+    }
+    .feature-header .feature-icon {
+        width: 6rem;
+        height: 6rem;
+        margin-bottom: 1.5rem;
+    }
+    .feature-icon i {
+        font-size: 2.8rem; /* Aumentado proporcionalmente */
+    }
+    .feature-title {
+        font-size: 1.1rem;
+    }
+    .feature-text {
+        font-size: 0.9rem;
+    }
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    /* Para tablets, aumentamos a fonte base para melhor legibilidade */
+    html {
+        font-size: 81.25%; /* 13px base */
+    }
+
+    .about {
+        grid-template-columns: 1fr;
+        gap: 4rem;
+    }
+
+    #about .about .linha {
+        /* Esconde a linha decorativa em telas menores onde o layout é de uma coluna */
+        display: none;
+    }
+
+    .about-image {
+        order: -1;
+        max-width: 60rem;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Para celulares, a fonte base é ainda maior para garantir a leitura */
+    html {
+        font-size: 87.5%; /* 14px base */
+    }
+
+    .banner h2 {
+        font-size: clamp(2.2rem, 8vw, 3rem);
+    }
+
+    .title-service, .section-title {
+        font-size: clamp(1.8rem, 7vw, 2.2rem);
+    }
+
+    /* .cta {
+        padding: 80px 5%;
+    }
+
+    .contact-form {
+        grid-template-columns: 1fr;
+        padding: 30px 20px;
+    }
+
+    .form-group.full {
+        grid-column: 1;
+    }
+
+    .submit-btn {
+        grid-column: 1;
+    } */
+
+    nav ul { 
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: rgba(18, 18, 18, 0.9);
+        backdrop-filter: blur(10px);
+        padding: 2rem;
+        flex-direction: column;
+        gap: 1.5rem;
+        max-height: calc(100vh - 8rem);
+        /* Garante que o menu não seja muito longo em telas curtas */
+        overflow-y: auto;
+        /* Adiciona rolagem se o conteúdo do menu for maior que a tela */
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    nav.active ul {
+        display: flex;
+    }
+
+    .menu-toggle {
+        display: flex;
+    }
+
+    .menu-toggle.active span:nth-child(1) {
+        transform: translateY(0.9rem) rotate(45deg);
+    }
+
+    .menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .menu-toggle.active span:nth-child(3) {
+        transform: translateY(-0.9rem) rotate(-45deg);
+    }
+}
+
+@media (max-width: 576px) {
+
+    .banner h3 {
+        font-size: 1.6rem; /* Ajuste proporcional para telas menores */
+    } 
+
+    .banner, .service, .description, .mapa {
+        padding: 8rem 5%;
+    }
+
+    /* .cta {
+        padding: 60px 5%;
+    }
+
+    .cta-title {
+        font-size: 2.2rem;
+    } */
+
+    .about-gallery>img {
+        width: 90vw;
+        height: auto;
+        aspect-ratio: 900 / 460;
+    }
+}
+
+/* Loading Animation */
+.loader-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--dark);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.8s, visibility 0.8s;
+}
+
+.loader {
+    width: 8rem;
+    height: 8rem;
+    position: relative;
+}
+
+.loader:before,
+.loader:after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    animation: pulse 2s linear infinite;
+}
+
+.loader:before {
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    animation-delay: 0.5s;
+}
+
+.loader:after {
+    width: 50%;
+    height: 50%;
+    background: var(--secondary);
+    top: 25%;
+    left: 25%;
+    animation: pulse 2s linear infinite;
+}
+
+.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* Floating Elements */
+.floating {
+    animation: floating 3s ease-in-out infinite;
+}
+
+@keyframes floating {
+    0% {
+        transform: translate(0, 0px);
+    }
+
+    50% {
+        transform: translate(0, 1.5rem);
+    }
+
+    100% {
+        transform: translate(0, 0px);
+    }
+}
+
+/* --- Estilos para a Seção do Mapa --- */
+#map-section {
+    /* Container principal da seção do mapa */
+    width: 90%;
+    /* CORREÇÃO: Usar % para evitar overflow causado pela barra de rolagem */
+    max-width: 140rem;
+    /* Limite para telas ultra-wide */
+    margin: 10rem auto;
+    /* Adiciona 100px de margem em cima/baixo e centraliza horizontalmente */
+    border-radius: 1.5rem;
+    /* Bordas arredondadas para integrar ao design */
+    overflow: hidden;
+    /* Garante que o mapa respeite as bordas arredondadas */
+    padding: 2.5rem;
+    /* Espaçamento interno */
+    text-align: center;
+    /* Efeito de vidro 3D */
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 1.5rem 3.5rem rgba(255, 223, 43, 0.788), inset 0.1rem 0.1rem 0.1rem rgba(255, 255, 255, 0.2), inset -0.1rem -0.1rem 0.1rem rgba(0, 0, 0, 0.15);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+#map-section:hover {
+    transform: translateY(-0.5rem) scale(1.01);
+    box-shadow: 0 2.5rem 5rem rgba(0, 0, 0, 0.4), inset 0.1rem 0.1rem 0.2rem rgba(255, 255, 255, 0.3), inset -0.1rem -0.1rem 0.2rem rgba(0, 0, 0, 0.2);
+}
+
+/* Wrapper para o mapa, para permitir o overlay */
+.map-wrapper {
+    position: relative;
+    border-radius: 1rem;
+    /* Garante que o wrapper tenha as mesmas bordas do iframe */
+    overflow: hidden;
+    /* Essencial para conter o iframe e o overlay */
+}
+
+/* Div para cobrir a área de perfil do usuário no mapa */
+.map-profile-cover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    /* Alterado para cobrir a barra inteira */
+    width: 100%;
+    /* Alterado para cobrir a barra inteira */
+    height: 4.8rem;
+    /* Altura exata da barra de título do mapa */
+    background-color: #2E312F;
+    /* Cor escura para contraste com a borda */
+    z-index: 2;
+    /* Fica sobre o iframe */
+    display: none;
+    /* Escondido por padrão (em telas pequenas) */
+    /* Estilos para o texto dentro da barra */
+    color: var(--secondary);
+    /* Texto amarelo para combinar com a borda */
+    font-size: 1.1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    align-items: center;
+    justify-content: center;
+    /* Centraliza o texto */
+    box-sizing: border-box;
+    border: 0.2rem solid var(--secondary);
+    /* Borda amarela solicitada */
+}
+
+/* Mostra o overlay apenas em telas maiores onde o perfil aparece */
+@media (min-width: 641px) {
+    .map-profile-cover {
+        display: flex;
+        /* Usa flex para alinhar o texto */
+    }
+}
+
+#map-section iframe {
+    width: 100%;
+    border: none;
+    /* A borda agora é controlada pelo wrapper */
+    display: block;
+    /* Remove um pequeno espaço extra que iframes podem ter na base */
+    position: relative;
+    /* Garante o contexto de empilhamento correto */
+    z-index: 1;
+    /* Coloca o iframe abaixo do overlay */
+}
+
+.mapa#mental {
+    /* Fundo removido para ser aplicado apenas no container da imagem */
+    background: none;
+    padding: 2rem 0; /* Remove padding lateral para o container ir até a borda */
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+}
+
+.mapa#mental>* {
+    position: relative;
+    z-index: 2;
+}
+
+.mapa#mental .section-subtitle {
+    margin-bottom: 0;
+    /* A margem agora é controlada pelo container de texto */
+}
+
+.mapa-container {
+    margin-top: 0;
+    /* Remove a margem superior para aproximar o mapa do texto */
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    /* Centraliza a imagem */
+    padding: 2rem 0; /* Remove padding lateral, mantém vertical */
+    display: block; /* Faz o container ocupar a largura total */
+}
+
+.mapa-container::before {
+    content: '';
+    position: absolute;
+    top: 47%;
+    transform: translateY(-50%);
+    left: 0;
+    width: 100%;
+    height: 50%; /* Altura do retângulo de fundo reduzida */
+    background: linear-gradient(to right, #f6b21b, #20202044, #0c0c0c00);
+    border-radius: 0; /* Remove o arredondamento para colar nas bordas */
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.3);
+    z-index: -1; /* Fica atrás da imagem */
+}
+
+.mapa-container img {
+    max-width: 140rem;
+    /* Aumenta a largura máxima do mapa para melhor visualização */
+    width: 100%;
+    /* Torna a imagem responsiva */
+    height: auto;
+    border-radius: 0; /* Remove o arredondamento para colar nas bordas */
+    border: 1px solid rgba(255, 255, 255, 0.05); /* Borda mais sutil */
+    box-shadow: none; /* Sombra removida da imagem, pois está no container */
+    display: block; /* Remove espaço extra abaixo da imagem */
+}
+
+/* Animação de entrada para a seção do mapa */
+.mapa#mental .mapa-text-container,
+.mapa#mental .mapa-container {
+    opacity: 0;
+    transform: translateY(4rem);
+    transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.mapa#mental.is-visible .mapa-text-container {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.2s;
+    /* Atraso para o container de texto */
+}
+
+.mapa#mental.is-visible .mapa-container {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.4s;
+
+} /* Atraso maior para o mapa, criando um efeito em cascata */
