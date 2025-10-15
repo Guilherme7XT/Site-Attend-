@@ -2,7 +2,7 @@
 :root {
     --primary: #000000;    /* Preto */
     --secondary: #f6b21b;  /* Amarelo-ouro */
-    --accent: #f6b21b;     /* Amarelo-ouro (mantido igual para consistência) */
+    --accent: #f6b21b;     /* Amarelo-ouro */
     --dark: #121212;       /* Preto quase preto */
     --light: #FFFFFF;      /* Branco */
     --light-gray: #f8f9fa; /* Cinza claro */
@@ -52,62 +52,56 @@ a {
     border-radius: 1rem;
 }
 
-/* --- Header Principal (Sempre Fixo no Topo) --- */
+/* --- Header Principal --- */
 .header-main {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 1001;
-    background: var(--dark);
-    padding: 1.5rem 5%;
+    background: rgba(18, 18, 18, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 1.5rem 1rem 1.5rem 5%;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     box-shadow: 0 0.2rem 1rem rgba(0, 0, 0, 0.3);
     transition: opacity 0.4s ease;
+    position: relative;
 }
 
-
-/* Classe para esconder o header principal quando o secundário aparece */
 .header-main.hidden-by-scroll {
     opacity: 0;
     pointer-events: none;
 }
 
-/* --- Header Secundário (Aparece na Rolagem) --- */
+/* --- Header Secundário --- */
 .header-on-scroll {
     position: fixed;
-    width: 95%;
-    max-width: 160rem;
-    left: 50%;
-    top: 1rem;
+    width: 100%;
+    left: 0;
+    top: 0;
     z-index: 1000;
-
-    background: rgba(18, 18, 18, 0.75);
+    background: rgba(18, 18, 18, 0.95);
     backdrop-filter: blur(10px);
-    border-radius: 1.2rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 0.8rem 3.2rem rgba(0, 0, 0, 0.3);
-    padding: 1.5rem 3rem;
+    padding: 1.5rem 1rem 1.5rem 5%;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
-
+    box-shadow: 0 0.2rem 1rem rgba(0, 0, 0, 0.3);
     opacity: 0;
-    transform: translateX(-50%) translateY(-1rem) scale(0.95);
+    transform: translateY(-100%);
     pointer-events: none;
     transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+    position: relative;
 }
 
-/* Classe para mostrar o header secundário */
 .header-on-scroll.visible {
     opacity: 1;
-    transform: translateX(-50%) translateY(0) scale(1);
+    transform: translateY(0);
     pointer-events: auto;
     transition-delay: 0.15s;
 }
-
 
 .logo {
     display: flex;
@@ -117,56 +111,47 @@ a {
 
 .logo img {
     height: 5.5rem;
+    transition: var(--transition);
 }
 
 .header-on-scroll .logo img {
     height: 4.5rem;
 }
 
-.logo h1 {
-    font-family: var(--font-secondary);
-    font-weight: 700;
-    font-size: 1.5rem;
-    background: linear-gradient(135deg, var(--secondary), var(--accent));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    letter-spacing: 1px;
+/* Navegação */
+.nav-menu {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
-nav ul {
+.nav-menu ul {
     display: flex;
     list-style: none;
-    gap: 6rem;
+    gap: 3rem;
+    margin: 0;
+    padding: 0;
 }
 
-nav a {
-    color: rgba(255, 255, 255, 0.4);
+.nav-menu a {
+    color: rgba(255, 255, 255, 0.8);
     font-family: var(--font-secondary);
-    font-weight: 200;
-    font-size: 1.125rem;
+    font-weight: 500;
+    font-size: 1.4rem;
     position: relative;
     padding: 0.5rem 0;
     transition: var(--transition);
+    text-decoration: none;
 }
 
-.header-main nav a {
-    font-size: 1.3rem;
+.nav-menu a:hover {
+    color: var(--secondary);
 }
 
-@media (min-width: 769px) {
-    nav {
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-    }
-}
-
-nav a:hover {
-    color: var(--accent);
-}
-
-nav a::after {
+.nav-menu a::after {
     content: '';
     position: absolute;
     bottom: 0;
@@ -177,11 +162,151 @@ nav a::after {
     transition: var(--transition);
 }
 
-nav a:hover::after {
+.nav-menu a:hover::after {
     width: 100%;
 }
 
-/* --- General Section & Button Styles --- */
+/* Menu Toggle para Mobile */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 0.4rem;
+    padding: 0.5rem;
+    z-index: 1002;
+    position: absolute;
+    right: 0.2rem;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* Posicionamento do menu toggle em mobile */
+@media (max-width: 991px) {
+    .menu-toggle {
+        display: flex;
+        right: 0.1rem;
+    }
+    
+    .nav-menu {
+        display: none;
+    }
+}
+
+.menu-toggle span {
+    width: 2.5rem;
+    height: 0.3rem;
+    background: var(--secondary);
+    transition: var(--transition);
+    border-radius: 0.2rem;
+    transform-origin: center;
+}
+
+/* Animação do menu toggle */
+.menu-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(0.6rem, 0.6rem);
+}
+
+.menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(0.6rem, -0.6rem);
+}
+
+/* --- Seção Banner NOC --- */
+.intro-noc-banner {
+    position: relative;
+    min-height: 100vh;
+    padding: 12rem 5% 8rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+    overflow: hidden;
+}
+
+.intro-noc-banner .section-title {
+    position: relative;
+    z-index: 10;
+    color: var(--light);
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+/* Overlay gradiente profissional */
+.intro-noc-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(246, 178, 27, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(246, 178, 27, 0.05) 0%, transparent 50%),
+        linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, transparent 40%, transparent 60%, rgba(0, 0, 0, 0.6) 100%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.intro-image-container {
+    position: relative;
+    width: 100%;
+    max-width: 120rem;
+    height: 60rem;
+    border-radius: 2rem;
+    overflow: hidden;
+    box-shadow: 0 2rem 6rem rgba(0, 0, 0, 0.4);
+    z-index: 2;
+}
+
+.noc-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.8s ease;
+}
+
+.noc-image:hover {
+    transform: scale(1.05);
+}
+
+/* --- Seção Meio --- */
+.meio {
+    padding: 10rem 5%;
+    text-align: center;
+    background: linear-gradient(180deg, #0f0f0f 0%, #1a1a1a 50%, #0f0f0f 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Overlay sutil */
+.meio::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 50% 50%, rgba(246, 178, 27, 0.04) 0%, transparent 60%),
+        radial-gradient(circle at 0% 0%, rgba(246, 178, 27, 0.03) 0%, transparent 40%),
+        radial-gradient(circle at 100% 100%, rgba(246, 178, 27, 0.03) 0%, transparent 40%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.meio > .section-title {
+    margin-bottom: 6rem;
+    position: relative;
+    z-index: 10;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    color: var(--light);
+}
+
 .section-title {
     font-size: clamp(2.5rem, 5vw, 4rem);
     margin-bottom: 2rem;
@@ -203,10 +328,96 @@ nav a:hover::after {
     border-radius: 3px;
 }
 
+.card {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+    position: relative;
+    z-index: 10;
+    max-width: 140rem;
+    margin: 0 auto;
+}
+
+.card-image {
+    flex: 1 1 30rem;
+    max-width: 40rem;
+    height: 25rem;
+    border-radius: 1.5rem;
+    box-shadow: 
+        0 2rem 6rem rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(246, 178, 27, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    object-fit: cover;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid rgba(246, 178, 27, 0.15);
+}
+
+.card-image:hover {
+    transform: translateY(-1rem) scale(1.02);
+    box-shadow: 
+        0 3rem 8rem rgba(0, 0, 0, 0.6),
+        0 0 0 1px rgba(246, 178, 27, 0.4),
+        0 0 4rem rgba(246, 178, 27, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    border-color: rgba(246, 178, 27, 0.4);
+}
+
+.card .title {
+    flex-basis: 100%;
+    order: 1;
+    margin-top: 4rem;
+    font-size: clamp(2.2rem, 4vw, 3.5rem);
+    font-weight: 700;
+    color: var(--light);
+    position: relative;
+    z-index: 10;
+}
+
+.card .title span {
+    background: linear-gradient(135deg, var(--secondary), #ffd700);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.card h3 {
+    flex-basis: 100%;
+    order: 2;
+    margin-top: 2rem;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.8);
+    max-width: 80rem;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    z-index: 10;
+    line-height: 1.6;
+}
+
+.card h3 span {
+    color: var(--secondary);
+    font-weight: 600;
+}
+
+.intro-text-overlay {
+    flex-basis: 100%;
+    order: 3;
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 4rem;
+    z-index: 10;
+}
+
+/* --- Botões --- */
 .btn {
     display: inline-block;
     background: linear-gradient(135deg, var(--secondary), var(--accent));
-    color: white;
+    color: var(--dark);
     padding: 1.4rem 3rem;
     border-radius: 5rem;
     text-decoration: none;
@@ -216,7 +427,7 @@ nav a:hover::after {
     border: none;
     cursor: pointer;
     font-family: var(--font-primary);
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     position: relative;
     overflow: hidden;
     box-shadow: 0 0.4rem 1.5rem rgba(246, 178, 27, 0.3);
@@ -246,225 +457,42 @@ nav a:hover::after {
     left: 100%;
 }
 
-/* --- Glass 3D Button Style --- */
-.intro-text-overlay .btn {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02));
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    box-shadow: 0 0.8rem 3.2rem 0 rgba(0, 0, 0, 0.3),
-        inset 0.1rem 0.1rem 0.1rem rgba(255, 255, 255, 0.3),
-        inset -0.1rem -0.1rem 0.1rem rgba(0, 0, 0, 0.05);
-    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.intro-text-overlay .btn:hover {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.08));
-    box-shadow: 0 1.2rem 4rem 0 rgba(0, 0, 0, 0.35),
-        inset 0.1rem 0.1rem 0.2rem rgba(255, 255, 255, 0.4),
-        inset -0.1rem -0.1rem 0.2rem rgba(0, 0, 0, 0.1);
-}
-
-/* --- NOC Banner Section --- */
-.intro-noc-banner {
-    position: relative;
-    height: 80vh;
-    padding: 10rem 5%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-}
-
-.intro-noc-banner .intro-image-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-}
-
-.intro-noc-banner .intro-background-image,
-.intro-noc-banner .noc-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: brightness(0.5);
-}
-
-.intro-noc-banner .section-title {
-    text-align: left;
-}
-
-.intro-noc-banner .section-title::after {
-    left: 0;
-    transform: none;
-}
-
-.intro-noc-banner .intro-text-overlay {
-    position: static;
-    z-index: 1;
-}
-
-/* --- "Meio" Section --- */
-.meio {
-    padding: 10rem 5%;
-    text-align: center;
-    background-color: var(--dark);
-}
-
-.meio > .section-title {
-    margin-bottom: 6rem;
-}
-
-.meio .card {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 2rem;
-}
-
-.meio .card > .section-title {
-    display: none;
-}
-
-.meio .card .intro-background-image {
-    position: static;
-    height: auto;
-    border-radius: 1rem;
-    box-shadow: 0 0.8rem 2.5rem rgba(0,0,0,0.3);
-    flex: 1 1 30rem;
-    max-width: 38rem;
-    object-fit: cover;
-}
-
-.meio .card h3 {
-    flex-basis: 100%;
-    order: 1;
-    margin-top: 4rem;
-    font-size: 1.8rem;
-    font-weight: 400;
-    color: rgba(255, 255, 255, 0.8);
-    max-width: 70rem;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.meio .card .intro-text-overlay {
-    position: static;
-    flex-basis: 100%;
-    order: 2;
-    display: flex;
-    gap: 2rem;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-top: 2rem;
-}
-
-.form-container {
-    /* Centraliza o formulário na sua própria linha dentro do grid do footer */
-    /* grid-column: 1 / -1; */ /* Removido para permitir que o formulário seja uma coluna */
-    max-width: 40rem; /* Tamanho do formulário reduzido */
-    margin: 0 auto 4rem auto; /* Centraliza e adiciona margem inferior */
-    text-align: center;
-    padding: 0 2rem; /* Adiciona padding lateral para não colar nas bordas em telas menores */
-}
-
-.form-group {
-    margin-bottom: 0.5rem; /* Espaçamento entre campos reduzido */
-    text-align: left;
-}
-
-.form-container h2 {
-    margin-bottom: 1.8rem;
-    font-size: 1.8rem; /* Tamanho do título do formulário reduzido */
-    color: var(--light); /* Garante que o título seja visível no fundo escuro */
-}
-
-.form-container label {
-    display: block;
-    margin-bottom: 0.6rem;
-    font-weight: 500;
-    font-size: 1.4rem; /* Tamanho do rótulo ajustado */
-    color: rgba(255, 255, 255, 0.7); /* Cor do label mais clara para o fundo escuro */
-}
-
-.form-container input[type="text"],
-.form-container input[type="email"],
-.form-container input[type="tel"] {
-    width: 100%; /* Ocupa toda a largura do .form-group */
-    padding: 1.2rem 1.4rem; /* Padding interno dos campos reduzido */
-    background: var(--light); /* Fundo branco */
-    border: 3px solid var(--secondary); /* Borda amarela e mais grossa */
-    border-radius: 2rem;
-    outline: none;
-    font-family: var(--font-primary);
-    font-size: 1.4rem; /* Tamanho da fonte do campo ajustado */
-    color: var(--dark); /* Texto escuro para contraste */
-    transition: var(--transition);
-}
-
-.form-container input::placeholder {
-    color: var(--gray);
-}
-
-.form-container .politica {
-    color: rgba(255, 255, 255, 0.6); /* Cor mais clara para o fundo escuro */
-    font-size: 1.2rem; /* Tamanho do texto da política reduzido */
-    text-align: left;
-    margin-top: 0.8rem;
-}
-
-#submitBtn {
-    background: var(--secondary);
-    color: var(--dark);
-    border: none;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    font-family: var(--font-primary);
-    font-weight: 900;
-    padding: 1rem 2rem; /* Padding do botão reduzido */
-    border-radius: 2.5rem;
-    cursor: pointer;
-    transition: var(--transition);
-    width: 100%; /* Ocupa toda a largura */
-    margin-top: 1.2rem;
-    font-size: 1.2rem; /* Tamanho da fonte do botão reduzido */
-}
-
-#submitBtn:hover {
-    background: #e0a010;
-    transform: translateY(-0.3rem);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-}
-
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
-}
-
 /* --- Footer --- */
-footer {
-    background-image: linear-gradient(rgba(18, 18, 18, 0.75), rgba(18, 18, 18, 0.75)), url('./img/fundo-footer01.png');
+.footer {
+    background: 
+        linear-gradient(rgba(10, 10, 10, 0.95), rgba(10, 10, 10, 0.95)), 
+        url('./style/css/img/fundo-footer01.png');
     background-size: cover;
     background-position: center;
-    padding: 6rem 5% 3rem;
+    background-attachment: fixed;
+    padding: 8rem 5% 4rem;
     position: relative;
     overflow: hidden;
+    border-top: 1px solid rgba(246, 178, 27, 0.2);
+}
+
+/* Overlay profissional do footer */
+.footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 50% 0%, rgba(246, 178, 27, 0.06) 0%, transparent 50%),
+        linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, transparent 30%);
+    z-index: 0;
+    pointer-events: none;
 }
 
 .footer-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); /* Aumentado o minmax para melhor distribuição */
-    gap: 3rem 2rem; /* Ajustado o espaçamento */
+    grid-template-columns: repeat(auto-fit, minmax(35rem, 1fr));
+    gap: 4rem;
     position: relative;
-    z-index: 1;
-    align-items: start; /* Alinha os itens no topo */
+    z-index: 10;
+    align-items: start;
 }
 
 .footer-col {
@@ -479,24 +507,24 @@ footer {
 }
 
 .footer-logo img {
-    height: 5rem; /* Tamanho do logo reduzido */
+    height: 5rem;
 }
 
 .footer-about {
     color: rgba(255, 255, 255, 0.7);
     margin-bottom: 2.5rem;
-    font-size: 1.4rem; /* Tamanho da fonte reduzido */
+    font-size: 1.4rem;
     line-height: 1.6;
 }
 
 .social-links {
     display: flex;
-    gap: 1.2rem; /* Espaçamento entre ícones reduzido */
+    gap: 1.2rem;
 }
 
 .social-link {
-    width: 4rem;  /* Tamanho do ícone reduzido */
-    height: 4rem; /* Tamanho do ícone reduzido */
+    width: 4rem;
+    height: 4rem;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
     backdrop-filter: blur(8px);
     border: 1px solid rgba(255, 255, 255, 0.18);
@@ -506,7 +534,7 @@ footer {
     align-items: center;
     justify-content: center;
     color: var(--light);
-    font-size: 1.8rem; /* Tamanho do ícone interno reduzido */
+    font-size: 1.8rem;
     transition: var(--transition);
     text-decoration: none;
 }
@@ -518,7 +546,7 @@ footer {
 }
 
 .footer-title {
-    font-size: 1.8rem; /* Tamanho do título da coluna reduzido */
+    font-size: 1.8rem;
     margin-bottom: 2rem;
     position: relative;
     padding-bottom: 1rem;
@@ -538,51 +566,564 @@ footer {
 .footer-contact-item {
     display: flex;
     gap: 1.5rem;
-    margin-bottom: 1.5rem; /* Espaçamento entre itens de contato reduzido */
+    margin-bottom: 1.5rem;
     color: rgba(255, 255, 255, 0.7);
-    font-size: 1.4rem; /* Tamanho da fonte reduzido */
+    font-size: 1.4rem;
     align-items: flex-start;
 }
 
 .footer-contact-item i {
     color: var(--secondary);
-    font-size: 1.6rem; /* Tamanho do ícone reduzido */
+    font-size: 1.6rem;
     margin-top: 0.2rem;
     flex-shrink: 0;
     width: 2rem;
     text-align: center;
 }
 
-.footer-divider {
-    height: 1px;
-    background: rgba(255, 255, 255, 0.05);
-    margin: 2rem 0;
-    grid-column: 1 / -1; /* Faz o divisor ocupar toda a largura */
+/* --- Formulário --- */
+.form-container {
+    max-width: 45rem;
+    margin: 0 auto;
+    text-align: center;
+    padding: 0 2rem;
+    position: relative;
+    z-index: 10;
 }
 
-.footer-bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: rgba(255, 255, 255, 0.5);
+.form-container h2 {
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    color: var(--light);
+    line-height: 1.4;
+}
+
+.form-group {
+    margin-bottom: 2rem;
+    text-align: left;
+}
+
+.form-container label {
+    display: block;
+    margin-bottom: 0.8rem;
+    font-weight: 500;
     font-size: 1.4rem;
-    flex-wrap: wrap;
-    gap: 20px;
-    grid-column: 1 / -1; /* Faz o rodapé ocupar toda a largura */
+    color: rgba(255, 255, 255, 0.8);
 }
 
-/* Ajuste para o formulário não ficar muito grande em relação às outras colunas */
-@media (min-width: 992px) {
-    .footer-grid {
-        grid-template-columns: 1fr 1.5fr 1fr; /* Coluna do formulário um pouco maior */
+.form-container input[type="text"],
+.form-container input[type="email"],
+.form-container input[type="tel"] {
+    width: 100%;
+    padding: 1.4rem 1.6rem;
+    background: rgba(255, 255, 255, 0.95);
+    border: 2px solid rgba(246, 178, 27, 0.3);
+    border-radius: 1rem;
+    outline: none;
+    font-family: var(--font-primary);
+    font-size: 1.4rem;
+    color: var(--dark);
+    transition: var(--transition);
+}
+
+.form-container input:focus {
+    border-color: var(--secondary);
+    box-shadow: 0 0 0 3px rgba(246, 178, 27, 0.1);
+    background: var(--light);
+}
+
+.form-container input::placeholder {
+    color: var(--gray);
+}
+
+.form-container .politica {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1.2rem;
+    text-align: left;
+    margin-top: 1rem;
+    line-height: 1.5;
+}
+
+.form-container .politica a {
+    color: var(--secondary);
+    text-decoration: underline;
+}
+
+#submitBtn {
+    background: linear-gradient(135deg, var(--secondary), var(--accent));
+    color: var(--dark);
+    border: none;
+    box-shadow: 0 0.4rem 1.5rem rgba(246, 178, 27, 0.3);
+    font-family: var(--font-primary);
+    font-weight: 700;
+    padding: 1.4rem 3rem;
+    border-radius: 5rem;
+    cursor: pointer;
+    transition: var(--transition);
+    width: 100%;
+    margin-top: 2rem;
+    font-size: 1.4rem;
+}
+
+#submitBtn:hover {
+    transform: translateY(-0.3rem);
+    box-shadow: 0 0.8rem 2.5rem rgba(246, 178, 27, 0.4);
+}
+
+/* Mensagens de erro e sucesso */
+.error-message {
+    color: #ff6b6b;
+    font-size: 1.2rem;
+    margin-top: 0.5rem;
+    display: none;
+}
+
+.success-message {
+    background: linear-gradient(135deg, #4ecdc4, #44a08d);
+    color: white;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+    font-weight: 500;
+}
+
+/* Animações - Removidas para garantir visibilidade */
+.animate-on-scroll {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.animate-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- RESPONSIVIDADE --- */
+
+/* Desktop Grande (1920px+) */
+@media (min-width: 1920px) {
+    html {
+        font-size: 70%;
+    }
+    
+    .intro-image-container {
+        max-width: 140rem;
+        height: 70rem;
+    }
+    
+    .card-image {
+        height: 30rem;
     }
 }
 
-@media (max-width: 991px) {
-    .footer-grid {
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+/* Desktop (1440px - 1919px) */
+@media (min-width: 1440px) and (max-width: 1919px) {
+    html {
+        font-size: 65%;
     }
+    
+    .intro-image-container {
+        max-width: 120rem;
+        height: 60rem;
+    }
+    
+    .card-image {
+        height: 25rem;
+    }
+}
+
+/* Desktop Médio (1200px - 1439px) */
+@media (min-width: 1200px) and (max-width: 1439px) {
+    html {
+        font-size: 60%;
+    }
+    
+    .intro-image-container {
+        max-width: 100rem;
+        height: 50rem;
+    }
+    
+    .card-image {
+        height: 22rem;
+    }
+}
+
+/* Tablet Grande (992px - 1199px) */
+@media (min-width: 992px) and (max-width: 1199px) {
+    html {
+        font-size: 55%;
+    }
+    
+    .intro-noc-banner {
+        padding: 10rem 5% 6rem;
+    }
+    
+    .intro-image-container {
+        max-width: 90rem;
+        height: 45rem;
+    }
+    
+    .card-image {
+        height: 20rem;
+    }
+    
+    .footer-grid {
+        grid-template-columns: 1fr 1.5fr 1fr;
+    }
+}
+
+/* Tablet (768px - 991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+    html {
+        font-size: 50%;
+    }
+    
+    .intro-noc-banner {
+        padding: 8rem 5% 5rem;
+    }
+    
+    .intro-image-container {
+        max-width: 80rem;
+        height: 40rem;
+    }
+    
+    .card {
+        gap: 2rem;
+    }
+    
+    .card-image {
+        height: 18rem;
+        flex: 1 1 25rem;
+    }
+    
+    .footer-grid {
+        grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+        gap: 3rem;
+    }
+    
+    nav ul {
+        gap: 2rem;
+    }
+    
+    nav a {
+        font-size: 1.2rem;
+    }
+}
+
+/* Mobile Grande (576px - 767px) */
+@media (min-width: 576px) and (max-width: 767px) {
+    html {
+        font-size: 45%;
+    }
+    
+    .header-main {
+        padding: 1rem 3%;
+    }
+    
+    .header-on-scroll {
+        padding: 1rem 3%;
+    }
+    
+    .logo img {
+        height: 4rem;
+    }
+    
+    .menu-toggle {
+        display: flex;
+    }
+    
+    .nav-menu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 100%;
+        height: 100vh;
+        background: rgba(18, 18, 18, 0.98);
+        backdrop-filter: blur(10px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: right 0.3s ease;
+        z-index: 1001;
+    }
+    
+    .nav-menu.active {
+        right: 0;
+    }
+    
+    .nav-menu ul {
+        flex-direction: column;
+        gap: 3rem;
+        text-align: center;
+    }
+    
+    .nav-menu a {
+        font-size: 2rem;
+        color: var(--light);
+    }
+    
+    .intro-noc-banner {
+        padding: 6rem 3% 4rem;
+    }
+    
+    .intro-image-container {
+        max-width: 100%;
+        height: 35rem;
+        border-radius: 1.5rem;
+    }
+    
+    .meio {
+        padding: 6rem 3%;
+    }
+    
+    .card {
+        gap: 1.5rem;
+    }
+    
+    .card-image {
+        height: 15rem;
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+    
+    .intro-text-overlay {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    
+    .btn {
+        padding: 1.2rem 2.5rem;
+        font-size: 1.2rem;
+    }
+    
+    .footer {
+        padding: 6rem 3% 3rem;
+    }
+    
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+    
     .form-container {
-        max-width: none; /* Permite que o formulário ocupe a largura total da coluna */
+        max-width: 100%;
+        padding: 0 1rem;
+    }
+}
+
+/* Mobile (375px - 575px) */
+@media (min-width: 375px) and (max-width: 575px) {
+    html {
+        font-size: 40%;
+    }
+    
+    .header-main {
+        padding: 1rem 2%;
+    }
+    
+    .header-on-scroll {
+        padding: 1rem 2%;
+    }
+    
+    .logo img {
+        height: 3.5rem;
+    }
+    
+    .menu-toggle {
+        display: flex;
+    }
+    
+    .nav-menu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 100%;
+        height: 100vh;
+        background: rgba(18, 18, 18, 0.98);
+        backdrop-filter: blur(10px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: right 0.3s ease;
+        z-index: 1001;
+    }
+    
+    .nav-menu.active {
+        right: 0;
+    }
+    
+    .nav-menu ul {
+        flex-direction: column;
+        gap: 3rem;
+        text-align: center;
+    }
+    
+    .nav-menu a {
+        font-size: 2rem;
+        color: var(--light);
+    }
+    
+    .intro-noc-banner {
+        padding: 5rem 2% 3rem;
+    }
+    
+    .intro-image-container {
+        height: 30rem;
+        border-radius: 1rem;
+    }
+    
+    .meio {
+        padding: 5rem 2%;
+    }
+    
+    .card {
+        gap: 1rem;
+    }
+    
+    .card-image {
+        height: 12rem;
+    }
+    
+    .btn {
+        padding: 1rem 2rem;
+        font-size: 1.1rem;
+    }
+    
+    .footer {
+        padding: 5rem 2% 2rem;
+    }
+    
+    .form-container {
+        padding: 0 0.5rem;
+    }
+    
+    .form-container input[type="text"],
+    .form-container input[type="email"],
+    .form-container input[type="tel"] {
+        padding: 1.2rem 1.4rem;
+        font-size: 1.3rem;
+    }
+}
+
+/* Mobile Pequeno (até 374px) */
+@media (max-width: 374px) {
+    html {
+        font-size: 35%;
+    }
+    
+    .header-main {
+        padding: 0.8rem 1%;
+    }
+    
+    .header-on-scroll {
+        padding: 0.8rem 1%;
+    }
+    
+    .logo img {
+        height: 3rem;
+    }
+    
+    .menu-toggle {
+        display: flex;
+    }
+    
+    .nav-menu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 100%;
+        height: 100vh;
+        background: rgba(18, 18, 18, 0.98);
+        backdrop-filter: blur(10px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: right 0.3s ease;
+        z-index: 1001;
+    }
+    
+    .nav-menu.active {
+        right: 0;
+    }
+    
+    .nav-menu ul {
+        flex-direction: column;
+        gap: 3rem;
+        text-align: center;
+    }
+    
+    .nav-menu a {
+        font-size: 2rem;
+        color: var(--light);
+    }
+    
+    .intro-noc-banner {
+        padding: 4rem 1% 2rem;
+    }
+    
+    .intro-image-container {
+        height: 25rem;
+    }
+    
+    .meio {
+        padding: 4rem 1%;
+    }
+    
+    .card-image {
+        height: 10rem;
+    }
+    
+    .btn {
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+    }
+    
+    .footer {
+        padding: 4rem 1% 1.5rem;
+    }
+}
+
+/* Proporção de tela específica para mobile */
+@media (max-aspect-ratio: 820/1180) {
+    .intro-noc-banner {
+        padding: 8rem 3% 5rem;
+    }
+    
+    .intro-image-container {
+        height: 45rem;
+        max-width: 100%;
+    }
+    
+    .card-image {
+        height: 20rem;
+    }
+    
+    .meio {
+        padding: 7rem 3%;
+    }
+}
+
+/* Proporção muito estreita (360x780) */
+@media (max-aspect-ratio: 360/780) {
+    .intro-noc-banner {
+        padding: 6rem 2% 4rem;
+    }
+    
+    .intro-image-container {
+        height: 40rem;
+    }
+    
+    .card-image {
+        height: 18rem;
+    }
+    
+    .meio {
+        padding: 6rem 2%;
+    }
+    
+    .btn {
+        padding: 1rem 2rem;
+        font-size: 1.2rem;
     }
 }

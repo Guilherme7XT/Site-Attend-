@@ -27,12 +27,12 @@
                 <img src="./style/css/img/logo.png" alt="Attend Logo">
             </div>
         </a>
-        <div class="menu-toggle">
+        <div class="menu-toggle" id="menuToggle">
             <span></span>
             <span></span>
             <span></span>
         </div>
-        <nav>
+        <nav class="nav-menu" id="navMenu">
             <ul>
                 <li><a href="#top">Home</a></li>
                 <li><a href="#login">Cadastro</a></li>
@@ -48,7 +48,12 @@
                 <img src="./style/css/img/logo.png" alt="Attend Logo">
             </div>
         </a>
-        <nav>
+        <div class="menu-toggle" id="menuToggleScroll">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <nav class="nav-menu" id="navMenuScroll">
             <ul>
                 <li><a href="#top">Home</a></li>
                 <li><a href="#login">Cadastro</a></li>
@@ -60,17 +65,17 @@
     <section class="intro-tecnico" id="tecnico">
         <div id="particles-js-banner"></div>
 
+        <div class="intro-image-container">
+            <img src="./style/css/img/Tecnico.png" alt="Imagem de fundo abstrata da Attend"
+                class="noc-image animate-on-scroll">
+        </div>
+
         <div class="text-content">
             <h4>Bem-Vindo à Nossa</h4>
             <h1 class="section-title">Aréa <span>Técnico</span></h1>
             <h4 class="intro">Conteúdos exclusivos para nossos técnicos: dicas, tutoriais e boas
                 práticas para otimizar o trabalho e garantir excelência no atendimento.</h4>
             <h2>Arraste para baixo e junte-se a nossa equipe!</h2>
-        </div>
-
-        <div class="intro-image-container">
-            <img src="./style/css/img/Tecnico.png" alt="Imagem de fundo abstrata da Attend"
-                class="noc-image animate-on-scroll">
         </div>
     </section>
 
@@ -294,6 +299,15 @@
                                 </span>
                                 <span class="download-action">⬇</span>
                             </a>
+                            
+                            <a href="./style/css/arquivos/SkyEdge 2 Gemini somente rede CEF 1.pdf" download="Manual_SkyEdge_II_Gemini_CEF.pdf" class="download-btn">
+                                <span class="download-icon">📄</span>
+                                <span class="download-info">
+                                    <span class="download-title">SkyEdge II Gemini - Rede CEF</span>
+                                    <span class="download-subtitle">Manual de Configuração (PDF)</span>
+                                </span>
+                                <span class="download-action">⬇</span>
+                            </a>
                         </div>
                     </div>
             
@@ -308,6 +322,10 @@
 
 
 
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="./style/js/areaT.js" defer></script>
+    
     <script>
         // Força a página a iniciar no topo ao carregar
         window.addEventListener('beforeunload', function () {

@@ -214,6 +214,12 @@ nav a:hover::after {
     cursor: pointer;
 }
 
+/* Esconder botões do carrossel em desktop */
+.carousel-btn,
+.carousel-indicators {
+    display: none;
+}
+
 .menu-toggle span {
     display: block;
     height: 0.3rem;
@@ -730,25 +736,29 @@ nav a:hover::after {
 
 /* --- Seção de Imagem Introdutória --- */
 .intro-image-section {
-    /* Define a altura da seção. 'vh' é a porcentagem da altura da tela. */
-    height: 100vh; /* Altura da seção aumentada para evitar cortes na imagem */
+    /* Define a altura da seção de forma mais flexível */
+    min-height: 100vh; /* Altura mínima para evitar cortes */
+    height: auto; /* Altura automática baseada no conteúdo */
     width: 100%;
-    /* Removemos o padding para que a imagem possa ocupar todo o espaço. */
     /* Adiciona espaço acima da seção para afastá-la do conteúdo anterior */
     margin-top: 10rem;
-    padding: 0;
+    padding: 5rem 5%; /* Padding para espaçamento interno */
     position: relative; /* Necessário para o posicionamento absoluto do filho */
-    overflow: hidden; /* Garante que nada vaze da seção */
+    overflow: visible; /* Permite que o conteúdo seja totalmente visível */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem; /* Espaçamento mínimo entre elementos */
 }
 
 .intro-image-container {
     width: 100%;
-    height: 100%;
+    max-width: 140rem; /* Largura máxima maior para melhor proporção */
+    height: 70rem; /* Altura maior para a imagem */
     position: relative; /* Contexto para o texto e a imagem */
-    display: flex; /* Centraliza o conteúdo de texto */
-    align-items: flex-start; /* Alinha o conteúdo no topo para controlar a posição com padding */
-    justify-content: flex-start; /* Alinha o contêiner de texto à esquerda */
-    padding: 25rem 5% 0; /* Aumenta o padding superior para descer o bloco de texto */
+    border-radius: 2rem; /* Bordas arredondadas */
+    overflow: hidden; /* Garante que a imagem não vaze */
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.3); /* Sombra para profundidade */
 }
 
 .intro-background-image {
@@ -757,31 +767,124 @@ nav a:hover::after {
     left: 0;
     width: 100%;
     height: 100%;
-    /* A imagem agora cobre todo o espaço, tocando as bordas */
-    /* Faz a imagem cobrir todo o espaço, tocando as bordas. */
-    object-fit: cover;
-    /* Alinha a imagem pela base para um melhor enquadramento. */
-    object-position: center 85%; /* Desloca a imagem para cima, mostrando uma parte mais inferior dela */
+    /* A imagem agora cobre todo o espaço sem cortar */
+    object-fit: contain; /* Mantém a proporção da imagem sem cortar */
+    object-position: center; /* Centraliza a imagem */
     z-index: 1; /* Coloca a imagem atrás do texto */
 }
 
+/* Controle de visibilidade das imagens na seção técnico */
+#tecnico .intro-background-image:first-of-type {
+    display: block; /* AT01.png visível por padrão */
+}
+
+#tecnico .intro-background-image:last-of-type {
+    display: none; /* AT02.png escondida por padrão */
+}
+
+/* Media query para trocar imagens baseado na proporção de tela */
+/* Proporção 820x1180 = 0.6949 (largura/altura) */
+@media (max-aspect-ratio: 820/1180) {
+    #tecnico .intro-background-image:first-of-type {
+        display: none; /* Esconde AT01.png */
+    }
+    
+    #tecnico .intro-background-image:last-of-type {
+        display: block; /* Mostra AT02.png */
+    }
+}
+
+/* Controle de visibilidade das imagens do mapa baseado na proporção da tela */
+.mapa-container {
+    display: block !important; /* mapa.png visível por padrão */
+}
+
+.mapa-container2 {
+    display: none !important; /* mapa2.png escondida por padrão */
+    margin-top: 0;
+    /* Remove a margem superior para aproximar o mapa do texto */
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    /* Centraliza a imagem */
+    padding: 2rem 0; /* Remove padding lateral, mantém vertical */
+    display: flex; /* Flexbox para centralização */
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+}
+
+.mapa-container2 img {
+    max-width: 100rem; /* Largura máxima menor para melhor proporção */
+    width: 100%;
+    /* Torna a imagem responsiva */
+    height: auto;
+    border-radius: 1rem; /* Bordas arredondadas suaves */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Borda sutil */
+    box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.2); /* Sombra suave */
+    display: block; /* Remove espaço extra abaixo da imagem */
+    margin: 0 auto; /* Centraliza a imagem */
+}
+
+@media (max-aspect-ratio: 820/1180) {
+    .mapa-container {
+        display: none !important; /* Esconde mapa.png */
+    }
+    
+    .mapa-container2 {
+        display: block !important; /* Mostra mapa2.png */
+    }
+}
+
 .intro-text-overlay {
-    position: relative; /* Garante que o z-index funcione corretamente */
+    position: relative; /* Posicionamento normal, não sobreposto */
     z-index: 2; /* Coloca o texto na frente da imagem */
     color: var(--light); /* Cor do texto branca */
-    text-align: justify; /* Alinha o texto com laterais retas */
-    max-width: 50rem; /* Limita a largura do texto para melhor legibilidade */
+    text-align: center; /* Centraliza o texto */
+    max-width: 90rem; /* Largura máxima maior para melhor legibilidade */
+    background: linear-gradient(135deg, rgba(18, 18, 18, 0.95) 0%, rgba(18, 18, 18, 0.9) 100%); /* Fundo semi-transparente */
+    padding: 2rem; /* Padding interno mínimo para ficar bem próximo da imagem */
+    border-radius: 1.5rem; /* Bordas arredondadas */
+    border: 1px solid rgba(246, 178, 27, 0.2); /* Borda sutil */
+    box-shadow: 0 0.8rem 2.4rem rgba(0, 0, 0, 0.3); /* Sombra */
+    backdrop-filter: blur(10px); /* Efeito de vidro */
+    margin-top: 0; /* Remove margem superior para ficar logo abaixo da imagem */
 }
 
 .intro-text-overlay p {
     font-size: 1.8rem; /* Tamanho da fonte ajustado */
     line-height: 1.7; /* Melhora o espaçamento entre linhas */
+    margin-bottom: 2rem; /* Espaçamento inferior */
 }
 
 .intro-text-overlay .btn {
     /* Reseta a animação de entrada padrão para que o botão seja visível */
-    /* Adiciona espaço entre o texto e o botão */
-    margin-top: 2rem; /* Diminui o espaço para aproximar o botão do texto */
+    margin-top: 1rem; /* Espaçamento superior */
+    background: linear-gradient(135deg, var(--secondary) 0%, #ffd700 100%); /* Gradiente amarelo */
+    color: var(--dark); /* Texto escuro */
+    font-weight: 600; /* Texto em negrito */
+    padding: 1.2rem 2.5rem; /* Padding adequado */
+    border-radius: 1rem; /* Bordas arredondadas */
+    border: none; /* Remove borda */
+    text-decoration: none; /* Remove sublinhado */
+    transition: all 0.3s ease; /* Transição suave */
+}
+
+.intro-text-overlay .btn:hover {
+    transform: translateY(-0.2rem); /* Move para cima no hover */
+    box-shadow: 0 0.5rem 1.5rem rgba(246, 178, 27, 0.4); /* Sombra no hover */
+}
+
+/* Estilização do título da seção */
+.intro-image-section .section-title {
+    font-size: clamp(2.5rem, 5vw, 4rem); /* Tamanho responsivo */
+    font-weight: 700; /* Texto em negrito */
+    text-align: center; /* Centralizado */
+    margin-bottom: 2rem; /* Espaçamento inferior */
+    background: linear-gradient(135deg, var(--secondary) 0%, #ffd700 100%); /* Gradiente amarelo */
+    -webkit-background-clip: text; /* Aplica gradiente ao texto */
+    -webkit-text-fill-color: transparent; /* Torna o texto transparente */
+    background-clip: text; /* Compatibilidade */
+    text-shadow: 0 0.2rem 0.8rem rgba(246, 178, 27, 0.3); /* Sombra sutil */
 }
 
 /* --- Animação de Entrada para a Seção de Imagem Introdutória --- */
@@ -1875,11 +1978,8 @@ footer {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 100;
+    z-index: 5;
     pointer-events: none;
-    overflow: visible;
-    will-change: opacity;
-    filter: brightness(1.2);
 }
 
 /* Partículas do footer - pequenas estrelas brancas */
@@ -1888,104 +1988,36 @@ footer {
     position: absolute;
     top: 0;
     left: 0;
-    width: 2px;
-    height: 2px;
+    width: 1px;
+    height: 1px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.9);
-    will-change: transform;
+    background: rgba(255, 255, 255, 0.8);
     box-shadow: 
-        /* LADO ESQUERDO - extremo */
-        2vw 10% 0 1px rgba(255, 255, 255, 0.9),
-        1vw 20% 0 1px rgba(255, 255, 255, 0.8),
-        2vw 30% 0 1px rgba(255, 255, 255, 0.9),
-        1vw 40% 0 1px rgba(255, 255, 255, 0.8),
-        2vw 50% 0 1px rgba(255, 255, 255, 0.9),
-        1vw 60% 0 1px rgba(255, 255, 255, 0.8),
-        2vw 70% 0 1px rgba(255, 255, 255, 0.9),
-        2vw 80% 0 1px rgba(255, 255, 255, 0.8),
-        1vw 90% 0 1px rgba(255, 255, 255, 0.9),
         /* Esquerda */
-        10vw 8% 0 1px rgba(255, 255, 255, 0.9),
-        12vw 18% 0 1px rgba(255, 255, 255, 0.8),
-        11vw 28% 0 1px rgba(255, 255, 255, 0.9),
-        10vw 38% 0 1px rgba(255, 255, 255, 0.8),
-        12vw 48% 0 1px rgba(255, 255, 255, 0.9),
-        11vw 58% 0 1px rgba(255, 255, 255, 0.8),
-        10vw 68% 0 1px rgba(255, 255, 255, 0.9),
-        10vw 78% 0 1px rgba(255, 255, 255, 0.8),
-        10vw 88% 0 1px rgba(255, 255, 255, 0.9),
-        10vw 98% 0 1px rgba(255, 255, 255, 0.8),
-        /* Esquerda-Centro */
-        20vw 7% 0 1px rgba(255, 255, 255, 0.9),
-        20vw 77% 0 1px rgba(255, 255, 255, 0.8),
-        20vw 87% 0 1px rgba(255, 255, 255, 0.9),
-        20vw 97% 0 1px rgba(255, 255, 255, 0.8),
-        22vw 17% 0 1px rgba(255, 255, 255, 0.8),
-        21vw 27% 0 1px rgba(255, 255, 255, 0.9),
-        20vw 37% 0 1px rgba(255, 255, 255, 0.8),
-        22vw 47% 0 1px rgba(255, 255, 255, 0.9),
-        21vw 57% 0 1px rgba(255, 255, 255, 0.8),
-        20vw 67% 0 1px rgba(255, 255, 255, 0.9),
+        5vw 50px 0 0 rgba(255, 255, 255, 0.7),
+        10vw 100px 0 0 rgba(255, 255, 255, 0.6),
+        15vw 150px 0 0 rgba(255, 255, 255, 0.7),
+        10vw 200px 0 0 rgba(255, 255, 255, 0.6),
+        5vw 250px 0 0 rgba(255, 255, 255, 0.7),
+        15vw 300px 0 0 rgba(255, 255, 255, 0.6),
+        10vw 350px 0 0 rgba(255, 255, 255, 0.7),
         /* Centro */
-        30vw 5% 0 1px rgba(255, 255, 255, 0.8),
-        35vw 15% 0 1px rgba(255, 255, 255, 0.9),
-        40vw 10% 0 1px rgba(255, 255, 255, 0.9),
-        42vw 20% 0 1px rgba(255, 255, 255, 0.8),
-        41vw 30% 0 1px rgba(255, 255, 255, 0.9),
-        40vw 40% 0 1px rgba(255, 255, 255, 0.8),
-        42vw 50% 0 1px rgba(255, 255, 255, 0.9),
-        41vw 60% 0 1px rgba(255, 255, 255, 0.8),
-        40vw 70% 0 1px rgba(255, 255, 255, 0.9),
-        42vw 80% 0 1px rgba(255, 255, 255, 0.8),
-        41vw 90% 0 1px rgba(255, 255, 255, 0.9),
-        50vw 5% 0 1px rgba(255, 255, 255, 0.9),
-        50vw 25% 0 1px rgba(255, 255, 255, 0.8),
-        50vw 45% 0 1px rgba(255, 255, 255, 0.9),
-        50vw 65% 0 1px rgba(255, 255, 255, 0.8),
-        50vw 85% 0 1px rgba(255, 255, 255, 0.9),
-        /* Centro-Direita */
-        60vw 3% 0 1px rgba(255, 255, 255, 0.9),
-        60vw 13% 0 1px rgba(255, 255, 255, 0.8),
-        62vw 23% 0 1px rgba(255, 255, 255, 0.9),
-        61vw 33% 0 1px rgba(255, 255, 255, 0.8),
-        60vw 43% 0 1px rgba(255, 255, 255, 0.9),
-        62vw 53% 0 1px rgba(255, 255, 255, 0.8),
-        61vw 63% 0 1px rgba(255, 255, 255, 0.9),
-        60vw 73% 0 1px rgba(255, 255, 255, 0.8),
-        62vw 83% 0 1px rgba(255, 255, 255, 0.9),
-        61vw 93% 0 1px rgba(255, 255, 255, 0.8),
-        70vw 10% 0 1px rgba(255, 255, 255, 0.9),
-        70vw 30% 0 1px rgba(255, 255, 255, 0.8),
-        70vw 50% 0 1px rgba(255, 255, 255, 0.9),
-        70vw 70% 0 1px rgba(255, 255, 255, 0.8),
-        70vw 90% 0 1px rgba(255, 255, 255, 0.9),
+        30vw 60px 0 0 rgba(255, 255, 255, 0.6),
+        40vw 110px 0 0 rgba(255, 255, 255, 0.7),
+        50vw 160px 0 0 rgba(255, 255, 255, 0.6),
+        40vw 210px 0 0 rgba(255, 255, 255, 0.7),
+        30vw 260px 0 0 rgba(255, 255, 255, 0.6),
+        50vw 310px 0 0 rgba(255, 255, 255, 0.7),
+        40vw 360px 0 0 rgba(255, 255, 255, 0.6),
         /* Direita */
-        80vw 8% 0 1px rgba(255, 255, 255, 0.9),
-        82vw 18% 0 1px rgba(255, 255, 255, 0.8),
-        81vw 28% 0 1px rgba(255, 255, 255, 0.9),
-        80vw 38% 0 1px rgba(255, 255, 255, 0.8),
-        82vw 48% 0 1px rgba(255, 255, 255, 0.9),
-        81vw 58% 0 1px rgba(255, 255, 255, 0.8),
-        80vw 68% 0 1px rgba(255, 255, 255, 0.9),
-        82vw 78% 0 1px rgba(255, 255, 255, 0.8),
-        81vw 88% 0 1px rgba(255, 255, 255, 0.9),
-        /* Extrema Direita */
-        90vw 12% 0 1px rgba(255, 255, 255, 0.8),
-        92vw 22% 0 1px rgba(255, 255, 255, 0.9),
-        91vw 32% 0 1px rgba(255, 255, 255, 0.8),
-        90vw 42% 0 1px rgba(255, 255, 255, 0.9),
-        92vw 52% 0 1px rgba(255, 255, 255, 0.8),
-        91vw 62% 0 1px rgba(255, 255, 255, 0.9),
-        90vw 72% 0 1px rgba(255, 255, 255, 0.8),
-        92vw 82% 0 1px rgba(255, 255, 255, 0.9),
-        91vw 92% 0 1px rgba(255, 255, 255, 0.8),
-        /* Muito Extrema Direita */
-        97vw 15% 0 1px rgba(255, 255, 255, 0.9),
-        98vw 35% 0 1px rgba(255, 255, 255, 0.8),
-        97vw 55% 0 1px rgba(255, 255, 255, 0.9),
-        98vw 75% 0 1px rgba(255, 255, 255, 0.8),
-        97vw 95% 0 1px rgba(255, 255, 255, 0.9);
-    animation: satellitesFloat 120s linear infinite;
+        70vw 70px 0 0 rgba(255, 255, 255, 0.7),
+        80vw 120px 0 0 rgba(255, 255, 255, 0.6),
+        90vw 170px 0 0 rgba(255, 255, 255, 0.7),
+        85vw 220px 0 0 rgba(255, 255, 255, 0.6),
+        75vw 270px 0 0 rgba(255, 255, 255, 0.7),
+        90vw 320px 0 0 rgba(255, 255, 255, 0.6),
+        80vw 370px 0 0 rgba(255, 255, 255, 0.7);
+    animation: footerStarsFloat 100s linear infinite;
 }
 
 #footer-particles::after {
@@ -1997,61 +2029,23 @@ footer {
     height: 1px;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.7);
-    will-change: transform;
     box-shadow: 
-        /* LADO ESQUERDO - muito extremo */
-        1vw 12% 0 0 rgba(255, 255, 255, 0.6),
-        2vw 24% 0 0 rgba(255, 255, 255, 0.7),
-        1vw 36% 0 0 rgba(255, 255, 255, 0.6),
-        2vw 48% 0 0 rgba(255, 255, 255, 0.7),
-        1vw 60% 0 0 rgba(255, 255, 255, 0.6),
-        2vw 72% 0 0 rgba(255, 255, 255, 0.7),
-        1vw 84% 0 0 rgba(255, 255, 255, 0.6),
-        2vw 96% 0 0 rgba(255, 255, 255, 0.7),
-        /* Topo completa */
-        3vw 5% 0 0 rgba(255, 255, 255, 0.6),
-        8vw 6% 0 0 rgba(255, 255, 255, 0.7),
-        12vw 7% 0 0 rgba(255, 255, 255, 0.6),
-        15vw 7% 0 0 rgba(255, 255, 255, 0.6),
-        20vw 5% 0 0 rgba(255, 255, 255, 0.7),
-        25vw 6% 0 0 rgba(255, 255, 255, 0.7),
-        30vw 8% 0 0 rgba(255, 255, 255, 0.6),
-        35vw 8% 0 0 rgba(255, 255, 255, 0.6),
-        40vw 6% 0 0 rgba(255, 255, 255, 0.7),
-        45vw 7% 0 0 rgba(255, 255, 255, 0.7),
-        50vw 9% 0 0 rgba(255, 255, 255, 0.6),
-        55vw 9% 0 0 rgba(255, 255, 255, 0.6),
-        60vw 7% 0 0 rgba(255, 255, 255, 0.7),
-        65vw 8% 0 0 rgba(255, 255, 255, 0.7),
-        70vw 9% 0 0 rgba(255, 255, 255, 0.6),
-        75vw 10% 0 0 rgba(255, 255, 255, 0.6),
-        80vw 8% 0 0 rgba(255, 255, 255, 0.7),
-        85vw 9% 0 0 rgba(255, 255, 255, 0.7),
-        90vw 7% 0 0 rgba(255, 255, 255, 0.6),
-        95vw 10% 0 0 rgba(255, 255, 255, 0.6),
-        98vw 8% 0 0 rgba(255, 255, 255, 0.7),
-        /* Meio */
-        5vw 50% 0 0 rgba(255, 255, 255, 0.6),
-        15vw 52% 0 0 rgba(255, 255, 255, 0.7),
-        25vw 48% 0 0 rgba(255, 255, 255, 0.6),
-        35vw 51% 0 0 rgba(255, 255, 255, 0.7),
-        45vw 49% 0 0 rgba(255, 255, 255, 0.6),
-        55vw 52% 0 0 rgba(255, 255, 255, 0.7),
-        65vw 50% 0 0 rgba(255, 255, 255, 0.6),
-        75vw 51% 0 0 rgba(255, 255, 255, 0.7),
-        85vw 49% 0 0 rgba(255, 255, 255, 0.6),
-        95vw 52% 0 0 rgba(255, 255, 255, 0.7),
-        /* Base */
-        8vw 90% 0 0 rgba(255, 255, 255, 0.7),
-        18vw 92% 0 0 rgba(255, 255, 255, 0.6),
-        28vw 91% 0 0 rgba(255, 255, 255, 0.7),
-        38vw 93% 0 0 rgba(255, 255, 255, 0.6),
-        48vw 92% 0 0 rgba(255, 255, 255, 0.7),
-        58vw 94% 0 0 rgba(255, 255, 255, 0.6),
-        68vw 92% 0 0 rgba(255, 255, 255, 0.7),
-        78vw 95% 0 0 rgba(255, 255, 255, 0.6),
-        88vw 93% 0 0 rgba(255, 255, 255, 0.7),
-        98vw 96% 0 0 rgba(255, 255, 255, 0.6);
+        /* Distribuição alternada */
+        8vw 80px 0 0 rgba(255, 255, 255, 0.6),
+        18vw 130px 0 0 rgba(255, 255, 255, 0.7),
+        28vw 180px 0 0 rgba(255, 255, 255, 0.6),
+        38vw 230px 0 0 rgba(255, 255, 255, 0.7),
+        48vw 280px 0 0 rgba(255, 255, 255, 0.6),
+        58vw 330px 0 0 rgba(255, 255, 255, 0.7),
+        68vw 90px 0 0 rgba(255, 255, 255, 0.6),
+        78vw 140px 0 0 rgba(255, 255, 255, 0.7),
+        88vw 190px 0 0 rgba(255, 255, 255, 0.6),
+        95vw 240px 0 0 rgba(255, 255, 255, 0.7),
+        20vw 280px 0 0 rgba(255, 255, 255, 0.6),
+        60vw 160px 0 0 rgba(255, 255, 255, 0.7),
+        25vw 60px 0 0 rgba(255, 255, 255, 0.6),
+        55vw 340px 0 0 rgba(255, 255, 255, 0.7),
+        85vw 300px 0 0 rgba(255, 255, 255, 0.6);
     animation: footerStarsFloat 100s linear infinite;
 }
 
@@ -2060,33 +2054,27 @@ footer {
     position: absolute;
     top: 0;
     left: 0;
-    width: 2px;
-    height: 2px;
+    width: 1px;
+    height: 1px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.9);
-    will-change: transform;
+    background: rgba(255, 255, 255, 0.7);
     box-shadow: 
         /* Distribuição uniforme */
-        5vw 15% 0 1px rgba(255, 255, 255, 0.8),
-        15vw 25% 0 1px rgba(255, 255, 255, 0.9),
-        25vw 35% 0 1px rgba(255, 255, 255, 0.8),
-        35vw 45% 0 1px rgba(255, 255, 255, 0.9),
-        45vw 55% 0 1px rgba(255, 255, 255, 0.8),
-        55vw 65% 0 1px rgba(255, 255, 255, 0.9),
-        65vw 75% 0 1px rgba(255, 255, 255, 0.8),
-        75vw 85% 0 1px rgba(255, 255, 255, 0.9),
-        85vw 20% 0 1px rgba(255, 255, 255, 0.8),
-        95vw 40% 0 1px rgba(255, 255, 255, 0.9),
-        10vw 60% 0 1px rgba(255, 255, 255, 0.8),
-        20vw 80% 0 1px rgba(255, 255, 255, 0.9),
-        30vw 95% 0 1px rgba(255, 255, 255, 0.8),
-        40vw 70% 0 1px rgba(255, 255, 255, 0.9),
-        50vw 30% 0 1px rgba(255, 255, 255, 0.8),
-        60vw 50% 0 1px rgba(255, 255, 255, 0.9),
-        70vw 10% 0 1px rgba(255, 255, 255, 0.8),
-        80vw 90% 0 1px rgba(255, 255, 255, 0.9),
-        90vw 70% 0 1px rgba(255, 255, 255, 0.8),
-        97vw 25% 0 1px rgba(255, 255, 255, 0.9);
+        8vw 80px 0 0 rgba(255, 255, 255, 0.6),
+        18vw 130px 0 0 rgba(255, 255, 255, 0.7),
+        28vw 180px 0 0 rgba(255, 255, 255, 0.6),
+        38vw 230px 0 0 rgba(255, 255, 255, 0.7),
+        48vw 280px 0 0 rgba(255, 255, 255, 0.6),
+        58vw 330px 0 0 rgba(255, 255, 255, 0.7),
+        68vw 90px 0 0 rgba(255, 255, 255, 0.6),
+        78vw 140px 0 0 rgba(255, 255, 255, 0.7),
+        88vw 190px 0 0 rgba(255, 255, 255, 0.6),
+        95vw 240px 0 0 rgba(255, 255, 255, 0.7),
+        20vw 320px 0 0 rgba(255, 255, 255, 0.6),
+        60vw 200px 0 0 rgba(255, 255, 255, 0.7),
+        30vw 70px 0 0 rgba(255, 255, 255, 0.6),
+        70vw 380px 0 0 rgba(255, 255, 255, 0.7),
+        85vw 260px 0 0 rgba(255, 255, 255, 0.6);
     animation: footerStarsFloat 130s linear infinite reverse;
 }
 
@@ -2108,10 +2096,10 @@ footer {
     z-index: 10;
 }
 
-.footer-services-col {
-    /* margin-left: -45px; */
-    /* Removida a margem negativa */
-}
+/* .footer-services-col {
+    margin-left: -45px;
+    Removida a margem negativa
+} */
 
 /* Estilo específico para a lista de serviços no rodapé */
 .footer-services-col .footer-links {
@@ -2798,7 +2786,9 @@ footer {
     text-align: center;
     /* Centraliza a imagem */
     padding: 2rem 0; /* Remove padding lateral, mantém vertical */
-    display: block; /* Faz o container ocupar a largura total */
+    display: flex; /* Flexbox para centralização */
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
 }
 
 .mapa-container::before {
@@ -2816,15 +2806,15 @@ footer {
 }
 
 .mapa-container img {
-    max-width: 140rem;
-    /* Aumenta a largura máxima do mapa para melhor visualização */
+    max-width: 100rem; /* Largura máxima menor para melhor proporção */
     width: 100%;
     /* Torna a imagem responsiva */
     height: auto;
-    border-radius: 0; /* Remove o arredondamento para colar nas bordas */
-    border: 1px solid rgba(255, 255, 255, 0.05); /* Borda mais sutil */
-    box-shadow: none; /* Sombra removida da imagem, pois está no container */
+    border-radius: 1rem; /* Bordas arredondadas suaves */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Borda sutil */
+    box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.2); /* Sombra suave */
     display: block; /* Remove espaço extra abaixo da imagem */
+    margin: 0 auto; /* Centraliza a imagem */
 }
 
 /* Animação de entrada para a seção do mapa */
@@ -2848,3 +2838,1541 @@ footer {
     transition-delay: 0.4s;
 
 } /* Atraso maior para o mapa, criando um efeito em cascata */
+
+/* ===========================
+   SEÇÃO CAMPANHA - CARROSSEL
+   =========================== */
+
+.campanha {
+    position: relative;
+    width: 100%;
+    height: 50rem; /* Altura fixa em rem para manter proporção */
+    overflow: hidden;
+    background-color: var(--dark);
+    margin: 4rem 0; /* Espaçamento entre seções */
+    padding: 0;
+}
+
+.campanha-carrossel {
+    display: flex;
+    width: 300%; /* Três imagens lado a lado = 300% */
+    height: 100%;
+    animation: slide-campanha 18s infinite ease-in-out;
+    position: relative;
+}
+
+.campanha-carrossel img {
+    width: 33.333%; /* Cada imagem ocupa 33.333% do container (ou seja, 100% da viewport) */
+    height: 50rem; /* Mesma altura da seção */
+    object-fit: contain; /* Mantém a imagem inteira visível sem cortar */
+    object-position: center;
+    display: block;
+    flex-shrink: 0;
+}
+
+/* Carrossel alternativo para telas menores */
+.campanha-carrossel2 {
+    display: none; /* Inicialmente escondido */
+    flex: none;
+    width: 300%; /* Três imagens lado a lado = 300% */
+    height: 100%;
+    animation: slide-campanha 18s infinite ease-in-out;
+    position: relative;
+}
+
+.campanha-carrossel2 img {
+    width: 33.333%; /* Cada imagem ocupa 33.333% do container (ou seja, 100% da viewport) */
+    height: 100%; /* Usa 100% da altura do container */
+    object-fit: contain; /* Mantém a imagem inteira visível sem cortar */
+    object-position: center;
+    display: block;
+    flex-shrink: 0;
+}
+
+/* Media query para trocar carrosséis baseado na proporção de tela */
+/* Proporção 820x1180 = 0.6949 (largura/altura) */
+@media (max-aspect-ratio: 820/1180) {
+    .campanha {
+        height: 80rem; /* Altura significativamente aumentada para imagens grandes */
+        min-height: 80vh; /* Garante que ocupe pelo menos 80% da altura da tela */
+    }
+    
+    .campanha-carrossel {
+        display: none; /* Esconde o carrossel original */
+    }
+    
+    .campanha-carrossel2 {
+        display: flex; /* Mostra o carrossel alternativo */
+    }
+}
+
+/* Ajustes específicos para diferentes resoluções quando carrossel2 está ativo */
+@media (max-aspect-ratio: 820/1180) and (max-width: 768px) {
+    .campanha {
+        height: 70rem; /* Altura aumentada para tablets */
+        min-height: 75vh; /* Garante boa visibilidade em tablets */
+    }
+}
+
+@media (max-aspect-ratio: 820/1180) and (max-width: 480px) {
+    .campanha {
+        height: 60rem; /* Altura aumentada para mobile */
+        min-height: 70vh; /* Garante boa visibilidade em mobile */
+    }
+}
+
+@media (max-aspect-ratio: 820/1180) and (max-width: 375px) {
+    .campanha {
+        height: 50rem; /* Altura aumentada para mobile pequeno */
+        min-height: 65vh; /* Garante boa visibilidade em mobile pequeno */
+    }
+}
+
+/* Ajuste dos botões quando carrossel2 está ativo */
+@media (max-aspect-ratio: 820/1180) {
+    .parceria-buttons {
+        display: flex !important; /* Garante que os botões apareçam */
+        bottom: 6rem; /* Posiciona os botões mais próximos da parte inferior */
+        z-index: 15 !important; /* Garante que fiquem acima das imagens */
+        background: transparent !important; /* Remove o fundo escuro */
+        padding: 0 !important; /* Remove padding desnecessário */
+        gap: 1.5rem !important; /* Espaçamento entre botões */
+    }
+    
+    .parceria-buttons .btn {
+        background: linear-gradient(135deg, var(--secondary) 0%, #ffd700 100%) !important; /* Gradiente amarelo */
+        color: var(--dark) !important; /* Texto escuro */
+        font-size: 1.4rem !important; /* Tamanho da fonte */
+        font-weight: 700 !important; /* Texto em negrito */
+        padding: 1.2rem 2.5rem !important; /* Padding adequado */
+        border-radius: 2rem !important; /* Bordas bem arredondadas */
+        box-shadow: 0 0.5rem 2rem rgba(246, 178, 27, 0.4) !important; /* Sombra amarela */
+        border: 2px solid transparent !important; /* Borda transparente */
+        text-decoration: none !important; /* Remove sublinhado */
+        transition: all 0.3s ease !important; /* Transição suave */
+    }
+    
+    .parceria-buttons .btn:hover {
+        transform: translateY(-0.3rem) !important; /* Move para cima no hover */
+        box-shadow: 0 0.8rem 3rem rgba(246, 178, 27, 0.6) !important; /* Sombra mais forte */
+        background: linear-gradient(135deg, #ffd700 0%, var(--secondary) 100%) !important; /* Gradiente invertido */
+    }
+}
+
+/* Ajustes específicos dos botões para diferentes resoluções quando carrossel2 está ativo */
+@media (max-aspect-ratio: 820/1180) and (max-width: 480px) {
+    .parceria-buttons {
+        bottom: 3rem !important; /* Botões mais próximos da parte inferior em mobile */
+        flex-direction: column !important;
+        width: 90% !important;
+        gap: 1.2rem !important;
+        background: transparent !important; /* Remove fundo */
+        padding: 0 !important; /* Remove padding */
+    }
+    
+    .parceria-buttons .btn {
+        font-size: 1.5rem !important;
+        font-weight: 700 !important;
+        padding: 1.5rem 2rem !important;
+        width: 100% !important;
+        justify-content: center !important;
+        background: linear-gradient(135deg, var(--secondary) 0%, #ffd700 100%) !important; /* Gradiente amarelo */
+        color: var(--dark) !important; /* Texto escuro */
+        border-radius: 1.5rem !important; /* Bordas arredondadas */
+        box-shadow: 0 0.6rem 2rem rgba(246, 178, 27, 0.5) !important; /* Sombra */
+        border: none !important; /* Remove borda */
+        text-decoration: none !important; /* Remove sublinhado */
+        transition: all 0.3s ease !important; /* Transição suave */
+    }
+    
+    .parceria-buttons .btn:hover {
+        transform: translateY(-0.2rem) !important; /* Move para cima no hover */
+        box-shadow: 0 0.8rem 2.5rem rgba(246, 178, 27, 0.7) !important; /* Sombra mais forte */
+    }
+}
+
+@media (max-aspect-ratio: 820/1180) and (max-width: 375px) {
+    .parceria-buttons {
+        bottom: 2rem !important; /* Botões ainda mais próximos em mobile pequeno */
+        background: transparent !important; /* Remove fundo */
+        padding: 0 !important; /* Remove padding */
+        gap: 1rem !important; /* Espaçamento entre botões */
+    }
+    
+    .parceria-buttons .btn {
+        font-size: 1.4rem !important;
+        font-weight: 700 !important;
+        padding: 1.2rem 1.8rem !important;
+        background: linear-gradient(135deg, var(--secondary) 0%, #ffd700 100%) !important; /* Gradiente amarelo */
+        color: var(--dark) !important; /* Texto escuro */
+        border-radius: 1.2rem !important; /* Bordas arredondadas */
+        box-shadow: 0 0.4rem 1.5rem rgba(246, 178, 27, 0.4) !important; /* Sombra */
+        border: none !important; /* Remove borda */
+        text-decoration: none !important; /* Remove sublinhado */
+    }
+}
+
+/* Ajuste específico para telas com proporção 360x780 ou menor */
+/* Proporção 360x780 = 0.4615 (largura/altura) */
+@media (max-aspect-ratio: 360/780) {
+    .intro {
+        margin-top: -10rem !important; /* Move drasticamente para cima */
+        padding-top: 0rem !important; /* Remove completamente o padding-top */
+        gap: 0.1rem !important; /* Gap mínimo entre elementos */
+        transform: translateY(-15rem) !important; /* Move muito para cima */
+        position: relative !important;
+        top: -20rem !important; /* Posicionamento adicional para cima */
+    }
+    
+    .intro .logo img {
+        margin-top: -5rem !important; /* Move logo para cima */
+        margin-bottom: 0.1rem !important; /* Margin-bottom mínimo */
+        transform: translateY(-10rem) !important; /* Move logo ainda mais para cima */
+    }
+    
+    .parceria-buttons {
+        display: flex !important; /* Garante que os botões apareçam */
+        bottom: 2rem !important; /* Posiciona os botões */
+        z-index: 20 !important; /* Garante que fiquem acima de tudo */
+        background: transparent !important; /* Remove fundo escuro */
+        padding: 0 !important; /* Remove padding */
+        gap: 1rem !important; /* Espaçamento entre botões */
+    }
+    
+    .parceria-buttons .btn {
+        background: linear-gradient(135deg, var(--secondary) 0%, #ffd700 100%) !important; /* Gradiente amarelo */
+        color: var(--dark) !important; /* Texto escuro */
+        font-size: 1.3rem !important; /* Tamanho da fonte */
+        font-weight: 700 !important; /* Texto em negrito */
+        padding: 1.1rem 2rem !important; /* Padding dos botões */
+        border-radius: 1.5rem !important; /* Bordas arredondadas */
+        box-shadow: 0 0.5rem 1.8rem rgba(246, 178, 27, 0.5) !important; /* Sombra */
+        border: none !important; /* Remove borda */
+        text-decoration: none !important; /* Remove sublinhado */
+        transition: all 0.3s ease !important; /* Transição suave */
+    }
+    
+    .parceria-buttons .btn:hover {
+        transform: translateY(-0.2rem) !important; /* Move para cima no hover */
+        box-shadow: 0 0.7rem 2.2rem rgba(246, 178, 27, 0.7) !important; /* Sombra mais forte */
+    }
+}
+
+/* Ajustes mais específicos para diferentes resoluções com proporção 360x780 ou menor */
+@media (max-aspect-ratio: 360/780) and (max-width: 480px) {
+    .intro {
+        margin-top: -15rem !important; /* Move drasticamente para cima */
+        padding-top: 0rem !important; /* Remove completamente o padding-top */
+        transform: translateY(-20rem) !important; /* Move muito para cima */
+        top: -25rem !important; /* Posicionamento adicional */
+    }
+    
+    .intro .logo img {
+        margin-top: -8rem !important; /* Move logo para cima */
+        margin-bottom: 0.1rem !important; /* Margin-bottom mínimo */
+        transform: translateY(-15rem) !important; /* Move logo ainda mais para cima */
+    }
+}
+
+@media (max-aspect-ratio: 360/780) and (max-width: 375px) {
+    .intro {
+        margin-top: -20rem !important; /* Move drasticamente para cima */
+        padding-top: 0rem !important; /* Remove completamente o padding-top */
+        transform: translateY(-25rem) !important; /* Move muito para cima */
+        top: -30rem !important; /* Posicionamento adicional */
+    }
+    
+    .intro .logo img {
+        margin-top: -10rem !important; /* Move logo para cima */
+        margin-bottom: 0.1rem !important; /* Margin-bottom mínimo */
+        transform: translateY(-20rem) !important; /* Move logo ainda mais para cima */
+    }
+    
+    .parceria-buttons {
+        bottom: 1rem !important; /* Botões muito próximos da parte inferior */
+        background: transparent !important; /* Remove fundo */
+        padding: 0 !important; /* Remove padding */
+        gap: 0.8rem !important; /* Espaçamento entre botões */
+    }
+    
+    .parceria-buttons .btn {
+        font-size: 1.2rem !important;
+        font-weight: 700 !important;
+        padding: 1rem 1.5rem !important;
+        background: linear-gradient(135deg, var(--secondary) 0%, #ffd700 100%) !important; /* Gradiente amarelo */
+        color: var(--dark) !important; /* Texto escuro */
+        border-radius: 1rem !important; /* Bordas arredondadas */
+        box-shadow: 0 0.3rem 1.2rem rgba(246, 178, 27, 0.4) !important; /* Sombra */
+        border: none !important; /* Remove borda */
+        text-decoration: none !important; /* Remove sublinhado */
+    }
+}
+
+/* Media query adicional para garantir que os ajustes sejam aplicados */
+@media (max-aspect-ratio: 360/780) {
+    .banner {
+        display: flex !important;
+        align-items: flex-start !important; /* Alinha no topo */
+        justify-content: center !important;
+        padding-top: 0rem !important; /* Remove padding do topo */
+        height: 50vh !important; /* Reduz altura do banner */
+        min-height: 50vh !important; /* Altura mínima reduzida */
+    }
+    
+    .intro {
+        position: relative !important;
+        top: -30rem !important; /* Move drasticamente para cima */
+        margin-top: -25rem !important; /* Margin negativo adicional */
+    }
+}
+
+/* Botão de ação sobre o carrossel */
+.parceria-buttons {
+    position: absolute;
+    bottom: 8rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0 2rem;
+}
+
+.parceria-buttons .btn {
+    background: var(--secondary);
+    color: var(--dark);
+    padding: 1.5rem 3rem;
+    border-radius: 5rem;
+    font-size: 1.6rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    transition: var(--transition);
+    box-shadow: 0 0.5rem 2rem rgba(246, 178, 27, 0.3);
+    border: 2px solid transparent;
+}
+
+.parceria-buttons .btn:hover {
+    background: var(--dark);
+    color: var(--secondary);
+    border-color: var(--secondary);
+    transform: translateY(-0.3rem);
+    box-shadow: 0 1rem 3rem rgba(246, 178, 27, 0.5);
+}
+
+.parceria-buttons .btn-icon-img {
+    width: 2rem;
+    height: 2rem;
+    object-fit: contain;
+    filter: brightness(0); /* Fica preto por padrão */
+    transition: var(--transition);
+}
+
+.parceria-buttons .btn:hover .btn-icon-img {
+    filter: brightness(0) saturate(100%) invert(78%) sepia(58%) saturate(635%) hue-rotate(359deg) brightness(98%) contrast(93%); /* Amarelo no hover */
+}
+
+/* Animação do carrossel - deslizamento horizontal */
+@keyframes slide-campanha {
+    0%, 30% {
+        transform: translateX(0); /* Primeira imagem */
+    }
+    33.33%, 63.33% {
+        transform: translateX(-33.333%); /* Segunda imagem */
+    }
+    66.66%, 96.66% {
+        transform: translateX(-66.666%); /* Terceira imagem */
+    }
+    100% {
+        transform: translateX(0); /* Volta para a primeira */
+    }
+}
+
+/* Indicadores de navegação (bolinhas) */
+.campanha::after {
+    content: '';
+    position: absolute;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1.2rem;
+    height: 1.2rem;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    animation: indicator-campanha 18s infinite;
+}
+
+@keyframes indicator-campanha {
+    0%, 30% {
+        background: var(--secondary);
+        box-shadow: 0 0 1rem var(--secondary);
+    }
+    33.33%, 63.33% {
+        background: rgba(255, 255, 255, 0.5);
+    }
+    66.66%, 96.66% {
+        background: rgba(255, 255, 255, 0.5);
+    }
+    100% {
+        background: var(--secondary);
+        box-shadow: 0 0 1rem var(--secondary);
+    }
+}
+
+/* Responsividade para tablets */
+@media (max-width: 768px) {
+    .campanha {
+        height: 40rem;
+        margin: 3rem 0;
+    }
+    
+    .campanha-carrossel img {
+        height: 40rem;
+        object-fit: contain;
+    }
+    
+    .campanha-carrossel2 img {
+        height: 100%;
+        object-fit: contain;
+    }
+    
+    .parceria-buttons {
+        bottom: 5rem;
+    }
+    
+    .parceria-buttons .btn {
+        font-size: 1.4rem;
+        padding: 1.2rem 2.5rem;
+    }
+}
+
+/* Responsividade para mobile */
+@media (max-width: 480px) {
+    .campanha {
+        height: 30rem;
+        margin: 4rem 0;
+    }
+    
+    .campanha-carrossel img {
+        height: 30rem;
+        object-fit: contain;
+    }
+    
+    .campanha-carrossel2 img {
+        height: 100%;
+        object-fit: contain;
+    }
+    
+    .parceria-buttons {
+        bottom: 3rem;
+        flex-direction: column;
+        width: 90%;
+        gap: 1rem;
+    }
+    
+    .parceria-buttons .btn {
+        font-size: 1.3rem;
+        padding: 1rem 2rem;
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* ===================================
+   RESPONSIVIDADE COMPLETA ADICIONAL
+   =================================== */
+
+/* Large Desktop - Telas muito grandes (1920px+) */
+@media (min-width: 1920px) {
+    html {
+        font-size: 68.75%; /* 11px base - aumenta elementos proporcionalmente */
+    }
+    
+    .banner, .service, .description, .mapa {
+        padding: 15rem 8%;
+    }
+    
+    .feature-card {
+        min-width: 35rem;
+    }
+    
+    .intro-image-section .intro-background-image {
+        max-height: 70rem;
+    }
+}
+
+/* Desktop - Telas grandes (1440px - 1919px) */
+@media (min-width: 1440px) and (max-width: 1919px) {
+    html {
+        font-size: 65%; /* 10.4px base */
+    }
+    
+    .feature-card {
+        min-width: 32rem;
+    }
+}
+
+/* Desktop padrão (1200px - 1439px) */
+@media (min-width: 1200px) and (max-width: 1439px) {
+    html {
+        font-size: 62.5%; /* 10px base - padrão */
+    }
+}
+
+/* Laptop / Tablet landscape (992px - 1199px) */
+@media (min-width: 992px) and (max-width: 1199px) {
+    html {
+        font-size: 60%; /* 9.6px base */
+    }
+    
+    .banner, .service, .description, .mapa {
+        padding: 10rem 6%;
+    }
+    
+    .feature-card {
+        min-width: 28rem;
+    }
+    
+    .intro-image-section .intro-background-image {
+        max-height: 50rem;
+    }
+    
+    .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 4rem;
+    }
+}
+
+/* Tablet (768px - 991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+    html {
+        font-size: 58%; /* 9.28px base */
+    }
+    
+    .header-main, .header-on-scroll {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .menu-toggle {
+        display: flex;
+        width: 3.5rem;
+        height: 2.4rem;
+        margin-left: auto;
+    }
+    
+    .banner {
+        min-height: 70vh;
+        padding: 8rem 5%;
+    }
+    
+    .banner h2 {
+        font-size: clamp(2.8rem, 6vw, 4rem);
+    }
+    
+    .banner h3 {
+        font-size: clamp(1.6rem, 4vw, 2.2rem);
+    }
+    
+    .intro .logo img {
+        max-width: 36rem;
+        max-height: 12rem;
+        margin-bottom: 1.5rem;
+        object-fit: contain;
+    }
+    
+    .feature-carousel-wrapper {
+        padding: 0 3rem;
+    }
+    
+    .feature-card {
+        min-width: 40rem;
+        max-width: 45rem;
+    }
+    
+    .intro-image-section {
+        padding: 6rem 4%;
+    }
+    
+    .intro-image-section .intro-background-image {
+        max-height: 45rem;
+    }
+    
+    .intro-text-overlay {
+        padding: 3rem;
+    }
+    
+    .intro-text-overlay p {
+        font-size: 1.6rem;
+    }
+    
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 4rem;
+    }
+    
+    .form-container {
+        max-width: 100%;
+    }
+}
+
+/* Mobile landscape / Tablet portrait (576px - 767px) */
+@media (min-width: 576px) and (max-width: 767px) {
+    html {
+        font-size: 56%; /* 8.96px base */
+    }
+    
+    .header-main, .header-on-scroll {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .menu-toggle {
+        display: flex;
+        width: 3.5rem;
+        height: 2.4rem;
+        margin-left: auto;
+    }
+    
+    .banner {
+        min-height: 60vh;
+        padding: 8rem 5% 5rem;
+    }
+    
+    .banner h2 {
+        font-size: clamp(2.4rem, 7vw, 3.5rem);
+        margin-top: 0.3rem;
+        margin-bottom: 0.3rem;
+    }
+    
+    .banner h3 {
+        font-size: clamp(1.4rem, 5vw, 2rem);
+        margin-top: 0.1rem;
+        margin-bottom: 0.6rem;
+    }
+    
+    .intro {
+        margin-top: 8rem;
+        padding-top: 3rem;
+        gap: 1rem;
+    }
+    
+    .intro .logo img {
+        max-width: 38rem;
+        max-height: 13rem;
+        margin-top: 10rem;
+        margin-bottom: 1.5rem;
+        object-fit: contain;
+    }
+    
+    .banner-buttons {
+        flex-direction: row;
+        gap: 1.5rem;
+        width: 100%;
+        max-width: 45rem;
+        margin-top: -0.8rem;
+        justify-content: center;
+    }
+    
+    .banner-buttons .btn {
+        flex: 1;
+        padding: 1.5rem 2rem;
+        font-size: 1.4rem;
+        text-align: center;
+        justify-content: center;
+    }
+    
+    .title-service, .section-title {
+        font-size: clamp(2rem, 6vw, 2.8rem);
+        margin-bottom: 3rem;
+        padding-top: 1.5rem;
+    }
+    
+    .service {
+        padding: 7rem 4%;
+        margin-top: 3rem;
+    }
+    
+    .feature-carousel-wrapper {
+        padding: 2rem 0 6rem;
+    }
+    
+    .feature {
+        padding-left: 5vw;
+    }
+    
+    .feature-card {
+        width: 90vw;
+        min-width: 90vw;
+        max-width: 90vw;
+        margin: 0;
+    }
+    
+    /* Botões do carrossel para tablet portrait */
+    .carousel-btn {
+        display: flex !important;
+        width: 4rem;
+        height: 4rem;
+        font-size: 1.7rem;
+        bottom: 1.8rem;
+    }
+    
+    .carousel-btn-prev {
+        left: 50%;
+        transform: translateX(calc(-100% - 9rem));
+    }
+    
+    .carousel-btn-prev:active {
+        transform: translateX(calc(-100% - 9rem)) scale(0.9);
+    }
+    
+    .carousel-btn-next {
+        right: 50%;
+        transform: translateX(calc(100% + 9rem));
+    }
+    
+    .carousel-btn-next:active {
+        transform: translateX(calc(100% + 9rem)) scale(0.9);
+    }
+    
+    .carousel-indicators {
+        display: flex !important;
+        bottom: 2.5rem;
+    }
+    
+    .intro-image-section {
+        padding: 6rem 4%;
+        margin-top: 3rem;
+    }
+    
+    .intro-text-overlay {
+        padding: 2.5rem;
+    }
+    
+    .about-content {
+        padding: 3rem;
+    }
+    
+    .description {
+        padding: 7rem 4%;
+        margin-top: 3rem;
+    }
+    
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .mapa {
+        padding: 7rem 4%;
+        margin-top: 3rem;
+    }
+    
+    .mapa-container img {
+        max-width: 100%;
+    }
+    
+    .footer {
+        padding: 7rem 4% 3rem;
+        margin-top: 3rem;
+    }
+}
+
+/* ===================================
+   MOBILE COMPLETO (320px - 575px)
+   =================================== */
+@media (max-width: 575px) {
+    /* Base de fonte */
+    html {
+        font-size: 56%; /* 8.96px base - melhor legibilidade */
+    }
+    
+    /* ============ HEADER ============ */
+    .header-main, .header-on-scroll {
+        padding: 2rem 4%;
+        min-height: 7rem;
+        box-shadow: 0 0.2rem 1rem rgba(0, 0, 0, 0.3);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .logo img {
+        max-width: 14rem;
+        transition: transform 0.3s ease;
+    }
+    
+    .logo img:active {
+        transform: scale(0.95);
+    }
+    
+    .menu-toggle {
+        display: flex;
+        width: 3.5rem;
+        height: 2.4rem;
+        margin-left: auto;
+        position: relative;
+        z-index: 1000;
+    }
+    
+    .menu-toggle span {
+        height: 0.35rem;
+        border-radius: 0.2rem;
+        background-color: var(--secondary);
+    }
+    
+    /* ============ BANNER / INTRO ============ */
+    .banner {
+        min-height: 90vh;
+        padding: 10rem 5% 6rem;
+        margin-top: 0;
+        background-size: cover;
+        background-position: center;
+    }
+    
+    .banner h2 {
+        font-size: clamp(2.2rem, 8vw, 3.2rem);
+        margin-bottom: 0.2rem;
+        margin-top: 0.1rem;
+        line-height: 1.3;
+        font-weight: 700;
+        text-shadow: 0 0.2rem 0.8rem rgba(0, 0, 0, 0.5);
+    }
+    
+    .banner h3 {
+        font-size: clamp(1.4rem, 5vw, 1.9rem);
+        margin-bottom: 0.4rem;
+        margin-top: 0.05rem;
+        line-height: 1.6;
+        font-weight: 400;
+        opacity: 0.95;
+    }
+    
+    .intro {
+        margin-top: 10rem;
+        padding-top: 4rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    .intro .logo img {
+        max-width: 35rem;
+        max-height: 12rem;
+        margin-bottom: 1.5rem;
+        margin-top: 12rem;
+        object-fit: contain;
+        filter: drop-shadow(0 0.5rem 1.5rem rgba(0, 0, 0, 0.3));
+    }
+    
+    .banner-buttons {
+        display: flex;
+        flex-direction: row;
+        gap: 1.2rem;
+        width: 100%;
+        max-width: 40rem;
+        margin-top: -1rem;
+        justify-content: center;
+    }
+    
+    .banner-buttons .btn {
+        flex: 1;
+        padding: 1.4rem 1.5rem;
+        font-size: 1.35rem;
+        font-weight: 600;
+        text-align: center;
+        justify-content: center;
+        border-radius: 0.8rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 0.4rem 1.2rem rgba(246, 178, 27, 0.3);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    .banner-buttons .btn i {
+        margin-right: 0.5rem;
+    }
+    
+    .banner-buttons .btn:active {
+        transform: translateY(0.2rem);
+        box-shadow: 0 0.2rem 0.6rem rgba(246, 178, 27, 0.2);
+    }
+    
+    /* ============ CAMPANHA ============ */
+    .campanha {
+        margin: 5rem 0;
+    }
+    
+    /* ============ SEÇÃO DE SERVIÇOS ============ */
+    .service {
+        padding: 8rem 4%;
+        margin-top: 5rem;
+        background: linear-gradient(180deg, rgba(18, 18, 18, 0.95) 0%, rgba(18, 18, 18, 1) 100%);
+    }
+    
+    .title-service, .section-title {
+        font-size: clamp(2.4rem, 7vw, 3rem);
+        margin-bottom: 4rem;
+        padding-top: 2rem;
+        font-weight: 700;
+        text-align: center;
+        background: linear-gradient(135deg, #f6b21b 0%, #ffd700 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    .feature-carousel-wrapper {
+        padding: 2rem 0 6rem;
+        margin: 0;
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+    }
+    
+    .feature {
+        display: flex;
+        transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        gap: 2rem;
+        padding-left: calc((100vw - 88vw) / 2);
+    }
+    
+    .feature-card {
+        width: 88vw;
+        min-width: 88vw;
+        max-width: 88vw;
+        padding: 3rem 2.5rem;
+        margin: 0;
+        flex-shrink: 0;
+        border-radius: 1.5rem;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(246, 178, 27, 0.2);
+        box-shadow: 0 0.8rem 2.4rem rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease;
+    }
+    
+    .feature-card:active {
+        transform: scale(0.98);
+        box-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Botões de navegação do carrossel - Mobile Only */
+    .carousel-btn {
+        position: absolute;
+        bottom: 1.5rem;
+        width: 4rem;
+        height: 4rem;
+        border-radius: 50%;
+        background: linear-gradient(135deg, rgba(246, 178, 27, 0.95) 0%, rgba(255, 215, 0, 0.95) 100%);
+        border: none;
+        color: var(--dark);
+        font-size: 1.6rem;
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 10;
+        box-shadow: 0 0.4rem 1.2rem rgba(246, 178, 27, 0.4);
+        transition: all 0.3s ease;
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    .carousel-btn-prev {
+        left: 50%;
+        transform: translateX(calc(-100% - 8rem));
+    }
+    
+    .carousel-btn-prev:active {
+        transform: translateX(calc(-100% - 8rem)) scale(0.9);
+    }
+    
+    .carousel-btn-next {
+        right: 50%;
+        transform: translateX(calc(100% + 8rem));
+    }
+    
+    .carousel-btn-next:active {
+        transform: translateX(calc(100% + 8rem)) scale(0.9);
+    }
+    
+    /* Indicadores do carrossel - Mobile Only */
+    .carousel-indicators {
+        position: absolute;
+        bottom: 2.2rem;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex !important;
+        gap: 0.8rem;
+        z-index: 10;
+    }
+    
+    .indicator-dot {
+        width: 0.8rem;
+        height: 0.8rem;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    .indicator-dot.active {
+        width: 2.4rem;
+        border-radius: 0.4rem;
+        background: linear-gradient(135deg, #f6b21b 0%, #ffd700 100%);
+        box-shadow: 0 0.2rem 0.6rem rgba(246, 178, 27, 0.4);
+    }
+    
+    .feature-icon {
+        width: 6rem;
+        height: 6rem;
+        font-size: 2.8rem;
+        margin-bottom: 1.5rem;
+        background: linear-gradient(135deg, #f6b21b 0%, #ffd700 100%);
+        border-radius: 1.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 0.4rem 1.2rem rgba(246, 178, 27, 0.3);
+    }
+    
+    .feature-title {
+        font-size: 1.9rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        line-height: 1.4;
+    }
+    
+    .feature-text {
+        font-size: 1.5rem;
+        line-height: 1.7;
+        opacity: 0.9;
+        margin-bottom: 2rem;
+    }
+    
+    .btn-card {
+        padding: 1.4rem 3rem;
+        font-size: 1.4rem;
+        font-weight: 600;
+        border-radius: 0.8rem;
+        width: 100%;
+        display: inline-block;
+        text-align: center;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-card:active {
+        transform: translateY(0.2rem);
+    }
+    
+    /* ============ ÁREA DO TÉCNICO ============ */
+    .intro-image-section {
+        padding: 7rem 4%;
+        margin-top: 5rem;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .intro-image-section .section-title {
+        font-size: clamp(2.4rem, 7vw, 3rem);
+        margin-bottom: 3rem;
+        padding-top: 2rem;
+        font-weight: 700;
+        text-align: center;
+        background: linear-gradient(135deg, #f6b21b 0%, #ffd700 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    .intro-image-container {
+        height: auto;
+        min-height: 50rem; /* Altura mínima maior para evitar cortes */
+        border-radius: 1.5rem;
+        overflow: visible; /* Permite que a imagem seja totalmente visível */
+        box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.4);
+    }
+    
+    .intro-background-image {
+        max-height: 50rem; /* Altura máxima maior para evitar cortes */
+        width: 100%;
+        object-fit: contain; /* Mantém a proporção sem cortar */
+        object-position: center; /* Centraliza a imagem */
+        border-radius: 1.5rem;
+    }
+    
+    .intro-text-overlay {
+        position: relative;
+        padding: 3rem 2.5rem;
+        background: linear-gradient(135deg, rgba(18, 18, 18, 0.98) 0%, rgba(18, 18, 18, 0.95) 100%);
+        margin-top: 2rem;
+        border-radius: 1.5rem;
+        border: 1px solid rgba(246, 178, 27, 0.2);
+        box-shadow: 0 0.8rem 2.4rem rgba(0, 0, 0, 0.3);
+    }
+    
+    .intro-text-overlay p {
+        font-size: 1.5rem;
+        line-height: 1.8;
+        margin-bottom: 2.5rem;
+        opacity: 0.95;
+    }
+    
+    .intro-text-overlay .btn {
+        width: 100%;
+        padding: 1.6rem 2.5rem;
+        font-size: 1.5rem;
+        font-weight: 600;
+        justify-content: center;
+        border-radius: 0.8rem;
+        transition: all 0.3s ease;
+    }
+    
+    .intro-text-overlay .btn:active {
+        transform: translateY(0.2rem);
+    }
+    
+    /* ============ QUEM SOMOS ============ */
+    .description {
+        padding: 8rem 4%;
+        margin-top: 5rem;
+        background: linear-gradient(180deg, rgba(18, 18, 18, 1) 0%, rgba(18, 18, 18, 0.98) 100%);
+    }
+    
+    .about {
+        gap: 4rem;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .about-content {
+        padding: 3.5rem 2.5rem;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+        border-radius: 1.5rem;
+        border: 1px solid rgba(246, 178, 27, 0.15);
+        box-shadow: 0 0.8rem 2.4rem rgba(0, 0, 0, 0.2);
+    }
+    
+    .about-title {
+        font-size: clamp(2.4rem, 7vw, 3rem);
+        margin-bottom: 2.5rem;
+        padding-top: 1rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #f6b21b 0%, #ffd700 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    .about-text {
+        font-size: 1.5rem;
+        line-height: 1.8;
+        margin-bottom: 2rem;
+        opacity: 0.95;
+    }
+    
+    .stats {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        margin-top: 3rem;
+    }
+    
+    .stats .btn {
+        width: 100%;
+        padding: 1.6rem 2.5rem;
+        font-size: 1.5rem;
+        font-weight: 600;
+        border-radius: 0.8rem;
+        transition: all 0.3s ease;
+    }
+    
+    .stats .btn:active {
+        transform: translateY(0.2rem);
+    }
+    
+    .about-image {
+        order: -1;
+        margin-bottom: 2rem;
+    }
+    
+    .about-image img {
+        max-width: 100%;
+        width: 100%;
+        height: auto;
+        border-radius: 1.5rem;
+        box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.3);
+    }
+    
+    /* ============ MAPA ============ */
+    .mapa {
+        padding: 8rem 4%;
+        margin-top: 5rem;
+        background: linear-gradient(180deg, rgba(18, 18, 18, 0.98) 0%, rgba(18, 18, 18, 1) 100%);
+    }
+    
+    .mapa-text-container h2 {
+        font-size: clamp(2.4rem, 7vw, 3rem);
+        padding-top: 2rem;
+        margin-bottom: 3rem;
+        font-weight: 700;
+        text-align: center;
+        background: linear-gradient(135deg, #f6b21b 0%, #ffd700 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    .mapa-container {
+        padding: 2rem 0;
+        margin-top: 2rem;
+    }
+    
+    .mapa-container img {
+        width: 100%;
+        height: auto;
+        border-radius: 1.5rem;
+        box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.3);
+    }
+    
+    /* ============ FOOTER ============ */
+    .footer {
+        padding: 8rem 4% 4rem;
+        margin-top: 5rem;
+        background: linear-gradient(180deg, rgba(18, 18, 18, 1) 0%, #0a0a0a 100%);
+        border-top: 1px solid rgba(246, 178, 27, 0.1);
+    }
+    
+    .footer-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 4rem;
+        margin-top: 2rem;
+    }
+    
+    .footer-col {
+        padding: 2rem 0;
+    }
+    
+    .footer-logo img {
+        max-width: 20rem;
+        margin-bottom: 2rem;
+    }
+    
+    .footer-about {
+        font-size: 1.5rem;
+        line-height: 1.8;
+        opacity: 0.9;
+        margin-bottom: 2rem;
+    }
+    
+    .social-links {
+        display: flex;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+        margin-top: 2rem;
+    }
+    
+    .social-link {
+        width: 4.5rem;
+        height: 4.5rem;
+        font-size: 2rem;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, rgba(246, 178, 27, 0.1) 0%, rgba(246, 178, 27, 0.05) 100%);
+        border: 1px solid rgba(246, 178, 27, 0.3);
+        transition: all 0.3s ease;
+    }
+    
+    .social-link:active {
+        transform: translateY(0.2rem);
+        background: linear-gradient(135deg, rgba(246, 178, 27, 0.2) 0%, rgba(246, 178, 27, 0.1) 100%);
+    }
+    
+    .form-container {
+        padding: 4rem 2.5rem;
+        margin-top: 2rem;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+        border-radius: 1.5rem;
+        border: 1px solid rgba(246, 178, 27, 0.15);
+        box-shadow: 0 0.8rem 2.4rem rgba(0, 0, 0, 0.2);
+    }
+    
+    .form-container h2 {
+        font-size: 2rem;
+        line-height: 1.6;
+        margin-bottom: 3rem;
+        font-weight: 600;
+    }
+    
+    .form-container label {
+        font-size: 1.4rem;
+        font-weight: 500;
+        margin-bottom: 0.8rem;
+        display: block;
+    }
+    
+    .form-container input,
+    .form-container textarea {
+        font-size: 1.5rem;
+        padding: 1.4rem 1.6rem;
+        width: 100%;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 0.8rem;
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--light);
+        margin-bottom: 2rem;
+        transition: all 0.3s ease;
+    }
+    
+    .form-container input:focus,
+    .form-container textarea:focus {
+        border-color: var(--secondary);
+        background: rgba(255, 255, 255, 0.08);
+        outline: none;
+        box-shadow: 0 0 0 0.3rem rgba(246, 178, 27, 0.1);
+    }
+    
+    .form-container button {
+        width: 100%;
+        padding: 1.6rem;
+        font-size: 1.6rem;
+        font-weight: 600;
+        border-radius: 0.8rem;
+        background: linear-gradient(135deg, #f6b21b 0%, #ffd700 100%);
+        color: var(--dark);
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 0.4rem 1.2rem rgba(246, 178, 27, 0.3);
+    }
+    
+    .form-container button:active {
+        transform: translateY(0.2rem);
+        box-shadow: 0 0.2rem 0.6rem rgba(246, 178, 27, 0.2);
+    }
+    
+    .footer-title {
+        font-size: 2rem;
+        font-weight: 600;
+        margin-bottom: 2rem;
+        color: var(--secondary);
+    }
+    
+    .footer-contact-item {
+        font-size: 1.4rem;
+        line-height: 1.8;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: flex-start;
+        gap: 1.2rem;
+    }
+    
+    .footer-contact-item i {
+        color: var(--secondary);
+        font-size: 1.6rem;
+        margin-top: 0.3rem;
+    }
+    
+    .error-message {
+        color: #ff4444;
+        font-size: 1.3rem;
+        margin-top: -1.5rem;
+        margin-bottom: 1rem;
+        display: none;
+    }
+    
+    .success-message {
+        background: rgba(34, 197, 94, 0.1);
+        border: 1px solid rgba(34, 197, 94, 0.3);
+        color: #22c55e;
+        padding: 1.5rem;
+        border-radius: 0.8rem;
+        font-size: 1.4rem;
+        margin-bottom: 2rem;
+    }
+    
+    .politica {
+        font-size: 1.2rem;
+        line-height: 1.6;
+        opacity: 0.7;
+        margin-bottom: 2rem;
+    }
+    
+    .politica a {
+        color: var(--secondary);
+        text-decoration: underline;
+    }
+    
+    /* ============ SCROLL TO TOP ============ */
+    .scroll-to-top {
+        width: 5rem;
+        height: 5rem;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        background: linear-gradient(135deg, #f6b21b 0%, #ffd700 100%);
+        color: var(--dark);
+        box-shadow: 0 0.4rem 1.2rem rgba(246, 178, 27, 0.4);
+        transition: all 0.3s ease;
+    }
+    
+    .scroll-to-top:active {
+        transform: translateY(0.2rem);
+    }
+}
+
+/* Mobile muito pequeno (até 375px) */
+@media (max-width: 375px) {
+    html {
+        font-size: 52%; /* 8.32px base */
+    }
+    
+    .header-main, .header-on-scroll {
+        padding: 2rem 3%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .logo img {
+        max-width: 12rem;
+    }
+    
+    .menu-toggle {
+        width: 3.2rem;
+        height: 2.2rem;
+        margin-left: auto;
+    }
+    
+    .menu-toggle span {
+        height: 0.3rem;
+    }
+    
+    .banner {
+        padding: 12rem 3% 6rem;
+    }
+    
+    .banner h2 {
+        font-size: 2.2rem;
+        margin-bottom: 0.1rem;
+        margin-top: 0.05rem;
+    }
+    
+    .banner h3 {
+        font-size: 1.4rem;
+        margin-top: 0.02rem;
+        margin-bottom: 0.3rem;
+    }
+    
+    .intro {
+        margin-top: 12rem;
+        padding-top: 5rem;
+        gap: 1rem;
+    }
+    
+    .intro .logo img {
+        max-width: 30rem;
+        max-height: 10rem;
+        margin-top: 14rem;
+        margin-bottom: 1rem;
+        object-fit: contain;
+    }
+    
+    .banner-buttons {
+        flex-direction: row;
+        gap: 1rem;
+        max-width: 36rem;
+        margin-top: -0.8rem;
+    }
+    
+    .banner-buttons .btn {
+        flex: 1;
+        padding: 1.3rem 1.2rem;
+        font-size: 1.25rem;
+    }
+    
+    .service {
+        padding: 9rem 3%;
+    }
+    
+    .feature {
+        padding-left: calc((100vw - 90vw) / 2);
+    }
+    
+    .feature-card {
+        width: 90vw;
+        min-width: 90vw;
+        max-width: 90vw;
+        padding: 2rem;
+    }
+    
+    .carousel-btn {
+        width: 3.5rem;
+        height: 3.5rem;
+        font-size: 1.5rem;
+        bottom: 1.5rem;
+    }
+    
+    .carousel-btn-prev {
+        left: 50%;
+        transform: translateX(calc(-100% - 7rem));
+    }
+    
+    .carousel-btn-prev:active {
+        transform: translateX(calc(-100% - 7rem)) scale(0.9);
+    }
+    
+    .carousel-btn-next {
+        right: 50%;
+        transform: translateX(calc(100% + 7rem));
+    }
+    
+    .carousel-btn-next:active {
+        transform: translateX(calc(100% + 7rem)) scale(0.9);
+    }
+    
+    .carousel-indicators {
+        bottom: 2.2rem;
+    }
+    
+    .campanha {
+        height: 25rem;
+        margin: 5rem 0;
+    }
+    
+    .campanha-carrossel img {
+        height: 25rem;
+    }
+    
+    .campanha-carrossel2 img {
+        height: 100%;
+    }
+    
+    .intro-image-section {
+        padding: 7rem 3%;
+    }
+    
+    .description {
+        padding: 9rem 3%;
+    }
+    
+    .mapa {
+        padding: 9rem 3%;
+    }
+    
+    .footer {
+        padding: 9rem 3% 4rem;
+    }
+}

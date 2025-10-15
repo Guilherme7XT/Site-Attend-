@@ -12,19 +12,19 @@
 
 <body>
     <header class="header-main">
-        <a href="index.html">
+        <a href="../../paginaP/index.html">
             <div class="logo">
                 <img src="./style/css/img/logo.png" alt="Attend Logo">
             </div>
         </a>
-        <div class="menu-toggle">
+        <div class="menu-toggle" id="menuToggle">
             <span></span>
             <span></span>
             <span></span>
         </div>
-        <nav>
+        <nav class="nav-menu" id="navMenu">
             <ul>
-                <li><a href="#top">Home</a></li>
+                <li><a href="#home">Home</a></li>
                 <li><a href="#card">Serviço</a></li>
                 <li><a href="#contact">Contato</a></li>
             </ul>
@@ -33,14 +33,19 @@
 
     <!--header secundario (vai aparecer na rolagem)-->
     <header class="header-on-scroll">
-        <a href="index.html">
+        <a href="../../paginaP/index.html">
             <div class="logo">
                 <img src="./style/css/img/logo.png" alt="Attend Logo">
             </div>
         </a>
-        <nav>
+        <div class="menu-toggle" id="menuToggleScroll">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <nav class="nav-menu" id="navMenuScroll">
             <ul>
-                <li><a href="#top">Home</a></li>
+                <li><a href="../../paginaP/index.html">Home</a></li>
                 <li><a href="#card">Serviço</a></li>
                 <li><a href="#contact">Contato</a></li>
             </ul>
@@ -48,31 +53,29 @@
     </header>
 
     <section class="intro-noc-banner" id="tecnico">
-        <div id="particles-js-banner"></div>
-        <h1 class="section-title"></h1>
+        
+        <h1 class="section-title">NOC - Network Operations Center</h1>
         <div class="intro-image-container">
             <!-- A imagem de fundo -->
-            <img src="./style/css/img/noc.png" alt="Imagem de fundo abstrata da Attend" class="noc-image animate-on-scroll">
-            <!-- O contêiner para o texto que ficará sobre a imagem -->
+            <img src="./style/css/img/noc.png" alt="NOC - Network Operations Center" class="noc-image">
         </div>
     </section>
 
 
     <section class="meio" id="card">
-        <div id="particles-js-meio"></div>
-        <h2 class="section-title animate-on-scroll">Se a sua empresa já passou por situações como:</h2>
+    
+        <h2 class="section-title">Se a sua empresa já passou por situações como:</h2>
         <div class="card">
             <!-- A imagem de fundo -->
-            <img src="./style/css/img/1.png" alt="Imagem de fundo abstrata da Attend" class="card-image animate-on-scroll">
-            <img src="./style/css/img/2.png" alt="Imagem de fundo abstrata da Attend" class="card-image animate-on-scroll">
-            <img src="./style/css/img/3.png" alt="Imagem de fundo abstrata da Attend" class="card-image animate-on-scroll">
+            <img src="./style/css/img/1.png" alt="Imagem de fundo abstrata da Attend" class="card-image">
+            <img src="./style/css/img/2.png" alt="Imagem de fundo abstrata da Attend" class="card-image">
+            <img src="./style/css/img/3.png" alt="Imagem de fundo abstrata da Attend" class="card-image">
 
-            <h2 class="title animate-on-scroll">Então o <span>NOC</span> é a solução que você precisa.</h2>
-            <h3 class="animate-on-scroll">Com esse serviço, sua empresa ganha mais <span>produtividade, segurança e tranquilidade</span> para
+            <h2 class="title">Então o <span>NOC</span> é a solução que você precisa.</h2>
+            <h3>Com esse serviço, sua empresa ganha mais <span>produtividade, segurança e tranquilidade</span> para
                 focar no que realmente importa: o crescimento do negócio.</h3>
             <!-- O contêiner para o texto que ficará sobre a imagem -->
-            <div class="intro-text-overlay animate-on-scroll">
-                <p></p>
+            <div class="intro-text-overlay">
                 <a href="#contact" class="btn">
                     <i class="fas fa-info-circle"></i> Contratar Serviço
                 </a>
@@ -80,14 +83,13 @@
                 <a href="#contact" class="btn">
                     <i class="fas fa-info-circle"></i> Tirar Duvidas
                 </a>
-
             </div>
         </div>
     </section>
 
     <footer class="footer" id="contact">
         <div class="footer-grid">
-            <div class="footer-col animate-on-scroll">
+            <div class="footer-col">
                 <div class="footer-logo">
                     <img src="./style/css/img/logo.png" alt="Attend Logo">
                     <h3></h3>
@@ -105,7 +107,7 @@
             </div>
 
 
-            <div class="form-container animate-on-scroll">
+            <div class="form-container">
                 <h2>Recebe nossas campanhas e<br>fique por dentro de todas as nossas novidades.</h2>
 
                 <div id="successMessage" class="success-message" style="display: none;">Sua mensagem foi enviada com sucesso!
@@ -141,7 +143,7 @@
             </div>
 
 
-            <div class="footer-col animate-on-scroll">
+            <div class="footer-col">
                 <h4 class="footer-title">Contato</h4>
                 <div class="footer-contact-item">
                     <i class="fas fa-map-marker-alt"></i>
@@ -164,7 +166,6 @@
 
     </footer>
     <!-- Custom Script -->
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script src="./style/js/noc.js" defer></script>
 </body>
-</html>
+</html> 
