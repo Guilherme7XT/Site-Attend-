@@ -13,25 +13,14 @@
 <body>
     <svg class="svg-container" width="0" height="0">
         <defs>
-          <filter id="turbulent-displace" x="-20%" y="-20%" width="140%" height="140%">
-            <feTurbulence
-              baseFrequency="0.01 0.01"
-              numOctaves="1"
-              seed="2"
-              type="fractalNoise"
-              result="turbulence"
-            ></feTurbulence>
-            <feDisplacementMap
-              in="SourceGraphic"
-              in2="turbulence"
-              scale="3"
-              xChannelSelector="R"
-              yChannelSelector="G"
-              result="displacement"
-            ></feDisplacementMap>
-          </filter>
+            <filter id="turbulent-displace" x="-20%" y="-20%" width="140%" height="140%">
+                <feTurbulence baseFrequency="0.01 0.01" numOctaves="1" seed="2" type="fractalNoise" result="turbulence">
+                </feTurbulence>
+                <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="3" xChannelSelector="R"
+                    yChannelSelector="G" result="displacement"></feDisplacementMap>
+            </filter>
         </defs>
-      </svg>
+    </svg>
     <header class="header-main">
         <a href="index.html">
             <div class="logo">
@@ -78,7 +67,10 @@
         <h1 class="section-title"></h1>
         <div class="intro-image-container">
             <!-- A imagem de fundo -->
-            <img src="./style/css/img/help.png" alt="Imagem de fundo abstrata da Attend" class="noc-image animate-on-scroll">
+            <img src="./style/css/img/ips.png" alt="Imagem de fundo abstrata da Attend"
+                class="noc-image animate-on-scroll">
+            <img src="./style/css/img/ips2.png" alt="Imagem de fundo abstrata da Attend"
+                class="img-mobile">
             <!-- O contêiner para o texto que ficará sobre a imagem -->
         </div>
     </section>
@@ -86,64 +78,46 @@
 
     <section class="meio" id="card">
         <div id="particles-js-meio"></div>
-        <h2 class="section-title animate-on-scroll">Se a sua empresa já passou por situações como:</h2>
+
         <div class="card">
             <!-- A imagem de fundo -->
-            <div class="card-container animate-on-scroll">
-                <div class="inner-container">
-                    <div class="border-outer">
-                        <div class="main-card" style="background-image: url('./style/css/img/13.png');"></div>
-                    </div>
-                    <div class="glow-layer-1"></div>
-                    <div class="glow-layer-2"></div>
-                    <div class="overlay-1"></div>
-                    <div class="overlay-2"></div>
-                    <div class="background-glow"></div>
+            <section class="meio" id="card">
+                <div id="particles-js-meio"></div>
+                <h2 class="section-title animate-on-scroll">Se a sua empresa já passou por situações como:</h2>
+                <div class="card">
+                    <!-- A imagem de fundo -->
+                    <img src="./style/css/img/13.png" alt="Imagem de fundo abstrata da Attend"
+                        class="card-image animate-on-scroll">
+                    <img src="./style/css/img/14.png" alt="Imagem de fundo abstrata da Attend"
+                        class="card-image animate-on-scroll">
+                    <img src="./style/css/img/15.png" alt="Imagem de fundo abstrata da Attend"
+                        class="card-image animate-on-scroll">
                 </div>
-            </div>
-            <div class="card-container animate-on-scroll">
-                <div class="inner-container">
-                    <div class="border-outer">
-                        <div class="main-card" style="background-image: url('./style/css/img/14.png');"></div>
-                    </div>
-                    <div class="glow-layer-1"></div>
-                    <div class="glow-layer-2"></div>
-                    <div class="overlay-1"></div>
-                    <div class="overlay-2"></div>
-                    <div class="background-glow"></div>
+                <h2 class="title animate-on-scroll">então a <span>Instalação Profissional do Starlink</span> é a solução
+                    perfeita.</h2>
+                <h3 class="animate-on-scroll">Com esse serviço, você tem <span>segurança, eficiência
+                        e o melhor desempenho</span> da sua internet via satélite.</h3>
+                <!-- O contêiner para o texto que ficará sobre a imagem -->
+                <div class="intro-text-overlay animate-on-scroll">
+                    <p></p>
+                    <a href="#contact" class="btn">
+                        <i class="fas fa-info-circle"></i> Contratar Serviço
+                    </a>
+    
+                    <a href="#contact" class="btn">
+                        <i class="fas fa-info-circle"></i> Tirar Duvidas
+                    </a>
+    
                 </div>
-            </div>
-            <div class="card-container animate-on-scroll">
-                <div class="inner-container">
-                    <div class="border-outer">
-                        <div class="main-card" style="background-image: url('./style/css/img/15.png');"></div>
-                    </div>
-                    <div class="glow-layer-1"></div>
-                    <div class="glow-layer-2"></div>
-                    <div class="overlay-1"></div>
-                    <div class="overlay-2"></div>
-                    <div class="background-glow"></div>
-                </div>
-            </div>
-            <h2 class="title animate-on-scroll">então a <span>Instalação Profissional do Starlink</span> é a solução perfeita.</h2>
-            <h3 class="animate-on-scroll">Com esse serviço, você tem <span>segurança, eficiência
-                 e o melhor desempenho</span> da sua internet via satélite.</h3>
-            <!-- O contêiner para o texto que ficará sobre a imagem -->
-            <div class="intro-text-overlay animate-on-scroll">
-                <p></p>
-                <a href="#contact" class="btn">
-                    <i class="fas fa-info-circle"></i> Contratar Serviço
-                </a>
-
-                <a href="#contact" class="btn">
-                    <i class="fas fa-info-circle"></i> Tirar Duvidas
-                </a>
-
-            </div>
+            </section>
+            
         </div>
     </section>
 
     <footer class="footer" id="contact">
+        <!-- Container de partículas no footer -->
+        <div id="footer-particles"></div>
+
         <div class="footer-grid">
             <div class="footer-col animate-on-scroll">
                 <div class="footer-logo">
@@ -158,7 +132,8 @@
                             class="fab fa-instagram"></i></a>
                     <a href="https://www.linkedin.com/company/attendservice/?viewAsMember=true" target="_blank"
                         class="social-link"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="https://wa.me/5599984144426" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://wa.me/5599984144426" target="_blank" class="social-link"><i
+                            class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
 
@@ -166,10 +141,11 @@
             <div class="form-container animate-on-scroll">
                 <h2>Recebe nossas campanhas e<br>fique por dentro de todas as nossas novidades.</h2>
 
-                <div id="successMessage" class="success-message" style="display: none;">Sua mensagem foi enviada com sucesso!
+                <div id="successMessage" class="success-message" style="display: none;">Sua mensagem foi enviada com
+                    sucesso!
                     Entraremos em contato em breve.</div>
 
-                <form id="contactForm" action="#" method="post" novalidate>
+                <form id="contactForm" action="../../process_form.php" method="post" novalidate>
                     <div class="form-group">
                         <label for="nome">Nome Completo*</label>
                         <input type="text" id="nome" name="nome" placeholder="Seu nome completo" required>
@@ -225,4 +201,5 @@
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script src="./style/js/ips.js" defer></script>
 </body>
+
 </html>

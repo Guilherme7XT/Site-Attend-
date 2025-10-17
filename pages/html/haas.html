@@ -57,7 +57,8 @@
         <h1 class="section-title"></h1>
         <div class="intro-image-container">
             <!-- A imagem de fundo -->
-            <img src="./style/css/img/help.png" alt="Imagem de fundo abstrata da Attend" class="noc-image animate-on-scroll">
+            <img src="./style/css/img/haas.png" alt="Imagem de fundo abstrata da Attend" class="noc-image animate-on-scroll">
+            <img src="./style/css/img/haas2.png" alt="Imagem de fundo abstrata da Attend" class="img-mobile">
             <!-- O contêiner para o texto que ficará sobre a imagem -->
         </div>
     </section>
@@ -91,6 +92,9 @@
     </section>
 
     <footer class="footer" id="contact">
+        <!-- Container de partículas no footer -->
+        <div id="footer-particles"></div>
+        
         <div class="footer-grid">
             <div class="footer-col animate-on-scroll">
                 <div class="footer-logo">
@@ -105,7 +109,7 @@
                             class="fab fa-instagram"></i></a>
                     <a href="https://www.linkedin.com/company/attendservice/?viewAsMember=true" target="_blank"
                         class="social-link"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="https://wa.me/5599984144426" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://wa.me/5599984144426" target="_blank" class="social-link"><i class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
 
@@ -116,7 +120,7 @@
                 <div id="successMessage" class="success-message" style="display: none;">Sua mensagem foi enviada com sucesso!
                     Entraremos em contato em breve.</div>
 
-                <form id="contactForm" action="#" method="post" novalidate>
+                <form id="contactForm" action="../../process_form.php" method="post" novalidate>
                     <div class="form-group">
                         <label for="nome">Nome Completo*</label>
                         <input type="text" id="nome" name="nome" placeholder="Seu nome completo" required>

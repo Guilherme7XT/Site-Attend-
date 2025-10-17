@@ -318,6 +318,16 @@ nav a:hover::after {
     width: 100%;
     height: auto;
     filter: none;
+}
+
+/* Configuração para troca de imagens em mobile */
+.intro-noc-banner .noc-image {
+    display: block;
+}
+
+.intro-noc-banner .img-mobile {
+    display: none;
+}
     border-radius: 1.5rem; /* Adicionando bordas arredondadas de volta */
 }
 
@@ -794,3 +804,108 @@ footer {
 /* Staggered animation for buttons */
 .meio .intro-text-overlay.in-view .btn:nth-of-type(1) { transition-delay: 0.1s; }
 .meio .intro-text-overlay.in-view .btn:nth-of-type(2) { transition-delay: 0.2s; }
+
+/* Container de partículas do footer */
+#footer-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    pointer-events: none;
+}
+
+/* Partículas do footer - pequenas estrelas brancas */
+#footer-particles::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1px;
+    height: 1px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 
+        /* Esquerda */
+        5vw 50px 0 0 rgba(255, 255, 255, 0.7),
+        10vw 100px 0 0 rgba(255, 255, 255, 0.6),
+        15vw 150px 0 0 rgba(255, 255, 255, 0.7),
+        10vw 200px 0 0 rgba(255, 255, 255, 0.6),
+        5vw 250px 0 0 rgba(255, 255, 255, 0.7),
+        15vw 300px 0 0 rgba(255, 255, 255, 0.6),
+        10vw 350px 0 0 rgba(255, 255, 255, 0.7),
+        /* Centro */
+        30vw 60px 0 0 rgba(255, 255, 255, 0.6),
+        40vw 110px 0 0 rgba(255, 255, 255, 0.7),
+        50vw 160px 0 0 rgba(255, 255, 255, 0.6),
+        40vw 210px 0 0 rgba(255, 255, 255, 0.7),
+        30vw 260px 0 0 rgba(255, 255, 255, 0.6),
+        50vw 310px 0 0 rgba(255, 255, 255, 0.7),
+        40vw 360px 0 0 rgba(255, 255, 255, 0.6),
+        /* Direita */
+        70vw 70px 0 0 rgba(255, 255, 255, 0.7),
+        80vw 120px 0 0 rgba(255, 255, 255, 0.6),
+        90vw 170px 0 0 rgba(255, 255, 255, 0.7),
+        85vw 220px 0 0 rgba(255, 255, 255, 0.6),
+        75vw 270px 0 0 rgba(255, 255, 255, 0.7),
+        90vw 320px 0 0 rgba(255, 255, 255, 0.6),
+        80vw 370px 0 0 rgba(255, 255, 255, 0.7);
+    animation: footerStarsFloat 100s linear infinite;
+}
+
+#footer-particles::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1px;
+    height: 1px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.7);
+    box-shadow: 
+        /* Distribuição alternada */
+        8vw 80px 0 0 rgba(255, 255, 255, 0.6),
+        18vw 130px 0 0 rgba(255, 255, 255, 0.7),
+        28vw 180px 0 0 rgba(255, 255, 255, 0.6),
+        38vw 230px 0 0 rgba(255, 255, 255, 0.7),
+        48vw 280px 0 0 rgba(255, 255, 255, 0.6),
+        58vw 330px 0 0 rgba(255, 255, 255, 0.7),
+        68vw 90px 0 0 rgba(255, 255, 255, 0.6),
+        78vw 140px 0 0 rgba(255, 255, 255, 0.7),
+        88vw 190px 0 0 rgba(255, 255, 255, 0.6),
+        95vw 240px 0 0 rgba(255, 255, 255, 0.7),
+        20vw 280px 0 0 rgba(255, 255, 255, 0.6),
+        60vw 160px 0 0 rgba(255, 255, 255, 0.7),
+        25vw 60px 0 0 rgba(255, 255, 255, 0.6),
+        55vw 340px 0 0 rgba(255, 255, 255, 0.7),
+        85vw 300px 0 0 rgba(255, 255, 255, 0.6);
+    animation: footerStarsFloat 130s linear infinite reverse;
+}
+
+/* Animação para estrelas do footer */
+@keyframes footerStarsFloat {
+    0% {
+        transform: translate(0, 0) translateZ(0);
+    }
+    50% {
+        transform: translate(20px, -20px) translateZ(0);
+    }
+    100% {
+        transform: translate(0, 0) translateZ(0);
+    }
+}
+
+/* Media Query para troca de imagens em mobile */
+@media (max-width: 768px) {
+    .intro-noc-banner .noc-image {
+        display: none;
+    }
+    
+    .intro-noc-banner .img-mobile {
+        display: block;
+        width: 100%;
+        height: auto;
+        filter: none;
+    }
+}

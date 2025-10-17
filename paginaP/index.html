@@ -89,13 +89,22 @@
                 <a href="https://wa.me/5599984144426" target="_blank" class="btn">
                     <i class="fab fa-info-circle"></i>Saiba mais</a>
                 <a href="https://wa.me/5599984144426" target="_blank" class="btn">
-                    <i class="fab fa-whatsapp"></i>Fale Conosco</a>
+                    <i class="fab fa-whatsapp"></i> Fale Conosco</a>
             </div>
 
         </div>
     </section>
 
     <div class="campanha">
+        <div class="campanha-carousel-wrapper">
+            <button class="campanha-btn campanha-btn-prev" aria-label="Imagem anterior">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="campanha-btn campanha-btn-next" aria-label="Próxima imagem">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+            <div class="campanha-indicators"></div>
+            
         <div class="campanha-carrossel">
             <img src="./img/parceria2.png" alt="Mapa de atuação da Attend Services">
             <img src="./img/parceria3.png" alt="Campanha Faiston e Attend Services">
@@ -105,6 +114,7 @@
             <img src="./img/campanha1.png" alt="Mapa de atuação da Attend Services">
             <img src="./img/campanha2.png" alt="Campanha Faiston e Attend Services">
             <img src="./img/campanha3.png" alt="Campanha Faiston e Attend Services">
+            </div>
         </div>
         <div class="parceria-buttons">
             <a href="#contact" class="btn">
@@ -263,15 +273,16 @@
             <!-- A imagem de fundo -->
             <img src="./img/AT01.png" alt="Imagem de fundo abstrata da Attend" class="intro-background-image">
             <img src="./img/AT02.png" alt="Imagem de fundo abstrata da Attend" class="intro-background-image">
+            <!-- Botão sobreposto à imagem -->
+            <a href="../pages/html/areaT.html" target="_blank" class="btn intro-image-btn top-left">
+                <i class="fas fa-info-circle"></i> Saiba Mais
+            </a>
         </div>
         <!-- O contêiner para o texto que ficará abaixo da imagem -->
         <div class="intro-text-overlay">
             <p>Aqui você encontrará conteúdos exclusivos desenvolvidos para apoiar os técnicos no dia a dia: 
                 dicas práticas, tutoriais passo a passo, orientações de boas práticas e materiais de apoio para 
                 garantir sempre o melhor atendimento os clientes..</p>
-            <a href="../pages/html/areaT.html" target="_blank" class="btn">
-                <i class="fas fa-info-circle"></i> Saiba Mais
-            </a>
         </div>
     </section>
 
@@ -293,7 +304,7 @@
 
                 <div class="stats">
                    <a href="https://wa.me/5599984144426" target="_blank" class="btn">
-                    <i class="fab fa-whatsapp"></i>Saiba mais</a>
+                    <i class="fab fa-whatsapp"></i> Saiba mais</a>
                 </div>
             </div>
 
@@ -336,7 +347,7 @@
                             class="fab fa-instagram"></i></a>
                     <a href="https://www.linkedin.com/company/attendservice/?viewAsMember=true" target="_blank"
                         class="social-link"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="https://wa.me/5599984144426" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://wa.me/5599984144426" target="_blank" class="social-link"><i class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
 
@@ -394,6 +405,266 @@
 
 
     </footer>
+
+    <!-- Carrossel Campanha Script Híbrido -->
+    <script>
+        // Variáveis globais para o carrossel da campanha
+        let currentCampanhaIndex = 0;
+        const totalCampanhaImages = 3;
+        let autoPlayInterval;
+        let isManualControl = false;
+        let isHovered = false;
+        let isManualMode = false;
+        let isMobileView = false;
+        
+        // Função para detectar se está em view mobile
+        function checkMobileView() {
+            isMobileView = window.innerWidth <= 768 || window.matchMedia('(max-aspect-ratio: 820/1180)').matches;
+            return isMobileView;
+        }
+        
+        // Função para ir para um slide específico
+        function goToCampanhaSlide(index) {
+            console.log('Mudando para slide:', index);
+            currentCampanhaIndex = index;
+            
+            const carrossel1 = document.querySelector('.campanha-carrossel');
+            const carrossel2 = document.querySelector('.campanha-carrossel2');
+            
+            if (isManualMode) {
+                // Modo manual - controlar posição diretamente
+                const translateX = -(index * 33.333);
+                
+                // Aplicar transformação apenas no carrossel visível
+                if (carrossel1 && carrossel1.style.display !== 'none') {
+                    carrossel1.style.transform = `translateX(${translateX}%)`;
+                    carrossel1.style.animation = 'none';
+                }
+                if (carrossel2 && carrossel2.style.display !== 'none') {
+                    carrossel2.style.transform = `translateX(${translateX}%)`;
+                    carrossel2.style.animation = 'none';
+                }
+            }
+            
+            // Atualizar indicadores
+            const dots = document.querySelectorAll('.campanha-indicator-dot');
+            dots.forEach((dot, dotIndex) => {
+                dot.classList.toggle('active', dotIndex === currentCampanhaIndex);
+            });
+        }
+        
+        // Próximo slide
+        function nextCampanhaSlide() {
+            console.log('Próximo slide clicado');
+            isManualMode = true;
+            currentCampanhaIndex = (currentCampanhaIndex + 1) % totalCampanhaImages;
+            goToCampanhaSlide(currentCampanhaIndex);
+        }
+        
+        // Slide anterior
+        function prevCampanhaSlide() {
+            console.log('Slide anterior clicado');
+            isManualMode = true;
+            currentCampanhaIndex = (currentCampanhaIndex - 1 + totalCampanhaImages) % totalCampanhaImages;
+            goToCampanhaSlide(currentCampanhaIndex);
+        }
+        
+        // Voltar ao modo automático
+        function returnToAutoMode() {
+            console.log('Retornando ao modo automático');
+            isManualMode = false;
+            const carrossel1 = document.querySelector('.campanha-carrossel');
+            const carrossel2 = document.querySelector('.campanha-carrossel2');
+            
+            // Restaurar animação apenas no carrossel visível
+            if (carrossel1 && carrossel1.style.display !== 'none') {
+                carrossel1.style.animation = 'slide-campanha 18s infinite ease-in-out';
+                carrossel1.style.transform = '';
+            }
+            if (carrossel2 && carrossel2.style.display !== 'none') {
+                carrossel2.style.animation = 'slide-campanha 18s infinite ease-in-out';
+                carrossel2.style.transform = '';
+            }
+        }
+        
+        // Iniciar auto-play com mudança de imagens
+        function startAutoPlay() {
+            if (autoPlayInterval) clearInterval(autoPlayInterval);
+            autoPlayInterval = setInterval(function() {
+                if (!isHovered && !isManualControl && !isManualMode) {
+                    if (checkMobileView()) {
+                        // Em mobile, mudar as imagens automaticamente
+                        console.log('Auto-play mobile ativo');
+                        currentCampanhaIndex = (currentCampanhaIndex + 1) % totalCampanhaImages;
+                        goToCampanhaSlide(currentCampanhaIndex);
+                    } else {
+                        // Em desktop, deixar a animação CSS fazer o trabalho
+                        console.log('Auto-play desktop ativo');
+                    }
+                }
+            }, 4000); // Muda a cada 4 segundos
+        }
+        
+        // Parar auto-play
+        function stopAutoPlay() {
+            if (autoPlayInterval) {
+                clearInterval(autoPlayInterval);
+                autoPlayInterval = null;
+            }
+        }
+        
+        // Inicializar quando o DOM estiver pronto
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                const campanhaIndicators = document.querySelector('.campanha-indicators');
+                const campanhaWrapper = document.querySelector('.campanha-carousel-wrapper');
+                const campanhaPrevBtn = document.querySelector('.campanha-btn-prev');
+                const campanhaNextBtn = document.querySelector('.campanha-btn-next');
+                
+                // Criar indicadores
+                if (campanhaIndicators) {
+                    campanhaIndicators.innerHTML = '';
+                    for (let i = 0; i < totalCampanhaImages; i++) {
+                        const dot = document.createElement('span');
+                        dot.classList.add('campanha-indicator-dot');
+                        if (i === 0) dot.classList.add('active');
+                        dot.addEventListener('click', function() {
+                            console.log('Indicador clicado:', i);
+                            isManualControl = true;
+                            isManualMode = true;
+                            goToCampanhaSlide(i);
+                            // Retomar auto-play após 10 segundos de inatividade manual
+                            setTimeout(function() {
+                                isManualControl = false;
+                                returnToAutoMode();
+                            }, 10000);
+                        });
+                        campanhaIndicators.appendChild(dot);
+                    }
+                }
+                
+                // Event listeners para os botões
+                if (campanhaPrevBtn) {
+                    campanhaPrevBtn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        console.log('Botão anterior clicado!');
+                        isManualControl = true;
+                        prevCampanhaSlide();
+                        // Retomar auto-play após 10 segundos de inatividade manual
+                        setTimeout(function() {
+                            isManualControl = false;
+                            returnToAutoMode();
+                        }, 10000);
+                    });
+                }
+                
+                if (campanhaNextBtn) {
+                    campanhaNextBtn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        console.log('Botão próximo clicado!');
+                        isManualControl = true;
+                        nextCampanhaSlide();
+                        // Retomar auto-play após 10 segundos de inatividade manual
+                        setTimeout(function() {
+                            isManualControl = false;
+                            returnToAutoMode();
+                        }, 10000);
+                    });
+                }
+                
+                // Event listeners para hover
+                if (campanhaWrapper) {
+                    campanhaWrapper.addEventListener('mouseenter', function() {
+                        console.log('Mouse entrou - pausando auto-play');
+                        isHovered = true;
+                    });
+                    
+                    campanhaWrapper.addEventListener('mouseleave', function() {
+                        console.log('Mouse saiu - retomando auto-play');
+                        isHovered = false;
+                    });
+                }
+                
+                // Event listener para redimensionamento
+                window.addEventListener('resize', function() {
+                    checkMobileView();
+                    if (!isManualMode) {
+                        returnToAutoMode();
+                    }
+                });
+                
+                // Inicializar com a primeira imagem ativa
+                goToCampanhaSlide(0);
+                
+                // Iniciar auto-play
+                startAutoPlay();
+                
+                console.log('Carrossel híbrido da campanha inicializado!');
+            }, 200);
+        });
+    </script>
+
+    <!-- Script para posicionar o botão -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const button = document.querySelector('.intro-image-btn');
+            
+            if (button) {
+                // Função para mudar a posição do botão
+                function changeButtonPosition(position) {
+                    // Remove todas as classes de posição
+                    button.classList.remove('top-left', 'top-right', 'bottom-left', 'bottom-right', 'center', 'center-left', 'center-right');
+                    // Adiciona a nova classe de posição
+                    button.classList.add(position);
+                    console.log('Posição do botão alterada para:', position);
+                }
+                
+                // Expor a função globalmente para uso no console
+                window.changeButtonPosition = changeButtonPosition;
+                
+                // Adicionar event listeners para teclas (opcional)
+                document.addEventListener('keydown', function(e) {
+                    if (e.ctrlKey) {
+                        switch(e.key) {
+                            case '1':
+                                changeButtonPosition('top-left');
+                                break;
+                            case '2':
+                                changeButtonPosition('top-right');
+                                break;
+                            case '3':
+                                changeButtonPosition('bottom-left');
+                                break;
+                            case '4':
+                                changeButtonPosition('bottom-right');
+                                break;
+                            case '5':
+                                changeButtonPosition('center');
+                                break;
+                            case '6':
+                                changeButtonPosition('center-left');
+                                break;
+                            case '7':
+                                changeButtonPosition('center-right');
+                                break;
+                        }
+                    }
+                });
+                
+                console.log('Botão carregado! Use as seguintes opções:');
+                console.log('- changeButtonPosition("top-left") - Canto superior esquerdo');
+                console.log('- changeButtonPosition("top-right") - Canto superior direito');
+                console.log('- changeButtonPosition("bottom-left") - Canto inferior esquerdo');
+                console.log('- changeButtonPosition("bottom-right") - Canto inferior direito');
+                console.log('- changeButtonPosition("center") - Centro');
+                console.log('- changeButtonPosition("center-left") - Centro esquerdo');
+                console.log('- changeButtonPosition("center-right") - Centro direito');
+                console.log('Ou use Ctrl+1 a Ctrl+7 para mudar rapidamente!');
+            }
+        });
+    </script>
 
     <!-- Carrossel Mobile Script -->
     <script>

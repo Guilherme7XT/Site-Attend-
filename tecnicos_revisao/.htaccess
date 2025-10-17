@@ -1,0 +1,72 @@
+# Configurações de segurança para o Sistema de Cadastro de Técnicos
+
+# Definir página inicial padrão
+DirectoryIndex cadastro.php
+
+# Proteger arquivos sensíveis
+<Files ".env">
+    Order allow,deny
+    Deny from all
+</Files>
+
+<Files "config.php">
+    Order allow,deny
+    Deny from all
+</Files>
+
+<Files "utils.php">
+    Order allow,deny
+    Deny from all
+</Files>
+
+# Proteger pasta de banco de dados
+<Files "database/*">
+    Order allow,deny
+    Deny from all
+</Files>
+
+# Proteger arquivos de teste
+<Files "test_system.php">
+    Order allow,deny
+    Deny from all
+</Files>
+
+<Files "security_test.php">
+    Order allow,deny
+    Deny from all
+</Files>
+
+# Configurações de upload
+php_value upload_max_filesize 5M
+php_value post_max_size 5M
+php_value max_execution_time 30
+php_value max_input_time 30
+
+# Configurações de sessão
+php_value session.cookie_httponly 1
+php_value session.cookie_secure 0
+php_value session.use_strict_mode 1
+
+# Desabilitar exibição de erros em produção
+php_flag display_errors Off
+php_flag log_errors On
+
+# Configurações de segurança
+Header always set X-Content-Type-Options nosniff
+Header always set X-Frame-Options DENY
+Header always set X-XSS-Protection "1; mode=block"
+Header always set Referrer-Policy "strict-origin-when-cross-origin"
+Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+
+# Content Security Policy
+Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; img-src 'self' data:; font-src 'self' https://cdn.jsdelivr.net; connect-src 'self';"
+
+# Redirecionar para HTTPS (descomente se usar HTTPS)
+# RewriteEngine On
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Página de erro personalizada
+ErrorDocument 404 /tecnicos_revisao/404.php
+ErrorDocument 403 /tecnicos_revisao/403.php
+ErrorDocument 500 /tecnicos_revisao/500.php

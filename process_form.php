@@ -70,12 +70,15 @@ try {
 
     // Remetente
     $mail->setFrom('attendos@attend.services', 'Attend Services - Formulário de Contato');
-    $mail->addReplyTo($email, $name);
+    $mail->addReplyTo($email, $nome);
 
     // Destinatários
     $mail->addAddress('elber.viana@att-br.com', 'Elber Viana');
     $mail->addAddress('renatogames2@gmail.com', 'Renato');
     $mail->addAddress('contato@attendservice.com.br', 'Contato Attend');
+    $mail->addAddress('paulo.frassao@attendservice.com.br', 'Paulo Frassão');
+    $mail->addAddress('cristiane.oliveira@faiston.com', 'Cristiane Faiston');
+    $mail->addAddress('guilherme.santos@attendservice.com.br', 'Guilherme Santos');
 
     // Conteúdo do email
     $mail->isHTML(true);

@@ -194,4 +194,104 @@ document.addEventListener('DOMContentLoaded', function () {
     if (document.getElementById('particles-js-meio')) {
         particlesJS('particles-js-meio', particleConfig);
     }
+
+    // === PROCESSAMENTO DO FORMULÁRIO DE CONTATO ===
+    const form = document.getElementById('contactForm');
+    if (form) {
+        const submitBtn = document.getElementById('submitBtn');
+        const successMessage = document.getElementById('successMessage');
+
+        // Campos do formulário
+        const nameInput = document.getElementById('nome');
+        const contactInput = document.getElementById('contato');
+        const emailInput = document.getElementById('email');
+
+        // Elementos de erro
+        const nameError = document.getElementById('nameError');
+        const contactError = document.getElementById('contactError');
+        const emailError = document.getElementById('emailError');
+
+        // Função para validar e-mail
+        function isValidEmail(email) {
+            const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(String(email).toLowerCase());
+        }
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            let isValid = true;
+
+            // Validação do nome
+            if (nameInput.value.trim() === '') {
+                if (nameError) nameError.style.display = 'block';
+                isValid = false;
+            } else {
+                if (nameError) nameError.style.display = 'none';
+            }
+
+            // Validação do contato
+            if (contactInput.value.trim() === '') {
+                if (contactError) contactError.style.display = 'block';
+                isValid = false;
+            } else {
+                if (contactError) contactError.style.display = 'none';
+            }
+
+            // Validação do e-mail
+            if (!isValidEmail(emailInput.value.trim())) {
+                if (emailError) emailError.style.display = 'block';
+                isValid = false;
+            } else {
+                if (emailError) emailError.style.display = 'none';
+            }
+
+            if (isValid) {
+                if (submitBtn) {
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = 'Enviando... <span class="loading"></span>';
+                }
+
+                // Preparar dados do formulário
+                const formData = new FormData(form);
+
+                // Enviar via AJAX
+                fetch('../../process_form.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        if (successMessage) {
+                            successMessage.style.display = 'block';
+                            successMessage.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'center'
+                            });
+                        }
+                        form.reset();
+                    } else {
+                        // Mostrar erros se houver
+                        if (data.errors) {
+                            alert('Erro: ' + data.errors.join(', '));
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro:', error);
+                    alert('Erro ao enviar formulário. Tente novamente.');
+                })
+                .finally(() => {
+                    if (submitBtn) {
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = 'Enviar';
+                    }
+                    
+                    setTimeout(function() {
+                        if (successMessage) successMessage.style.display = 'none';
+                    }, 5000);
+                });
+            }
+        });
+    }
 });

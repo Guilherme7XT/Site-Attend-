@@ -741,14 +741,14 @@ nav a:hover::after {
     height: auto; /* Altura automática baseada no conteúdo */
     width: 100%;
     /* Adiciona espaço acima da seção para afastá-la do conteúdo anterior */
-    margin-top: 10rem;
-    padding: 5rem 5%; /* Padding para espaçamento interno */
+    margin-top: 3rem;
+    padding: 0.5rem 5%; /* Padding ainda mais reduzido verticalmente, mantendo lateral */
     position: relative; /* Necessário para o posicionamento absoluto do filho */
     overflow: visible; /* Permite que o conteúdo seja totalmente visível */
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem; /* Espaçamento mínimo entre elementos */
+    gap: 0rem; /* Sem espaçamento entre elementos */
 }
 
 .intro-image-container {
@@ -757,7 +757,7 @@ nav a:hover::after {
     height: 70rem; /* Altura maior para a imagem */
     position: relative; /* Contexto para o texto e a imagem */
     border-radius: 2rem; /* Bordas arredondadas */
-    overflow: hidden; /* Garante que a imagem não vaze */
+    overflow: visible; /* Permite que o botão seja visível */
     box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.3); /* Sombra para profundidade */
 }
 
@@ -841,12 +841,12 @@ nav a:hover::after {
     color: var(--light); /* Cor do texto branca */
     text-align: center; /* Centraliza o texto */
     max-width: 90rem; /* Largura máxima maior para melhor legibilidade */
-    background: linear-gradient(135deg, rgba(18, 18, 18, 0.95) 0%, rgba(18, 18, 18, 0.9) 100%); /* Fundo semi-transparente */
-    padding: 2rem; /* Padding interno mínimo para ficar bem próximo da imagem */
+    background: transparent; /* Fundo transparente em desktop */
+    padding: 0.1rem 1rem; /* Padding vertical mínimo, lateral mantido */
     border-radius: 1.5rem; /* Bordas arredondadas */
-    border: 1px solid rgba(246, 178, 27, 0.2); /* Borda sutil */
-    box-shadow: 0 0.8rem 2.4rem rgba(0, 0, 0, 0.3); /* Sombra */
-    backdrop-filter: blur(10px); /* Efeito de vidro */
+    border: none; /* Remove borda em desktop */
+    box-shadow: none; /* Remove sombra em desktop */
+    backdrop-filter: none; /* Remove efeito de vidro em desktop */
     margin-top: 0; /* Remove margem superior para ficar logo abaixo da imagem */
 }
 
@@ -854,6 +854,7 @@ nav a:hover::after {
     font-size: 1.8rem; /* Tamanho da fonte ajustado */
     line-height: 1.7; /* Melhora o espaçamento entre linhas */
     margin-bottom: 2rem; /* Espaçamento inferior */
+    display: none; /* Esconde o texto em desktop */
 }
 
 .intro-text-overlay .btn {
@@ -879,7 +880,7 @@ nav a:hover::after {
     font-size: clamp(2.5rem, 5vw, 4rem); /* Tamanho responsivo */
     font-weight: 700; /* Texto em negrito */
     text-align: center; /* Centralizado */
-    margin-bottom: 2rem; /* Espaçamento inferior */
+    margin-bottom: 0rem; /* Sem espaçamento inferior */
     background: linear-gradient(135deg, var(--secondary) 0%, #ffd700 100%); /* Gradiente amarelo */
     -webkit-background-clip: text; /* Aplica gradiente ao texto */
     -webkit-text-fill-color: transparent; /* Torna o texto transparente */
@@ -918,6 +919,101 @@ nav a:hover::after {
 .intro-image-section.is-visible .section-title { transition-delay: 0.2s; }
 .intro-image-section.is-visible .intro-text-overlay p { transition-delay: 0.4s; }
 .intro-image-section.is-visible .intro-text-overlay .btn { transition-delay: 0.6s; }
+
+/* Botão sobreposto à imagem - FORÇADO A APARECER */
+.intro-image-btn {
+    position: absolute !important;
+    bottom: 2rem !important;
+    left: 2rem !important;
+    z-index: 9999 !important;
+    background: rgba(128, 128, 128, 0.2) !important;
+    color: var(--light) !important;
+    padding: 0.8rem 1.5rem !important;
+    border-radius: 0.6rem !important;
+    font-size: 1.1rem !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    box-shadow: 0 0.3rem 0.8rem rgba(128, 128, 128, 0.3) !important;
+    transition: none !important;
+    backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    width: auto !important;
+    height: auto !important;
+    min-width: 8rem !important;
+    min-height: 3rem !important;
+    transform: none !important;
+}
+
+.intro-image-btn:hover {
+    transform: none !important;
+    box-shadow: 0 0.6rem 1.8rem rgba(128, 128, 128, 0.4);
+    background: rgba(128, 128, 128, 0.2) !important;
+    backdrop-filter: blur(15px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    color: var(--light) !important;
+}
+
+.intro-image-btn i {
+    font-size: 1rem;
+}
+
+/* Classes para posicionar o botão em diferentes lugares */
+.intro-image-btn.top-left {
+    top: 49rem !important;
+    left: 4rem !important;
+    bottom: auto !important;
+}
+
+.intro-image-btn.top-right {
+    top: 2rem !important;
+    right: 2rem !important;
+    left: auto !important;
+    bottom: auto !important;
+}
+
+.intro-image-btn.bottom-left {
+    bottom: 2rem !important;
+    left: 2rem !important;
+    top: auto !important;
+    right: auto !important;
+}
+
+.intro-image-btn.bottom-right {
+    bottom: 2rem !important;
+    right: 2rem !important;
+    top: auto !important;
+    left: auto !important;
+}
+
+.intro-image-btn.center {
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    bottom: auto !important;
+    right: auto !important;
+}
+
+.intro-image-btn.center-left {
+    top: 50% !important;
+    left: 2rem !important;
+    transform: translateY(-50%) !important;
+    bottom: auto !important;
+    right: auto !important;
+}
+
+.intro-image-btn.center-right {
+    top: 50% !important;
+    right: 2rem !important;
+    transform: translateY(-50%) !important;
+    bottom: auto !important;
+    left: auto !important;
+}
 
 .section {
     padding: 10rem 5%; 
@@ -2847,10 +2943,10 @@ footer {
     position: relative;
     width: 100%;
     height: 50rem; /* Altura fixa em rem para manter proporção */
-    overflow: hidden;
+    overflow: visible; /* Mudado para visible para mostrar os indicadores */
     background-color: var(--dark);
     margin: 4rem 0; /* Espaçamento entre seções */
-    padding: 0;
+    padding: 0 0 6rem 0; /* Padding inferior para dar espaço aos indicadores */
 }
 
 .campanha-carrossel {
@@ -2898,11 +2994,11 @@ footer {
     }
     
     .campanha-carrossel {
-        display: none; /* Esconde o carrossel original */
+        display: none !important; /* Esconde o carrossel original */
     }
     
     .campanha-carrossel2 {
-        display: flex; /* Mostra o carrossel alternativo */
+        display: flex !important; /* Mostra o carrossel alternativo */
     }
 }
 
@@ -2925,6 +3021,168 @@ footer {
     .campanha {
         height: 50rem; /* Altura aumentada para mobile pequeno */
         min-height: 65vh; /* Garante boa visibilidade em mobile pequeno */
+    }
+}
+
+/* Controles do carrossel da campanha */
+.campanha-carousel-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    pointer-events: auto; /* Garante que eventos de clique funcionem */
+}
+
+.campanha-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    background: rgba(128, 128, 128, 0.3); /* Cinza transparente */
+    backdrop-filter: blur(10px); /* Efeito de vidro */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--light);
+    font-size: 1.6rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.2);
+    z-index: 1000; /* Z-index maior para garantir que fique sobre outros elementos */
+    opacity: 0.7;
+    pointer-events: auto; /* Garante que seja clicável */
+    user-select: none; /* Previne seleção de texto */
+    -webkit-tap-highlight-color: transparent; /* Remove highlight no mobile */
+}
+
+.campanha-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-50%) scale(1.1);
+    background: rgba(128, 128, 128, 0.5);
+    box-shadow: 0 0.6rem 1.8rem rgba(0, 0, 0, 0.3);
+}
+
+.campanha-btn:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+.campanha-btn-prev {
+    left: 2rem;
+}
+
+.campanha-btn-next {
+    right: 2rem;
+}
+
+.campanha-indicators {
+    position: absolute;
+    bottom: -4rem; /* Movido para fora da imagem */
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 1.5rem; /* Maior espaçamento entre as bolinhas */
+    z-index: 100;
+}
+
+.campanha-indicator-dot {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0.5rem;
+    margin: -0.5rem;
+}
+
+.campanha-indicator-dot:hover {
+    background: rgba(255, 255, 255, 0.6);
+    transform: scale(1.2);
+}
+
+.campanha-indicator-dot.active {
+    width: 3rem;
+    border-radius: 0.5rem;
+    background: linear-gradient(135deg, #f6b21b 0%, #ffd700 100%);
+    box-shadow: 0 0.3rem 0.8rem rgba(246, 178, 27, 0.4);
+}
+
+/* Carrossel automático restaurado */
+.campanha-carrossel {
+    display: flex;
+    width: 300%; /* Três imagens lado a lado = 300% */
+    height: 100%;
+    animation: slide-campanha 18s infinite ease-in-out;
+    position: relative;
+    transition: transform 0.5s ease-in-out; /* Transição suave para modo manual */
+}
+
+.campanha-carrossel img {
+    width: 33.333%; /* Cada imagem ocupa 33.333% do container */
+    height: 50rem; /* Mesma altura da seção */
+    object-fit: contain; /* Mantém a imagem inteira visível sem cortar */
+    object-position: center;
+    display: block;
+    flex-shrink: 0;
+}
+
+.campanha-carrossel2 {
+    display: none; /* Inicialmente escondido */
+    flex: none;
+    width: 300%; /* Três imagens lado a lado = 300% */
+    height: 100%;
+    animation: slide-campanha 18s infinite ease-in-out;
+    position: relative;
+    transition: transform 0.5s ease-in-out; /* Transição suave para modo manual */
+}
+
+.campanha-carrossel2 img {
+    width: 33.333%; /* Cada imagem ocupa 33.333% do container */
+    height: 100%; /* Usa 100% da altura do container */
+    object-fit: contain; /* Mantém a imagem inteira visível sem cortar */
+    object-position: center;
+    display: block;
+    flex-shrink: 0;
+}
+
+/* Animação do carrossel automático */
+@keyframes slide-campanha {
+    0% { transform: translateX(0); }
+    33.33% { transform: translateX(-33.333%); }
+    66.66% { transform: translateX(-66.666%); }
+    100% { transform: translateX(0); }
+}
+
+/* Pausar animação no hover */
+.campanha-carousel-wrapper:hover .campanha-carrossel,
+.campanha-carousel-wrapper:hover .campanha-carrossel2 {
+    animation-play-state: paused;
+}
+
+/* Em mobile, usar transições suaves para mudança de imagens */
+@media (max-width: 768px) {
+    .campanha-carrossel {
+        display: none !important; /* Esconde o carrossel original em mobile */
+    }
+    
+    .campanha-carrossel2 {
+        display: flex !important; /* Mostra o carrossel alternativo em mobile */
+    }
+    
+    .campanha-carrossel,
+    .campanha-carrossel2 {
+        animation: none; /* Remove animação automática em mobile */
+        transition: transform 0.5s ease-in-out;
+    }
+}
+
+@media (max-aspect-ratio: 820/1180) {
+    .campanha-carrossel,
+    .campanha-carrossel2 {
+        animation: none; /* Remove animação automática em telas com proporção mobile */
+        transition: transform 0.5s ease-in-out;
     }
 }
 
@@ -3227,6 +3485,7 @@ footer {
     .campanha {
         height: 40rem;
         margin: 3rem 0;
+        padding: 0 0 5rem 0; /* Ajustado para tablet */
     }
     
     .campanha-carrossel img {
@@ -3237,6 +3496,26 @@ footer {
     .campanha-carrossel2 img {
         height: 100%;
         object-fit: contain;
+    }
+    
+    .campanha-btn {
+        width: 3.5rem;
+        height: 3.5rem;
+        font-size: 1.4rem;
+        opacity: 0.6; /* Mais transparente em telas menores */
+    }
+    
+    .campanha-btn-prev {
+        left: 1.5rem;
+    }
+    
+    .campanha-btn-next {
+        right: 1.5rem;
+    }
+    
+    .campanha-indicators {
+        bottom: -3rem; /* Ajustado para tablet */
+        gap: 1.2rem;
     }
     
     .parceria-buttons {
@@ -3254,6 +3533,7 @@ footer {
     .campanha {
         height: 30rem;
         margin: 4rem 0;
+        padding: 0 0 4rem 0; /* Ajustado para mobile */
     }
     
     .campanha-carrossel img {
@@ -3264,6 +3544,35 @@ footer {
     .campanha-carrossel2 img {
         height: 100%;
         object-fit: contain;
+    }
+    
+    .campanha-btn {
+        width: 3rem;
+        height: 3rem;
+        font-size: 1.2rem;
+        opacity: 0.5; /* Ainda mais transparente em mobile */
+    }
+    
+    .campanha-btn-prev {
+        left: 1rem;
+    }
+    
+    .campanha-btn-next {
+        right: 1rem;
+    }
+    
+    .campanha-indicators {
+        bottom: -2.5rem; /* Ajustado para mobile */
+        gap: 1rem;
+    }
+    
+    .campanha-indicator-dot {
+        width: 0.8rem;
+        height: 0.8rem;
+    }
+    
+    .campanha-indicator-dot.active {
+        width: 2.4rem;
     }
     
     .parceria-buttons {
@@ -3408,6 +3717,14 @@ footer {
     
     .intro-text-overlay p {
         font-size: 1.6rem;
+        display: block; /* Mostra o texto no tablet */
+    }
+    
+    .intro-image-btn {
+        bottom: 1.5rem;
+        left: 1.5rem;
+        padding: 1rem 2rem;
+        font-size: 1.3rem;
     }
     
     .footer-grid {
@@ -3552,6 +3869,13 @@ footer {
     
     .intro-text-overlay {
         padding: 2.5rem;
+    }
+    
+    .intro-image-btn {
+        bottom: 1rem;
+        left: 1rem;
+        padding: 0.8rem 1.5rem;
+        font-size: 1.2rem;
     }
     
     .about-content {
@@ -3912,10 +4236,11 @@ footer {
         position: relative;
         padding: 3rem 2.5rem;
         background: linear-gradient(135deg, rgba(18, 18, 18, 0.98) 0%, rgba(18, 18, 18, 0.95) 100%);
-        margin-top: 2rem;
+        margin-top: 0.5rem;
         border-radius: 1.5rem;
         border: 1px solid rgba(246, 178, 27, 0.2);
         box-shadow: 0 0.8rem 2.4rem rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
     }
     
     .intro-text-overlay p {
@@ -3923,6 +4248,7 @@ footer {
         line-height: 1.8;
         margin-bottom: 2.5rem;
         opacity: 0.95;
+        display: block; /* Mostra o texto no mobile */
     }
     
     .intro-text-overlay .btn {
@@ -4222,10 +4548,20 @@ footer {
         align-items: center;
         justify-content: center;
         font-size: 2rem;
-        background: linear-gradient(135deg, #f6b21b 0%, #ffd700 100%);
-        color: var(--dark);
-        box-shadow: 0 0.4rem 1.2rem rgba(246, 178, 27, 0.4);
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: var(--secondary);
+        box-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.2);
         transition: all 0.3s ease;
+    }
+    
+    .scroll-to-top:hover {
+        background: rgba(255, 255, 255, 0.2);
+        border-color: rgba(255, 255, 255, 0.3);
+        transform: translateY(-0.2rem);
+        box-shadow: 0 0.6rem 1.8rem rgba(0, 0, 0, 0.3);
     }
     
     .scroll-to-top:active {
